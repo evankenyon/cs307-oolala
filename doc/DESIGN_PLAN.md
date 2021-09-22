@@ -1,14 +1,34 @@
 # OOLALA Design Plan
 ## NAMES
-
+Evan Kenyon
 
 ### Team Roles and Responsibilities
 
 
 
 ### High Level Design
+1. When does parsing need to take place and what does it need to start properly?
+* Parsing needs to take place after the user clicks enter/submit on a command. 
+* In order to start properly, the program needs error catching for bad syntax
+* The model also needs a translation from the syntax into model updates
 
+2. What is the result of parsing and who receives it?
+* The result of parsing would be a set of instructions to follow
+* The model would receive the result of parsing
 
+3. When are errors detected and how are they reported?
+* Syntax errors are detected during parsing
+* Other errors, such as invalid command usage, would be detected in the model 
+* When error is detected, want program to stop there, tell user what happened and how they can fix it
+
+4. What do commands know, when do they know it, and how do they get it?
+* Commands know what the user wants to do with the Turtle/s
+* They know it once they have received the parsed information from the user
+* They get it through user input and then parsing that input
+
+5. How is the GUI updated after a command has completed execution?
+* The model handles updating the state of the Turtle/s backend representation, and then
+returns the necessary data for the GUI to update (e.g. the turtle's new position).
 
 ### CRC Card Classes
 

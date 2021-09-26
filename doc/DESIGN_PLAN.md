@@ -34,30 +34,6 @@ returns the necessary data for the GUI to update (e.g. the turtle's new position
 
 This class's purpose or value is to represent a customer's order:
 ![Order Class CRC Card](order_crc_card.png "Order Class")
-
-
-This class's purpose or value is to represent a customer's order:
-
-|Order| |
-|---|---|
-|boolean isInStock(OrderLine)         |OrderLine|
-|double getTotalPrice(OrderLine)      |Customer|
-|boolean isValidPayment (Customer)    | |
-|void deliverTo (OrderLine, Customer) | |
-
-
-This class's purpose or value is to represent a customer's order:
-```java
-public class Order {
-     // returns whether or not the given items are available to order
-     public boolean isInStock (OrderLine items)
-     // sums the price of all the given items
-     public double getTotalPrice (OrderLine items)
-     // returns whether or not the customer's payment is valid
-     public boolean isValidPayment (Customer customer)
-     // dispatches the items to be ordered to the customer's selected address
-     public void deliverTo (OrderLine items, Customer customer)
- }
  ```
  
 

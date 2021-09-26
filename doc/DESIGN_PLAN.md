@@ -32,8 +32,9 @@ returns the necessary data for the GUI to update (e.g. the turtle's new position
 
 ### CRC Card Classes
 
-This class's purpose or value is to represent a customer's order:
-![Order Class CRC Card](order_crc_card.png "Order Class")
+These are our initial CRC cards:
+![Order Class CRC Card](./CRC_Cards_Initial.jpg "Initial CRC Cards")
+
  ```
  
 

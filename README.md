@@ -8,7 +8,7 @@ Names:
 
 ### Timeline
 
-Start Date: 
+Start Date: Wednesday September 23
 
 Finish Date: 
 

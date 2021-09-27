@@ -27,7 +27,7 @@ public class Main extends Application {
   /**
    * Start of the program.
    */
-  public void start (Stage stage) {
+  public void start(Stage stage) {
     CommandDisplay commandDisplay = new CommandDisplay();
     InstructionsDisplay instructionsDisplay = new InstructionsDisplay();
     // give the window a title

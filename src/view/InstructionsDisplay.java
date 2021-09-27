@@ -9,7 +9,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import util.PropertiesLoader;
 
-public class InstructionsDisplay extends DisplayComponent{
+public class InstructionsDisplay extends DisplayComponent {
+
   private List<Text> instructions;
 
   public InstructionsDisplay() {

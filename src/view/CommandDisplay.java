@@ -14,7 +14,8 @@ import javafx.scene.layout.VBox;
 import model.CommandModel;
 import util.PropertiesLoader;
 
-public class CommandDisplay extends DisplayComponent{
+public class CommandDisplay extends DisplayComponent {
+
   private TextField commandInput;
   private ListView<String> prevCommands;
   private Button runPrevCommand;

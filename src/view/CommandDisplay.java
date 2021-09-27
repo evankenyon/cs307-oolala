@@ -1,6 +1,7 @@
 package view;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -11,6 +12,8 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import model.CommandModel;
 import util.PropertiesLoader;
 
@@ -19,22 +22,38 @@ public class CommandDisplay extends DisplayComponent {
   private TextField commandInput;
   private ListView<String> prevCommands;
   private Button runPrevCommand;
+  private Button selectCommandsFile;
   private CommandModel commandModel;
+  private FileChooser chooseCommandsFile;
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/config.properties");
     commandModel = new CommandModel();
     prevCommands = new ListView<>();
+    chooseCommandsFile = new FileChooser();
+    chooseCommandsFile.setTitle("Open Commads file");
+    chooseCommandsFile.getExtensionFilters().addAll(
+        new ExtensionFilter("Text Files", "*.txt"));
     commandInput = new TextField(props.getProperty("commandInputPrompt"));
     commandInput.setOnAction(event -> onCommandInput());
     runPrevCommand = new Button(props.getProperty("runPrevCommandText"));
     runPrevCommand.setOnAction(event -> onRunPrevCommand());
+    selectCommandsFile = new Button("Select a commands file");
+    selectCommandsFile.setOnAction(event -> {
+      try {
+        commandModel.handleFileSelected(chooseCommandsFile.showOpenDialog(null));
+      } catch (FileNotFoundException e) {
+        //TODO: make good
+        e.printStackTrace();
+      }
+    });
   }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(prevCommands, new HBox(commandInput, runPrevCommand));
+//    chooseCommandsFile.showOpenDialog(null);
+    return new VBox(prevCommands, new HBox(commandInput, runPrevCommand, selectCommandsFile));
   }
 
   private void onCommandInput() {

@@ -52,7 +52,6 @@ public class CommandDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-//    chooseCommandsFile.showOpenDialog(null);
     return new VBox(prevCommands, new HBox(commandInput, runPrevCommand, selectCommandsFile));
   }
 

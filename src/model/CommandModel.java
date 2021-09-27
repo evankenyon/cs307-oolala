@@ -10,15 +10,14 @@ public class CommandModel {
   private Scanner scanner;
 
   public CommandModel() {
-
   }
 
-  public void parseInput(String input) throws InputMismatchException {
-    if(input.startsWith("#") || input.equals("")) {
+  public void parseInput(String input) throws InputMismatchException, NumberFormatException {
+    if (input.startsWith("#") || input.equals("")) {
       return;
     }
     scanner = new Scanner(input);
-    while(scanner.hasNext()) {
+    while (scanner.hasNext()) {
       switch (scanner.next().toLowerCase()) {
         case "fd" -> handleMovementCommand("forward");
         case "bk" -> handleMovementCommand("backward");
@@ -36,7 +35,10 @@ public class CommandModel {
     }
   }
 
-  public void handleFileSelected(File commandFile) throws FileNotFoundException {
+  public void handleFileSelected(File commandFile) throws FileNotFoundException, IllegalArgumentException {
+    if(!commandFile.getName().endsWith(".txt")) {
+      throw new IllegalArgumentException();
+    }
     if (commandFile != null) {
       Scanner fileScanner = new Scanner(commandFile);
       fileScanner.useDelimiter("\n");

@@ -38,6 +38,7 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   private void onCommandInput() {
+    commandModel.parseInput(commandInput.getText());
     prevCommands.getItems().add(commandInput.getText());
     commandInput.setText("");
   }

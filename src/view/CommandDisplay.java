@@ -31,7 +31,7 @@ public class CommandDisplay extends DisplayComponent {
     commandModel = new CommandModel(new TurtleModel());
     prevCommands = new ListView<>();
     chooseCommandsFile = new FileChooser();
-    chooseCommandsFile.setTitle("Open Commads file");
+    chooseCommandsFile.setTitle("Open Commands file");
     chooseCommandsFile.getExtensionFilters().addAll(
         new ExtensionFilter("Text Files", "*.txt"));
     commandInput = new TextField(props.getProperty("commandInputPrompt"));

@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.Properties;
 import javafx.scene.Node;
@@ -23,6 +24,7 @@ public class CommandDisplay extends DisplayComponent {
   private ListView<String> prevCommands;
   private Button runPrevCommand;
   private Button selectCommandsFile;
+  private Button saveCommandsFile;
   private CommandModel commandModel;
   private FileChooser chooseCommandsFile;
 
@@ -48,11 +50,23 @@ public class CommandDisplay extends DisplayComponent {
         e.printStackTrace();
       }
     });
+    saveCommandsFile = new Button("Save current program as .txt file");
+    saveCommandsFile.setOnAction(event -> {
+      try {
+        commandModel.saveCommandsAsFile();
+      } catch (FileNotFoundException e) {
+        //TODO: fix up
+        e.printStackTrace();
+      } catch (UnsupportedEncodingException e) {
+        //TODO: fix up
+        e.printStackTrace();
+      }
+    });
   }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(prevCommands, new HBox(commandInput, runPrevCommand, selectCommandsFile));
+    return new VBox(prevCommands, new HBox(commandInput, runPrevCommand, saveCommandsFile, selectCommandsFile));
   }
 
   private void onCommandInput() {

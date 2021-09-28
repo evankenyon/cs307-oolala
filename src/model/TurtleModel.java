@@ -1,4 +1,4 @@
-package oolala;
+package model;
 
 public class TurtleModel {
 

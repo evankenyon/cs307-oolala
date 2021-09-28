@@ -1,7 +1,8 @@
-package oolala;
+package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import model.TurtleModel;
 import org.junit.jupiter.api.Test;
 
 class TurtleModelTest {

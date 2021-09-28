@@ -1,11 +1,7 @@
 package view;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-import java.net.URL;
 import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -16,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import model.CommandModel;
+import model.TurtleModel;
 import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
@@ -31,10 +28,10 @@ public class CommandDisplay extends DisplayComponent {
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/config.properties");
-    commandModel = new CommandModel();
+    commandModel = new CommandModel(new TurtleModel());
     prevCommands = new ListView<>();
     chooseCommandsFile = new FileChooser();
-    chooseCommandsFile.setTitle("Open Commads file");
+    chooseCommandsFile.setTitle("Open Commands file");
     chooseCommandsFile.getExtensionFilters().addAll(
         new ExtensionFilter("Text Files", "*.txt"));
     commandInput = new TextField(props.getProperty("commandInputPrompt"));

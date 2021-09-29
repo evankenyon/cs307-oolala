@@ -3,6 +3,7 @@ package model.commands;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import model.TurtleController;
 import model.TurtleModel;
 
 public class TellCommand extends Command {
@@ -14,7 +15,7 @@ public class TellCommand extends Command {
   }
 
   @Override
-  public void runCommand(TurtleModel turtleModel) {
+  public void runCommand(TurtleController turtleController) {
 
   }
 

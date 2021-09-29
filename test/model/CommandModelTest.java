@@ -11,18 +11,18 @@ import org.junit.jupiter.api.Test;
 
 class CommandModelTest {
   private CommandModel commandModel;
-  private TurtleModel turtleModel;
+  private TurtleController turtleController;
 
   @BeforeEach
   void setUp() {
     commandModel = new CommandModel();
-    turtleModel = new TurtleModel();
+    turtleController = new TurtleController();
   }
 
   @Test
   public void parseInputForwardCorrect() {
-    commandModel.parseInput("fd 50").runCommand(turtleModel);
-    Assertions.assertEquals(50, turtleModel.getPosition()[0]);
+    commandModel.parseInput("fd 50").runCommand(turtleController);
+    Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
@@ -32,8 +32,8 @@ class CommandModelTest {
 
   @Test
   public void parseInputBackwardCorrect() {
-    commandModel.parseInput("bk 50").runCommand(turtleModel);
-    Assertions.assertEquals(-50, turtleModel.getPosition()[0]);
+    commandModel.parseInput("bk 50").runCommand(turtleController);
+    Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
@@ -43,34 +43,34 @@ class CommandModelTest {
 
   @Test
   public void parseInputLeftCorrect() {
-    commandModel.parseInput("lt 50").runCommand(turtleModel);
-    Assertions.assertEquals(-50, turtleModel.getTrajectory());
+    commandModel.parseInput("lt 50").runCommand(turtleController);
+    Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputRightCorrect() {
-    commandModel.parseInput("rt 50").runCommand(turtleModel);
-    Assertions.assertEquals(50, turtleModel.getTrajectory());
+    commandModel.parseInput("rt 50").runCommand(turtleController);
+    Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputPenUpCommand() {
-    commandModel.parseInput("pd").runCommand(turtleModel);
-    Assertions.assertTrue(turtleModel.getPen());
+    commandModel.parseInput("pd").runCommand(turtleController);
+    Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputPenDownCommand() {
-    commandModel.parseInput("pu").runCommand(turtleModel);
-    Assertions.assertFalse(turtleModel.getPen());
+    commandModel.parseInput("pu").runCommand(turtleController);
+    Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputGoHomeCommand() {
-    commandModel.parseInput("fd 50").runCommand(turtleModel);
-    Assertions.assertEquals(50, turtleModel.getPosition()[0]);
-    commandModel.parseInput("home").runCommand(turtleModel);
-    Assertions.assertEquals(0, turtleModel.getPosition()[0]);
+    commandModel.parseInput("fd 50").runCommand(turtleController);
+    Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
+    commandModel.parseInput("home").runCommand(turtleController);
+    Assertions.assertEquals(0, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test

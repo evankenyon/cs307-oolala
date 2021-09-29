@@ -16,6 +16,7 @@ class TurtleControllerTest {
 
   @Test
   public void testAddTurtles() {
+    turtleController.resetActiveTurtles();
     turtleController.addTurtleToActives(1);
     turtleController.addTurtleToActives(2);
     turtleController.addTurtleToActives(4);

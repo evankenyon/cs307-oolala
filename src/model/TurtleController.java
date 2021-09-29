@@ -26,15 +26,24 @@ public class TurtleController {
    * @param id
    */
   public void addTurtleToActives(int id) {
+    if(checkIfTurtleIDExists(id)){
+      return;
+    }
+    else {
+      TurtleModel turtleModel = new TurtleModel(id);
+      allTurtles.add(turtleModel);
+      activeTurtles.add(turtleModel);
+    }
+  }
+
+  private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
       if (turtleModel.getID() == id) {
         activeTurtles.add(turtleModel);
-        return;
+        return true;
       }
     }
-    TurtleModel turtleModel = new TurtleModel(id);
-    allTurtles.add(turtleModel);
-    activeTurtles.add(turtleModel);
+    return false;
   }
 
   public void resetActiveTurtles() {

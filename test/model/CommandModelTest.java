@@ -71,7 +71,7 @@ class CommandModelTest {
     Assertions.assertEquals(50, turtleModel.getPosition()[0]);
     commandModel.parseInput("home").runCommand(turtleModel);
     Assertions.assertEquals(0, turtleModel.getPosition()[0]);
-
+  }
 
   @Test
   public void parseInputNonExistentCommand() {

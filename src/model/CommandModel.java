@@ -8,27 +8,27 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
+import model.commands.Command;
+import model.commands.GoHomeCommand;
+import model.commands.MoveCommand;
+import model.commands.RotateCommand;
+import model.commands.SetPenCommand;
+import model.commands.TellCommand;
 
 public class CommandModel {
 
   private Scanner scanner;
   private int numProgramsSaved;
   private List<String> prevCommands;
-  private List<TurtleModel> currTurtleModels;
-  private List<TurtleModel> allTurtleModels;
 
   public CommandModel(TurtleModel firstTurtle) {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
-    currTurtleModels = new ArrayList<>();
-    currTurtleModels.add(firstTurtle);
-    allTurtleModels = new ArrayList<>();
-    allTurtleModels.add(firstTurtle);
   }
 
-  public List<TurtleModel> parseInput(String input) throws InputMismatchException, NumberFormatException {
+  public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
     if (input.startsWith("#") || input.equals("")) {
       return null;
     }
@@ -78,54 +78,29 @@ public class CommandModel {
     currProgram.close();
   }
 
-  private void handleMovementCommand(int direction) throws InputMismatchException {
-    int distance = parseFirstNumArg();
-    for(TurtleModel turtleModel : currTurtleModels) {
-      turtleModel.move(direction * distance);
-    }
+  private Command handleMovementCommand(int direction) throws InputMismatchException {
+    return new MoveCommand(direction * parseFirstNumArg());
   }
 
-  private void handleAngleCommand(int direction) throws InputMismatchException {
-    int angle = parseFirstNumArg();
-    for(TurtleModel turtleModel : currTurtleModels) {
-      turtleModel.rotate(direction * angle);
-    }
+  private Command handleAngleCommand(int direction) throws InputMismatchException {
+    return new RotateCommand(direction * parseFirstNumArg());
   }
 
-  private void handlePenCommand(boolean isPenUp) {
-    for(TurtleModel turtleModel : currTurtleModels) {
-      turtleModel.setPen(isPenUp);
-    }
+  private Command handlePenCommand(boolean isPenUp) {
+    return new SetPenCommand(isPenUp);
   }
 
-  private void handleGoHomeCommand() {
-    for(TurtleModel turtleModel : currTurtleModels) {
-      turtleModel.goHome();
-    }
+  private Command handleGoHomeCommand() {
+    return new GoHomeCommand();
   }
 
-  // Fix in case when try to tell a turtle that's more than one greater than allTurtleModels.size()
-  private List<TurtleModel> handleTellCommand() {
-    List<TurtleModel> newTurtleModels = new ArrayList<>();
-    currTurtleModels.clear();
-    int turtleNum = parseFirstNumArg();
-    addCurrTurtleModel(turtleNum, newTurtleModels);
+  private Command handleTellCommand() {
+    List<Integer> currTurtleIds = new ArrayList<>();
+    currTurtleIds.add(parseFirstNumArg());
     while (scanner.hasNext()) {
-      turtleNum = parseNumInput();
-      addCurrTurtleModel(turtleNum, newTurtleModels);
+      currTurtleIds.add(parseNumInput());
     }
-    return newTurtleModels;
-  }
-
-  private void addCurrTurtleModel(int turtleNum, List<TurtleModel> newTurtleModels) {
-    TurtleModel newTurtleModel = new TurtleModel();
-    try {
-      currTurtleModels.add(allTurtleModels.get(turtleNum - 1));
-    } catch (IndexOutOfBoundsException e) {
-      currTurtleModels.add(newTurtleModel);
-      allTurtleModels.add(newTurtleModel);
-      newTurtleModels.add(newTurtleModel);
-    }
+    return new TellCommand(currTurtleIds);
   }
 
   private int parseFirstNumArg() {
@@ -135,7 +110,7 @@ public class CommandModel {
     return parseNumInput();
   }
 
-  private int parseNumInput() throws IllegalArgumentException{
+  private int parseNumInput() throws IllegalArgumentException {
     int numInput;
     try {
       numInput = Integer.parseInt(scanner.next());

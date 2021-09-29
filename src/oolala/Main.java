@@ -8,6 +8,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.CommandDisplay;
 import view.InstructionsDisplay;
+import view.TurtleDisplay;
+import view.TurtleInfoDisplay;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -30,6 +32,7 @@ public class Main extends Application {
   public void start(Stage stage) {
     CommandDisplay commandDisplay = new CommandDisplay();
     InstructionsDisplay instructionsDisplay = new InstructionsDisplay();
+
     // give the window a title
     stage.setTitle(TITLE);
     // add our user interface components to Frame and show it

@@ -11,10 +11,18 @@ import org.junit.jupiter.api.Test;
 
 class CommandModelTest {
   private CommandModel commandModel;
+  private TurtleModel turtleModel;
 
   @BeforeEach
   void setUp() {
-    commandModel = new CommandModel();
+    turtleModel = new TurtleModel();
+    commandModel = new CommandModel(turtleModel);
+  }
+
+  @Test
+  public void parseInputForwardCorrect() {
+    commandModel.parseInput("fd 50");
+    Assertions.assertEquals(50, turtleModel.getPosition()[0]);
   }
 
   @Test

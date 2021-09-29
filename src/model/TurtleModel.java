@@ -77,6 +77,10 @@ public class TurtleModel {
     penSetting = penUpOrDown;
   }
 
+  public boolean getPen(){
+    return penSetting;
+  }
+
   /**
    * Set home location for turtle
    *

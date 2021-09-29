@@ -15,13 +15,13 @@ class CommandModelTest {
 
   @BeforeEach
   void setUp() {
+    commandModel = new CommandModel();
     turtleModel = new TurtleModel();
-    commandModel = new CommandModel(turtleModel);
   }
 
   @Test
   public void parseInputForwardCorrect() {
-    commandModel.parseInput("fd 50");
+    commandModel.parseInput("fd 50").runCommand(turtleModel);
     Assertions.assertEquals(50, turtleModel.getPosition()[0]);
   }
 
@@ -31,8 +31,46 @@ class CommandModelTest {
   }
 
   @Test
+  public void parseInputBackwardCorrect() {
+    commandModel.parseInput("bk 50").runCommand(turtleModel);
+    Assertions.assertEquals(-50, turtleModel.getPosition()[0]);
+  }
+
+  @Test
   public void parseInputBackwardIncorrect() {
     Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.parseInput("bk bad"));
+  }
+
+  @Test
+  public void parseInputLeftCorrect() {
+    commandModel.parseInput("lt 50").runCommand(turtleModel);
+    Assertions.assertEquals(-50, turtleModel.getTrajectory());
+  }
+
+  @Test
+  public void parseInputRightCorrect() {
+    commandModel.parseInput("rt 50").runCommand(turtleModel);
+    Assertions.assertEquals(50, turtleModel.getTrajectory());
+  }
+
+  @Test
+  public void parseInputPenUpCommand() {
+    commandModel.parseInput("pd").runCommand(turtleModel);
+    Assertions.assertTrue(turtleModel.getPen());
+  }
+
+  @Test
+  public void parseInputPenDownCommand() {
+    commandModel.parseInput("pu").runCommand(turtleModel);
+    Assertions.assertFalse(turtleModel.getPen());
+  }
+
+  @Test
+  public void parseInputGoHomeCommand() {
+    commandModel.parseInput("fd 50").runCommand(turtleModel);
+    Assertions.assertEquals(50, turtleModel.getPosition()[0]);
+    commandModel.parseInput("home").runCommand(turtleModel);
+    Assertions.assertEquals(0, turtleModel.getPosition()[0]);
   }
 
   @Test

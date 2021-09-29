@@ -8,6 +8,7 @@ public class TurtleModel {
   // If true, pen is down and drawing; if false, pen is up and not drawing
   private boolean penSetting;
   private int[] myHome;
+  private int myID;
 
   /**
    * Create a TurtleModel with the initial where we want the turtle to be initialized on the screen.
@@ -15,18 +16,20 @@ public class TurtleModel {
    *
    * @param initialPosition
    */
-  public TurtleModel(int[] initialPosition) {
+  public TurtleModel(int turtleID, int[] initialPosition) {
     myPosition = initialPosition;
     myTrajectory = 0;
     penSetting = true;
     myHome = new int[2];
+    myID = turtleID;
   }
 
-  public TurtleModel() {
+  public TurtleModel(int turtleID) {
     myPosition = new int[2];
     myTrajectory = 0;
     penSetting = true;
     myHome = new int[2];
+    myID = turtleID;
   }
 
   /**
@@ -44,7 +47,7 @@ public class TurtleModel {
    * @return
    */
   public double getTrajectory() {
-    return myTrajectory;
+    return myTrajectory * (180 / Math.PI);
   }
 
   /**

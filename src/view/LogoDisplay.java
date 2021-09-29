@@ -11,7 +11,7 @@ public class LogoDisplay {
 
     public LogoDisplay(int id){
         ID = id;
-        turtleModel = new TurtleModel();
+        turtleModel = new TurtleModel(1);
         turtleDisplay = new TurtleDisplay(turtleModel);
     }
 

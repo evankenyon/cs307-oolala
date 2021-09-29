@@ -1,5 +1,6 @@
 package model.commands;
 
+import model.TurtleController;
 import model.TurtleModel;
 
 public class SetPenCommand extends Command{
@@ -9,8 +10,9 @@ public SetPenCommand(boolean penUpOrDown) {
   this.penPosition = penUpOrDown;
 }
 
-@Override
-  public void runCommand(TurtleModel turtleModel) {
-    turtleModel.setPen(penPosition);
-}
+  public void runCommand(TurtleController turtleController){
+    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+      turtleModel.setPen(penPosition);
+    }
+  }
 }

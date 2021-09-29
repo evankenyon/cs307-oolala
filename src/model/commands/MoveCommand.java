@@ -1,5 +1,6 @@
 package model.commands;
 
+import model.TurtleController;
 import model.TurtleModel;
 
 public class MoveCommand extends Command{
@@ -10,7 +11,9 @@ public class MoveCommand extends Command{
   }
 
   @Override
-  public void runCommand(TurtleModel turtleModel) {
-    turtleModel.move(distance);
+  public void runCommand(TurtleController turtleController){
+    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+      turtleModel.move(distance);
+    }
   }
 }

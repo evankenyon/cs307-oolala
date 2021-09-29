@@ -1,6 +1,7 @@
 package model.commands;
 
 import javafx.scene.control.TextInputDialog;
+import model.TurtleController;
 import model.TurtleModel;
 
 public class SetHomeCommand extends Command{
@@ -11,8 +12,9 @@ public class SetHomeCommand extends Command{
     this.home[1] = home[1];
   }
 
-  @Override
-  public void runCommand (TurtleModel turtleModel) {
-    turtleModel.setHome(home);
+  public void runCommand(TurtleController turtleController){
+    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+      turtleModel.setHome(home);
+    }
   }
 }

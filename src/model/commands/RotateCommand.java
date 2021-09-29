@@ -1,5 +1,6 @@
 package model.commands;
 
+import model.TurtleController;
 import model.TurtleModel;
 
 public class RotateCommand extends Command{
@@ -10,7 +11,9 @@ public class RotateCommand extends Command{
   }
 
   @Override
-  public void runCommand(TurtleModel turtleModel) {
+  public void runCommand(TurtleController turtleController){
+    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
       turtleModel.rotate(trajectory);
+    }
   }
 }

@@ -7,7 +7,7 @@ import model.TurtleModel;
 
 
 public class TurtleDisplay{
-    TurtleModel turtle = new TurtleModel();
+    TurtleModel turtle = new TurtleModel(1);
     private Canvas board;
     private final double SIZE = 500;
     private int penThickness = 1;

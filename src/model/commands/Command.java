@@ -4,6 +4,7 @@ import model.TurtleController;
 import model.TurtleModel;
 
 public abstract class Command {
+
   // Example implementation:
   // For a MoveCommand class, have int distance as a class
   // member variable, then call turtleModel.move(distance)

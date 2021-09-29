@@ -3,13 +3,14 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class GoHomeCommand extends Command{
+public class GoHomeCommand extends Command {
 
-  public GoHomeCommand() {}
+  public GoHomeCommand() {
+  }
 
   @Override
-  public void runCommand(TurtleController turtleController){
-    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+  public void runCommand(TurtleController turtleController) {
+    for (TurtleModel turtleModel : turtleController.getActiveTurtles()) {
       turtleModel.goHome();
     }
   }

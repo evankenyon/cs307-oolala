@@ -3,15 +3,16 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class SetPenCommand extends Command{
-private boolean penPosition;
+public class SetPenCommand extends Command {
 
-public SetPenCommand(boolean penUpOrDown) {
-  this.penPosition = penUpOrDown;
-}
+  private boolean penPosition;
 
-  public void runCommand(TurtleController turtleController){
-    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+  public SetPenCommand(boolean penUpOrDown) {
+    this.penPosition = penUpOrDown;
+  }
+
+  public void runCommand(TurtleController turtleController) {
+    for (TurtleModel turtleModel : turtleController.getActiveTurtles()) {
       turtleModel.setPen(penPosition);
     }
   }

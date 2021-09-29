@@ -2,26 +2,43 @@ package model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class TurtleController {
-  private List allTurtles;
-  private List activeTurtles;
+
+  private List<TurtleModel> allTurtles;
+  private List<TurtleModel> activeTurtles;
 
   public TurtleController() {
-    allTurtles = new ArrayList<TurtleModel>();
-    activeTurtles = new ArrayList();
+    allTurtles = new ArrayList<>();
+    activeTurtles = new ArrayList<>();
+    TurtleModel turtleModel = new TurtleModel(1);
+    allTurtles.add(turtleModel);
+    activeTurtles.add(turtleModel);
   }
 
-  public void addTurtle(int id){
-    if(allTurtles.isEmpty()) {
-      TurtleModel turtleModel = new TurtleModel(1);
-      allTurtles.add(turtleModel);
-      activeTurtles.add(turtleModel);
+  /**
+   * Add turtle is designed to work for the tell command. If tell is given with an id that already
+   * exists
+   *
+   * @param id
+   */
+  public void addTurtleToActives(int id) {
+    for (TurtleModel turtleModel : allTurtles) {
+      if (turtleModel.getID() == id) {
+        activeTurtles.add(turtleModel);
+        return;
+      }
     }
     TurtleModel turtleModel = new TurtleModel(id);
     allTurtles.add(turtleModel);
     activeTurtles.add(turtleModel);
+  }
+
+  public void resetActiveTurtles() {
+    activeTurtles.clear();
   }
 
   public List<TurtleModel> getActiveTurtles() {

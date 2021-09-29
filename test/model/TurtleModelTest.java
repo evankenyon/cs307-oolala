@@ -11,7 +11,7 @@ class TurtleModelTest {
   private int[] expected;
   @BeforeEach
   public void setUp () {
-    turtleModel = new TurtleModel();
+    turtleModel = new TurtleModel(1);
     expected = new int[2];
   }
 
@@ -22,7 +22,7 @@ class TurtleModelTest {
     int[] test = new int[2];
     test[0] = 10;
     test[1] = 5;
-    TurtleModel turtleModelTester = new TurtleModel(test);
+    TurtleModel turtleModelTester = new TurtleModel(1, test);
     assertEquals(expected[0], turtleModelTester.getPosition()[0]);
     assertEquals(expected[1], turtleModelTester.getPosition()[1]);
   }

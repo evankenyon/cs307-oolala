@@ -16,7 +16,7 @@ public class LogoDisplay {
     }
 
     public void setTurtleImage(URL url){
-        turtleDisplay.setImage(url);
+//        turtleDisplay.setImage(url);
     }
 
     public void move(int dist){

@@ -21,7 +21,7 @@ public class CommandModel {
   private int numProgramsSaved;
   private List<String> prevCommands;
 
-  public CommandModel(TurtleModel firstTurtle) {
+  public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
@@ -30,26 +30,28 @@ public class CommandModel {
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
     if (input.startsWith("#") || input.equals("")) {
+      System.out.println("Test1");
       return null;
     }
+    Command parsedCommand = null;
     scanner = new Scanner(input);
     while (scanner.hasNext()) {
       switch (scanner.next().toLowerCase()) {
-        case "fd" -> handleMovementCommand(1);
-        case "bk" -> handleMovementCommand(-1);
-        case "lt" -> handleAngleCommand(-1);
-        case "rt" -> handleAngleCommand(1);
-        case "pd" -> handlePenCommand(true);
-        case "pu" -> handlePenCommand(false);
+        case "fd" -> parsedCommand = handleMovementCommand(1);
+        case "bk" -> parsedCommand = handleMovementCommand(-1);
+        case "lt" -> parsedCommand = handleAngleCommand(-1);
+        case "rt" -> parsedCommand = handleAngleCommand(1);
+        case "pd" -> parsedCommand = handlePenCommand(true);
+        case "pu" -> parsedCommand = handlePenCommand(false);
         case "st" -> System.out.println("Show turtle");
         case "ht" -> System.out.println("Hide turtle");
-        case "home" -> handleGoHomeCommand();
+        case "home" -> parsedCommand =handleGoHomeCommand();
         case "stamp" -> System.out.println("Stamp turtle");
-        case "tell" -> handleTellCommand();
+        case "tell" -> parsedCommand = handleTellCommand();
         default -> throw new InputMismatchException();
       }
     }
-    return null;
+    return parsedCommand;
   }
 
   public void handleFileSelected(File commandFile)

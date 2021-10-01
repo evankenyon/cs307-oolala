@@ -1,9 +1,7 @@
 package view;
 
-import model.TurtleModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.testfx.assertions.api.Assertions;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -13,13 +11,13 @@ class TurtleDisplayTest {
 
     @BeforeEach
     public void setUp(){
-        testTurtleDisplay = new TurtleDisplay();
+        testTurtleDisplay = new TurtleDisplay(1);
     }
 
     @Test
     void moveTurtle() {
         int[] testVal = new int[]{20,20};
-        testTurtleDisplay.moveTurtle(testVal);
+        testTurtleDisplay.setPosition(testVal);
         expectedVal[0] = 20;
         expectedVal[1] = 20;
         assertEquals(expectedVal[0], (int) testTurtleDisplay.getImageView().getX());
@@ -29,7 +27,7 @@ class TurtleDisplayTest {
     @Test
     void rotateTurtle() {
         int testVal = 20;
-        testTurtleDisplay.rotateTurtle(testVal);
+        testTurtleDisplay.setAngle(testVal);
         expectedVal[0] = 20;
         assertEquals(expectedVal[0], (int) testTurtleDisplay.getImageView().getRotate());
     }

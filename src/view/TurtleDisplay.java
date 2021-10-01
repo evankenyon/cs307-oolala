@@ -16,7 +16,7 @@ public class TurtleDisplay extends DisplayComponent {
   private ImageView turtleImgView;
 
   public TurtleDisplay() {
-    Properties props = PropertiesLoader.loadProperties("./src/view/resources/instructions.properties");
+    Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
     Image turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
     updateImageSize(turtleImg);

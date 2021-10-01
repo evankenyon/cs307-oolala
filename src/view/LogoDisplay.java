@@ -1,14 +1,12 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.LogoModel;
 
@@ -21,7 +19,7 @@ public class LogoDisplay {
   private CommandDisplay commandDisplay;
   private DisplayComponent instructionsDisplay;
   private DisplayComponent turtleInfoDisplay;
-  private Group root;
+  private GridPane root;
   private LogoModel logoModel;
   private Group turtlesAndLines;
 
@@ -35,15 +33,15 @@ public class LogoDisplay {
   }
 
   public Scene makeScene(int width, int height) {
-    root = new Group();
+    root = new GridPane();
     turtlesAndLines = new Group();
     for(TurtleDisplay turtleDisplay : turtleDisplays) {
       turtlesAndLines.getChildren().add(turtleDisplay.getDisplayComponentNode());
     }
-    VBox vBox = new VBox();
-    vBox.getChildren().add(instructionsDisplay.getDisplayComponentNode());
-    vBox.getChildren().add(commandDisplay.getDisplayComponentNode());
-    root.getChildren().add(new HBox(vBox, turtlesAndLines));
+
+    root.add(instructionsDisplay.getDisplayComponentNode(), 0, 0, 7, 10);
+    root.add(commandDisplay.getDisplayComponentNode(), 0, 11, 7, 10);
+    root.add(turtlesAndLines, 9, 1, 20, 10);
 
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
@@ -58,7 +56,7 @@ public class LogoDisplay {
     if(commandDisplay.getHasCommandUpdated()) {
       logoModel.handleTextInput(commandDisplay.getCommand());
       for(TurtleDisplay turtleDisplay : turtleDisplays) {
-        turtlesAndLines.getChildren().add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId())));
+        turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()));
         turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
       }
     }

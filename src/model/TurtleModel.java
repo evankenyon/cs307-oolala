@@ -1,6 +1,7 @@
 package model;
 
 public class TurtleModel {
+
   // Coordinate [x,y] denoting the position of the turtle
   private int[] myPosition;
   // A number from 0 to 2pi representing the angle of travel of the turtle
@@ -33,6 +34,15 @@ public class TurtleModel {
   }
 
   /**
+   * Getter for the ID of the turtle
+   *
+   * @return
+   */
+  public int getID() {
+    return myID;
+  }
+
+  /**
    * Getter for the position of the turtle at that moment
    *
    * @return
@@ -56,8 +66,8 @@ public class TurtleModel {
    * @param distance
    */
   public void move(int distance) {
-    int dx = (int)(distance *  Math.cos(myTrajectory));
-    int dy = (int)(distance * Math.sin(myTrajectory));
+    int dx = (int) (distance * Math.cos(myTrajectory));
+    int dy = (int) (distance * Math.sin(myTrajectory));
     myPosition[0] = myPosition[0] + dx;
     myPosition[1] = myPosition[1] + dy;
   }
@@ -80,7 +90,7 @@ public class TurtleModel {
     penSetting = penUpOrDown;
   }
 
-  public boolean getPen(){
+  public boolean getPen() {
     return penSetting;
   }
 

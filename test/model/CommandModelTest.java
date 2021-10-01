@@ -16,6 +16,7 @@ class CommandModelTest {
   @BeforeEach
   void setUp() {
     commandModel = new CommandModel();
+
     turtleController = new TurtleController();
   }
 

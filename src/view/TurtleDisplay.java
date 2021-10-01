@@ -1,25 +1,31 @@
 package view;
 
+import java.sql.Array;
 import java.util.Properties;
+
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
-import javafx.scene.canvas.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
 
 public class TurtleDisplay extends DisplayComponent {
 
-  private Canvas board;
-  private final double SIZE = 500;
-  private int penThickness = 1;
+  private int penThickness;
   private ImageView turtleImgView;
+  private boolean draw;
+  private int[] turtleHome;
 
   public TurtleDisplay() {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
     Image turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
     updateImageSize(turtleImg);
+    penThickness = 1;
+    draw = false;
+    turtleHome = new int[]{0,0};
   }
 
   private void updateImageSize(Image turtleImg) {
@@ -28,9 +34,19 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(20);
   }
 
-  public void moveTurtle(int[] distance) {
-    turtleImgView.setX(turtleImgView.getX() + distance[0]);
-    turtleImgView.setY(turtleImgView.getY() + distance[1]);
+  public Line moveTurtle(int[] distance) {
+    double oldX = turtleImgView.getX();
+    double oldY = turtleImgView.getY();
+    turtleImgView.setX(oldX + distance[0]);
+    turtleImgView.setY(oldY + distance[1]);
+    Line ret;
+    if(draw){
+      ret = new Line(oldX, oldY, oldX + distance[0], oldY + distance[1]);
+    } else {
+      ret = new Line();
+    }
+    ret.setStrokeWidth(penThickness);
+    return ret;
   }
 
   public void rotateTurtle(int angle) {
@@ -38,11 +54,16 @@ public class TurtleDisplay extends DisplayComponent {
   }
 
   public void turtleDrawing(boolean isItDrawing) {
-//    turtle.setPen(isItDrawing);
+    draw = isItDrawing;
   }
 
   public void setHomeLocation(int[] coordinates) {
-//    turtle.setHome(coordinates);
+    turtleHome = coordinates;
+  }
+
+  public void moveTurtleToHome(){
+    turtleImgView.setX(turtleHome[0]);
+    turtleImgView.setY(turtleHome[1]);
   }
 
   public void setPenThickness(int i) {
@@ -50,15 +71,16 @@ public class TurtleDisplay extends DisplayComponent {
   }
 
   public void setImage(Image img) {
+    turtleImgView = new ImageView(img);
+    updateImageSize(img);
+  }
 
+  public ImageView getImageView(){
+    return turtleImgView;
   }
 
   @Override
   public Node getDisplayComponentNode() {
     return turtleImgView;
-  }
-
-  public void updateTurtleScreen() {
-
   }
 }

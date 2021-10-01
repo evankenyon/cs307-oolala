@@ -38,6 +38,9 @@ public class TurtleController {
 
   private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
+      if (turtleModel.getID() == 1) {
+        return true;
+      }
       if (turtleModel.getID() == id) {
         activeTurtles.add(turtleModel);
         return true;

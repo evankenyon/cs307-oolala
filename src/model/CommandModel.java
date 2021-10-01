@@ -54,16 +54,18 @@ public class CommandModel {
     return parsedCommand;
   }
 
-  public void handleFileSelected(File commandFile)
+  public List<Command> handleFileSelected(File commandFile)
       throws FileNotFoundException, IllegalArgumentException {
+    ArrayList<Command> commands = new ArrayList<>();
     if (!commandFile.getName().endsWith(".txt")) {
       throw new IllegalArgumentException();
     }
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      parseInput(fileScanner.next());
+      commands.add(parseInput(fileScanner.next()));
     }
+    return commands;
   }
 
   public void saveCommandsAsFile() throws FileNotFoundException, UnsupportedEncodingException {

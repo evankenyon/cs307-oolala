@@ -15,10 +15,10 @@ public class TellCommand extends Command {
   }
 
   /**
-   * With the tell command, we are effectively saying which turtles we want to be
-   * doing "work" in the future.
-   * At the start of the command we clear the active turtles then add the ones to the active
-   * list we wish to work with
+   * With the tell command, we are effectively saying which turtles we want to be doing "work" in
+   * the future. At the start of the command we clear the active turtles then add the ones to the
+   * active list we wish to work with
+   *
    * @param turtleController
    */
   @Override

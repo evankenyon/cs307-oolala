@@ -3,7 +3,8 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class MoveCommand extends Command{
+public class MoveCommand extends Command {
+
   private int distance;
 
   public MoveCommand(int distance) {
@@ -11,8 +12,8 @@ public class MoveCommand extends Command{
   }
 
   @Override
-  public void runCommand(TurtleController turtleController){
-    for(TurtleModel turtleModel : turtleController.getActiveTurtles()){
+  public void runCommand(TurtleController turtleController) {
+    for (TurtleModel turtleModel : turtleController.getActiveTurtles()) {
       turtleModel.move(distance);
     }
   }

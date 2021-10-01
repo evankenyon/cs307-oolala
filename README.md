@@ -18,7 +18,7 @@ Hours Spent:
 
 
 ### Resources Used
-
+Found turtle image at 'https://www.freepik.com/vectors/logo'.
 
 ### Running the Program
 

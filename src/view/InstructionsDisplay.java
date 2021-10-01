@@ -14,7 +14,7 @@ public class InstructionsDisplay extends DisplayComponent {
   private List<Text> instructions;
 
   public InstructionsDisplay() {
-    Properties props = PropertiesLoader.loadProperties("./src/view/resources/config.properties");
+    Properties props = PropertiesLoader.loadProperties("./src/view/resources/instructions.properties");
     instructions = new ArrayList<>();
     Text instructionsHeader = new Text(props.getProperty("instructionsHeader"));
     instructionsHeader.setFont(new Font(30));

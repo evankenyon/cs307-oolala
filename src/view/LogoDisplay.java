@@ -56,7 +56,7 @@ public class LogoDisplay {
     if(commandDisplay.getHasCommandUpdated()) {
       logoModel.handleTextInput(commandDisplay.getCommand());
       for(TurtleDisplay turtleDisplay : turtleDisplays) {
-        turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()));
+        turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()), logoModel.getTurtlePenDown(turtleDisplay.getId()));
         turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
       }
     }

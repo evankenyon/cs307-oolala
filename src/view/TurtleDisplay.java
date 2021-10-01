@@ -7,8 +7,6 @@ import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
@@ -17,7 +15,6 @@ public class TurtleDisplay extends DisplayComponent {
 
   private int penThickness;
   private ImageView turtleImgView;
-  private boolean draw;
   private int[] turtleHome;
   private List<Line> lines;
   private int id;
@@ -31,7 +28,6 @@ public class TurtleDisplay extends DisplayComponent {
     setAngle(0);
     updateImageSize(turtleImg);
     penThickness = 1;
-    draw = true;
     turtleHome = new int[]{0,0};
     lines = new ArrayList<>();
     this.id = id;
@@ -43,13 +39,13 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(20);
   }
 
-  public Line setPosition(int[] position) {
+  public Line setPosition(int[] position, boolean turtlePenUp) {
     double oldX = turtleImgView.getX();
     double oldY = turtleImgView.getY();
     turtleImgView.setX(position[0]);
     turtleImgView.setY(position[1]);
     Line ret;
-    if(draw){
+    if(turtlePenUp){
       ret = new Line(oldX, oldY, position[0], position[1]);
     } else {
       ret = new Line();
@@ -67,10 +63,6 @@ public class TurtleDisplay extends DisplayComponent {
 
   public int getId() {
     return id;
-  }
-
-  public void turtleDrawing(boolean isItDrawing) {
-    draw = isItDrawing;
   }
 
   public void setHomeLocation(int[] coordinates) {

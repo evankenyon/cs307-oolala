@@ -72,6 +72,16 @@ public class LogoModel {
     return turtleAngle;
   }
 
+  public boolean getTurtlePenDown(int turtleId) throws NullPointerException {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    if (turtleModel != null) {
+      return turtleModel.getPen();
+    } else {
+      throw new NullPointerException();
+    }
+  }
+
   private TurtleModel getTurtleModel(int turtleId) {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {

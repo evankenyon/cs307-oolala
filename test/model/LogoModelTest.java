@@ -34,6 +34,16 @@ class LogoModelTest {
     assertEquals(yposition, turtle.getPosition()[1]);
   }
 
+  @Test
+  public void getTurtlePenDownCorrect() {
+    assertTrue(logoModel.getTurtlePenDown(1));
+  }
+
+  @Test
+  public void getTurtlePenDownIncorrect() {
+    assertThrows(NullPointerException.class, () -> logoModel.getTurtlePenDown(2));
+  }
+
   private void inputText(String s) {
     logoModel.handleTextInput(s);
   }

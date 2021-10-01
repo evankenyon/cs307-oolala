@@ -22,6 +22,7 @@ public class LogoDisplay {
   private DisplayComponent commandDisplay;
   private DisplayComponent instructionsDisplay;
   private DisplayComponent turtleInfoDisplay;
+  private BorderPane root;
 
   public LogoDisplay() {
     turtleDisplay = new TurtleDisplay();
@@ -31,7 +32,7 @@ public class LogoDisplay {
   }
 
   public Scene makeScene(int width, int height) {
-    BorderPane root = new BorderPane();
+    root = new BorderPane();
 
 //    root.getChildren().add();
     root.setBottom(commandDisplay.getDisplayComponentNode());
@@ -40,7 +41,7 @@ public class LogoDisplay {
     // https://stackoverflow.com/questions/18164695/insert-image-into-borderpane-as-background
     root.getCenter().setStyle("-fx-background-color: white;");
     root.setLeft(instructionsDisplay.getDisplayComponentNode());
-
+//    System.out.println(root.getCenter().getBoundsInParent());
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
@@ -51,8 +52,10 @@ public class LogoDisplay {
   }
 
   private void step(double elapsedTime) {
-//    int[] test = {-1, 1};
-//    turtleDisplay.moveTurtle();
+    int[] test = {1, 1};
+    turtleDisplay.moveTurtle(test);
+    root.setCenter(turtleDisplay.getDisplayComponentNode());
+    root.getCenter().setStyle("-fx-background-color: white;");
   }
 
 }

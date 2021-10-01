@@ -8,6 +8,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import view.CommandDisplay;
 import view.InstructionsDisplay;
+import view.LogoDisplay;
 import view.TurtleDisplay;
 import view.TurtleInfoDisplay;
 
@@ -30,16 +31,10 @@ public class Main extends Application {
    * Start of the program.
    */
   public void start(Stage stage) {
-    CommandDisplay commandDisplay = new CommandDisplay();
-    InstructionsDisplay instructionsDisplay = new InstructionsDisplay();
-
-    // give the window a title
+    // Borrowed this setup code from lab_browser course gitlab repo
+    LogoDisplay logoDisplay = new LogoDisplay();
     stage.setTitle(TITLE);
-    // add our user interface components to Frame and show it
-    BorderPane root = new BorderPane();
-    root.setCenter(commandDisplay.getDisplayComponentNode());
-    root.setLeft(instructionsDisplay.getDisplayComponentNode());
-    stage.setScene(new Scene(root, DEFAULT_SIZE.width, DEFAULT_SIZE.height));
+    stage.setScene(logoDisplay.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
     stage.show();
   }
 }

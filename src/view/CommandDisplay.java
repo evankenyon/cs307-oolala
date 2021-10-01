@@ -27,7 +27,7 @@ public class CommandDisplay extends DisplayComponent {
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
-    Properties props = PropertiesLoader.loadProperties("./src/view/resources/config.properties");
+    Properties props = PropertiesLoader.loadProperties("./src/view/resources/instructions.properties");
     commandModel = new CommandModel();
     prevCommands = new ListView<>();
     chooseCommandsFile = new FileChooser();

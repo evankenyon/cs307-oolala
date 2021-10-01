@@ -45,7 +45,7 @@ public class CommandModel {
         case "pu" -> parsedCommand = handlePenCommand(false);
         case "st" -> System.out.println("Show turtle");
         case "ht" -> System.out.println("Hide turtle");
-        case "home" -> parsedCommand =handleGoHomeCommand();
+        case "home" -> parsedCommand = handleGoHomeCommand();
         case "stamp" -> System.out.println("Stamp turtle");
         case "tell" -> parsedCommand = handleTellCommand();
         default -> throw new InputMismatchException();

@@ -1,10 +1,16 @@
 package view;
 
 import java.util.Properties;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import util.PropertiesLoader;
 
 
@@ -19,7 +25,9 @@ public class TurtleDisplay extends DisplayComponent {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
     Image turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
+    rotateTurtle(90);
     updateImageSize(turtleImg);
+    board = new Canvas();
   }
 
   private void updateImageSize(Image turtleImg) {
@@ -55,7 +63,11 @@ public class TurtleDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-    return turtleImgView;
+    // Used pane here because of advice from
+    // https://stackoverflow.com/questions/42939530/setx-and-sety-not-working-when-trying-to-position-images/42939857
+    Pane pane = new Pane(turtleImgView);
+    pane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+    return new Pane(pane);
   }
 
   public void updateTurtleScreen() {

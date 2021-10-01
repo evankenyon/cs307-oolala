@@ -30,7 +30,6 @@ public class CommandModel {
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
     if (input.startsWith("#") || input.equals("")) {
-      System.out.println("Test1");
       return null;
     }
     Command parsedCommand = null;
@@ -76,7 +75,6 @@ public class CommandModel {
         + ".txt", "UTF-8");
     currProgram.println("#Saved program number " + numProgramsSaved);
     for (String command : prevCommands) {
-      System.out.println(command);
       currProgram.println(command);
     }
     currProgram.close();

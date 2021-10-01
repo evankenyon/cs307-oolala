@@ -7,8 +7,10 @@ import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
+import model.TurtleModel;
 
 public class LogoDisplay {
   // Magic values borrowed from example_animation course gitlab repo
@@ -21,7 +23,8 @@ public class LogoDisplay {
   private DisplayComponent turtleInfoDisplay;
   private GridPane root;
   private LogoModel logoModel;
-  private Group turtlesAndLines;
+  private Group turtleDisplaysGroup;
+  private Pane turtleWindow;
 
   public LogoDisplay() {
     turtleDisplays = new ArrayList<>();
@@ -34,14 +37,19 @@ public class LogoDisplay {
 
   public Scene makeScene(int width, int height) {
     root = new GridPane();
-    turtlesAndLines = new Group();
-    for(TurtleDisplay turtleDisplay : turtleDisplays) {
-      turtlesAndLines.getChildren().add(turtleDisplay.getDisplayComponentNode());
-    }
 
+    turtleDisplaysGroup = new Group();
+    for(TurtleDisplay turtleDisplay : turtleDisplays) {
+      turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
+    }
+    turtleWindow = new Pane();
+    turtleWindow.setPrefSize(400,400);
+    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
+        + "  -fx-border-style: solid;");
+    turtleWindow.getChildren().addAll(turtleDisplaysGroup);
     root.add(instructionsDisplay.getDisplayComponentNode(), 0, 0, 7, 10);
     root.add(commandDisplay.getDisplayComponentNode(), 0, 11, 7, 10);
-    root.add(turtlesAndLines, 9, 1, 20, 10);
+    root.add(turtleWindow, 9, 1, 20, 10);
 
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
@@ -55,9 +63,16 @@ public class LogoDisplay {
   private void step(double elapsedTime) {
     if(commandDisplay.getHasCommandUpdated()) {
       logoModel.handleTextInput(commandDisplay.getCommand());
+      if(logoModel.hasNewTurtle()) {
+        TurtleDisplay newTurtleDisplay = new TurtleDisplay(logoModel.getNewTurtle().getID());
+        turtleDisplays.add(newTurtleDisplay);
+        turtleDisplaysGroup.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+      }
       for(TurtleDisplay turtleDisplay : turtleDisplays) {
-        turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()), logoModel.getTurtlePenDown(turtleDisplay.getId()));
-        turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+        if(logoModel.isTurtleActive(turtleDisplay.getId())) {
+          turtleWindow.getChildren().add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()), logoModel.getTurtlePenDown(turtleDisplay.getId())));
+          turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+        }
       }
     }
   }

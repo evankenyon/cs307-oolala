@@ -44,6 +44,14 @@ public class LogoModel {
     command.runCommand(turtleController);
   }
 
+  public boolean isTurtleActive(int turtleId) {
+    try {
+      TurtleModel turtleModel = getTurtleModel(turtleId);
+    } catch(NullPointerException e) {
+      return false;
+    }
+    return true;
+  }
 
   /**
    * Returns the position of a turtle found by its ID This will be used in the step function to
@@ -55,34 +63,30 @@ public class LogoModel {
   public int[] getTurtlePosition(int turtleId) {
     TurtleModel turtleModel = getTurtleModel(turtleId);
 
-    int[] turtlePosition = new int[2];
-    if (turtleModel != null) {
-      turtlePosition = turtleModel.getPosition();
-    }
-    return turtlePosition;
+    return turtleModel.getPosition();
   }
 
   public double getTurtleTrajectory(int turtleId) {
     TurtleModel turtleModel = getTurtleModel(turtleId);
 
-    double turtleAngle = -999;
-    if (turtleModel != null) {
-      turtleAngle = turtleModel.getTrajectory();
-    }
-    return turtleAngle;
+    return turtleModel.getTrajectory();
   }
 
-  public boolean getTurtlePenDown(int turtleId) throws NullPointerException {
+  public boolean getTurtlePenDown(int turtleId) {
     TurtleModel turtleModel = getTurtleModel(turtleId);
 
-    if (turtleModel != null) {
-      return turtleModel.getPen();
-    } else {
-      throw new NullPointerException();
-    }
+    return turtleModel.getPen();
   }
 
-  private TurtleModel getTurtleModel(int turtleId) {
+  public TurtleModel getNewTurtle() {
+    return turtleController.getNewTurtle();
+  }
+
+  public boolean hasNewTurtle() {
+    return turtleController.hasNewTurtle();
+  }
+
+  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException{
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
       if (turtle.getID() == turtleId) {
@@ -92,7 +96,7 @@ public class LogoModel {
 
     // Change this to check for wrong turtleID
     if (turtleModel == null) {
-      System.out.println("Invalid turtle ID passed in");
+      throw new NullPointerException();
     }
     return turtleModel;
   }

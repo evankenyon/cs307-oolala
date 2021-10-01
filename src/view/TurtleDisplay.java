@@ -16,9 +16,7 @@ public class TurtleDisplay extends DisplayComponent {
   private int penThickness;
   private ImageView turtleImgView;
   private int[] turtleHome;
-  private List<Line> lines;
   private int id;
-  private Pane canvas;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
@@ -29,7 +27,6 @@ public class TurtleDisplay extends DisplayComponent {
     updateImageSize(turtleImg);
     penThickness = 1;
     turtleHome = new int[]{0,0};
-    lines = new ArrayList<>();
     this.id = id;
   }
 
@@ -50,10 +47,7 @@ public class TurtleDisplay extends DisplayComponent {
     } else {
       ret = new Line();
     }
-    lines.add(ret);
-    canvas.getChildren().add(ret);
     ret.setStrokeWidth(penThickness);
-    System.out.println(ret);
     return ret;
   }
 
@@ -67,11 +61,6 @@ public class TurtleDisplay extends DisplayComponent {
 
   public void setHomeLocation(int[] coordinates) {
     turtleHome = coordinates;
-  }
-
-  public void moveTurtleToHome(){
-    turtleImgView.setX(turtleHome[0]);
-    turtleImgView.setY(turtleHome[1]);
   }
 
   public void setPenThickness(int i) {
@@ -91,11 +80,6 @@ public class TurtleDisplay extends DisplayComponent {
   public Node getDisplayComponentNode() {
     // Used pane here because of advice from
     // https://stackoverflow.com/questions/42939530/setx-and-sety-not-working-when-trying-to-position-images/42939857
-    canvas = new Pane();
-    canvas.setPrefSize(400,400);
-    canvas.setStyle("-fx-background-color: floralwhite;\n"
-        + "  -fx-border-style: solid;");
-    canvas.getChildren().add(turtleImgView);
-    return new Pane(canvas);
+    return turtleImgView;
   }
 }

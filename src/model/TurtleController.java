@@ -1,15 +1,14 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TurtleController {
 
   private List<TurtleModel> allTurtles;
   private List<TurtleModel> activeTurtles;
+  private TurtleModel newTurtle;
+  private boolean hasNewTurtle;
 
   public TurtleController() {
     allTurtles = new ArrayList<>();
@@ -17,6 +16,7 @@ public class TurtleController {
     TurtleModel turtleModel = new TurtleModel(1);
     allTurtles.add(turtleModel);
     activeTurtles.add(turtleModel);
+    hasNewTurtle = false;
   }
 
   /**
@@ -33,13 +33,17 @@ public class TurtleController {
       TurtleModel turtleModel = new TurtleModel(id);
       allTurtles.add(turtleModel);
       activeTurtles.add(turtleModel);
+      newTurtle = turtleModel;
+      hasNewTurtle = true;
     }
   }
 
   private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
       if (turtleModel.getID() == id) {
-        activeTurtles.add(turtleModel);
+        if(!activeTurtles.contains(turtleModel)) {
+          activeTurtles.add(turtleModel);
+        }
         return true;
       }
     }
@@ -54,4 +58,15 @@ public class TurtleController {
     return activeTurtles;
   }
 
+  public boolean hasNewTurtle() {
+    return hasNewTurtle;
+  }
+
+  public TurtleModel getNewTurtle() {
+    hasNewTurtle = false;
+    if(newTurtle == null) {
+      throw new NullPointerException();
+    }
+    return newTurtle;
+  }
 }

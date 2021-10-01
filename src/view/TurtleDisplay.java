@@ -75,6 +75,10 @@ public class TurtleDisplay extends DisplayComponent {
     updateImageSize(img);
   }
 
+  public ImageView getImageView(){
+    return turtleImgView;
+  }
+
   @Override
   public Node getDisplayComponentNode() {
     return turtleImgView;

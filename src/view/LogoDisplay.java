@@ -1,47 +1,50 @@
 package view;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.Border;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-import model.CommandModel;
-import model.TurtleModel;
-
-import java.net.URL;
+import model.LogoModel;
 
 public class LogoDisplay {
   // Magic values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private TurtleDisplay turtleDisplay;
-  private DisplayComponent commandDisplay;
+  private List<TurtleDisplay> turtleDisplays;
+  private CommandDisplay commandDisplay;
   private DisplayComponent instructionsDisplay;
   private DisplayComponent turtleInfoDisplay;
-  private BorderPane root;
+  private Group root;
+  private LogoModel logoModel;
+  private Group turtlesAndLines;
 
   public LogoDisplay() {
-    turtleDisplay = new TurtleDisplay();
+    turtleDisplays = new ArrayList<>();
+    turtleDisplays.add(new TurtleDisplay(1));
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();
+    logoModel = new LogoModel();
   }
 
   public Scene makeScene(int width, int height) {
-    root = new BorderPane();
+    root = new Group();
+    turtlesAndLines = new Group();
+    for(TurtleDisplay turtleDisplay : turtleDisplays) {
+      turtlesAndLines.getChildren().add(turtleDisplay.getDisplayComponentNode());
+    }
+    VBox vBox = new VBox();
+    vBox.getChildren().add(instructionsDisplay.getDisplayComponentNode());
+    vBox.getChildren().add(commandDisplay.getDisplayComponentNode());
+    root.getChildren().add(new HBox(vBox, turtlesAndLines));
 
-//    root.getChildren().add();
-    root.setBottom(commandDisplay.getDisplayComponentNode());
-    root.setCenter(turtleDisplay.getDisplayComponentNode());
-    // Figured out how to set background for specific parts of BorderPane from
-    // https://stackoverflow.com/questions/18164695/insert-image-into-borderpane-as-background
-    root.getCenter().setStyle("-fx-background-color: white;");
-    root.setLeft(instructionsDisplay.getDisplayComponentNode());
-//    System.out.println(root.getCenter().getBoundsInParent());
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
@@ -52,10 +55,13 @@ public class LogoDisplay {
   }
 
   private void step(double elapsedTime) {
-    int[] test = {1, 1};
-    turtleDisplay.moveTurtle(test);
-    root.setCenter(turtleDisplay.getDisplayComponentNode());
-    root.getCenter().setStyle("-fx-background-color: white;");
+    if(commandDisplay.getHasCommandUpdated()) {
+      logoModel.handleTextInput(commandDisplay.getCommand());
+      for(TurtleDisplay turtleDisplay : turtleDisplays) {
+        turtlesAndLines.getChildren().add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId())));
+        turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+      }
+    }
   }
 
 }

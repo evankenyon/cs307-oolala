@@ -3,16 +3,13 @@ package view;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
 import util.PropertiesLoader;
 
 
@@ -23,17 +20,19 @@ public class TurtleDisplay extends DisplayComponent {
   private boolean draw;
   private int[] turtleHome;
   private List<Line> lines;
+  private int id;
 
-  public TurtleDisplay() {
+  public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
     Image turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
-    rotateTurtle(90);
+    setAngle(0);
     updateImageSize(turtleImg);
     penThickness = 1;
     draw = true;
     turtleHome = new int[]{0,0};
     lines = new ArrayList<>();
+    this.id = id;
   }
 
   private void updateImageSize(Image turtleImg) {
@@ -42,24 +41,29 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(20);
   }
 
-  public Line moveTurtle(int[] distance) {
+  public Line setPosition(int[] position) {
     double oldX = turtleImgView.getX();
     double oldY = turtleImgView.getY();
-    turtleImgView.setX(oldX + distance[0]);
-    turtleImgView.setY(oldY + distance[1]);
+    turtleImgView.setX(position[0]);
+    turtleImgView.setY(position[1]);
     Line ret;
     if(draw){
-      ret = new Line(oldX, oldY, oldX + distance[0], oldY + distance[1]);
+      ret = new Line(oldX, oldY, position[0], position[1]);
     } else {
       ret = new Line();
     }
     lines.add(ret);
     ret.setStrokeWidth(penThickness);
+    System.out.println(ret);
     return ret;
   }
 
-  public void rotateTurtle(int angle) {
-    turtleImgView.setRotate(turtleImgView.getRotate() + angle);
+  public void setAngle(double angle) {
+    turtleImgView.setRotate(90 + angle);
+  }
+
+  public int getId() {
+    return id;
   }
 
   public void turtleDrawing(boolean isItDrawing) {
@@ -92,9 +96,10 @@ public class TurtleDisplay extends DisplayComponent {
   public Node getDisplayComponentNode() {
     // Used pane here because of advice from
     // https://stackoverflow.com/questions/42939530/setx-and-sety-not-working-when-trying-to-position-images/42939857
-    Pane pane = new Pane(turtleImgView);
+    Rectangle rect = new Rectangle(300, 300);
+    rect.setFill(Color.WHITE);
+    Pane pane = new Pane(rect, turtleImgView);
     pane.getChildren().addAll(lines);
-//    pane.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
     return new Pane(pane);
   }
 }

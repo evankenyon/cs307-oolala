@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Arrays;
+
 public class TurtleModel {
 
   // Coordinate [x,y] denoting the position of the turtle
@@ -21,7 +23,7 @@ public class TurtleModel {
     myPosition = initialPosition;
     myTrajectory = 0;
     penSetting = true;
-    myHome = new int[2];
+    myHome = new int[]{0, 0};
     myID = turtleID;
   }
 
@@ -29,7 +31,7 @@ public class TurtleModel {
     myPosition = new int[2];
     myTrajectory = 0;
     penSetting = true;
-    myHome = new int[2];
+    myHome = new int[]{0, 0};
     myID = turtleID;
   }
 
@@ -78,7 +80,7 @@ public class TurtleModel {
    * @param angle
    */
   public void rotate(int angle) {
-    myTrajectory = (angle * Math.PI / 180) % (2 * Math.PI);
+    myTrajectory = myTrajectory + (angle * Math.PI / 180) % (2 * Math.PI);
   }
 
   /**
@@ -107,6 +109,7 @@ public class TurtleModel {
    * Turtle is moved to home
    */
   public void goHome() {
-    myPosition = myHome;
+    myPosition[0] = myHome[0];
+    myPosition[1] = myHome[1];
   }
 }

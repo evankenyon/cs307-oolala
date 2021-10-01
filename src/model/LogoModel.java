@@ -53,9 +53,29 @@ public class LogoModel {
    * @return
    */
   public int[] getTurtlePosition(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    int[] turtlePosition = new int[2];
+    if (turtleModel != null) {
+      turtlePosition = turtleModel.getPosition();
+    }
+    return turtlePosition;
+  }
+
+  public double getTurtleTrajectory(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    double turtleAngle = -999;
+    if (turtleModel != null) {
+      turtleAngle = turtleModel.getTrajectory();
+    }
+    return turtleAngle;
+  }
+
+  private TurtleModel getTurtleModel(int turtleId) {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
-      if (turtleModel.getID() == turtleId) {
+      if (turtle.getID() == turtleId) {
         turtleModel = turtle;
       }
     }
@@ -64,12 +84,7 @@ public class LogoModel {
     if (turtleModel == null) {
       System.out.println("Invalid turtle ID passed in");
     }
-
-    int[] turtlePosition = new int[2];
-    if (turtleModel != null) {
-      turtlePosition = turtleModel.getPosition();
-    }
-    return turtlePosition;
+    return turtleModel;
   }
 
   /**

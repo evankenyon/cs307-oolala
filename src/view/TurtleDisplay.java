@@ -1,63 +1,64 @@
 package view;
 
+import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.canvas.*;
-import model.TurtleModel;
+import javafx.scene.image.ImageView;
+import util.PropertiesLoader;
 
 
-public class TurtleDisplay{
-    TurtleModel turtle = new TurtleModel(1);
-    private Canvas board;
-    private final double SIZE = 500;
-    private int penThickness = 1;
-    private Image turtleImg;
-/*
-    public TurtleDisplay(){
-        this());
-    }
-*/
-    public TurtleDisplay(TurtleModel tortoise){
-        turtle = tortoise;
+public class TurtleDisplay extends DisplayComponent {
 
-    }
+  private Canvas board;
+  private final double SIZE = 500;
+  private int penThickness = 1;
+  private ImageView turtleImgView;
 
-    public void moveTurtle(int distance){
-        turtle.move(distance);
-        updateTurtleScreen();
-    }
+  public TurtleDisplay() {
+    Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
+    Image turtleImg = new Image(props.getProperty("turtleImagePath"));
+    turtleImgView = new ImageView(turtleImg);
+    updateImageSize(turtleImg);
+  }
 
-    public void rotateTurtle(int angle){
-        turtle.rotate(angle);
-        updateTurtleScreen();
-    }
+  private void updateImageSize(Image turtleImg) {
+    double ratio = turtleImg.getHeight() / turtleImg.getWidth();
+    turtleImgView.setFitHeight(20 / ratio);
+    turtleImgView.setFitWidth(20);
+  }
 
-    public void turtleDrawing(boolean isItDrawing){
-        turtle.setPen(isItDrawing);
-    }
+  public void moveTurtle(int[] distance) {
+    turtleImgView.setX(turtleImgView.getX() + distance[0]);
+    turtleImgView.setY(turtleImgView.getY() + distance[1]);
+  }
 
-    public void setHomeLocation(int[] coordinates){
-        turtle.setHome(coordinates);
-    }
+  public void rotateTurtle(int angle) {
+    turtleImgView.setRotate(turtleImgView.getRotate() + angle);
+  }
 
-    public void setPenThickness(int i){
-        penThickness = i;
-    }
+  public void turtleDrawing(boolean isItDrawing) {
+//    turtle.setPen(isItDrawing);
+  }
 
-    public void setImage(Image img){
+  public void setHomeLocation(int[] coordinates) {
+//    turtle.setHome(coordinates);
+  }
 
-    }
+  public void setPenThickness(int i) {
+    penThickness = i;
+  }
 
-    public Image getImage(Image img){
-        return null;
-    }
+  public void setImage(Image img) {
 
-    public void updateTurtleScreen(){
-        int[] turtlePosition = turtle.getPosition();
-        if(turtle.getPen()) {
+  }
 
-        } else {
+  @Override
+  public Node getDisplayComponentNode() {
+    return turtleImgView;
+  }
 
-        }
-    }
+  public void updateTurtleScreen() {
+
+  }
 }

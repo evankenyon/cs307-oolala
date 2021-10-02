@@ -78,6 +78,12 @@ public class LogoModel {
     return turtleModel.getPen();
   }
 
+  public boolean getShouldTurtleStamp(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    return turtleModel.getShouldStamp();
+  }
+
   public TurtleModel getNewTurtle() {
     return turtleController.getNewTurtle();
   }

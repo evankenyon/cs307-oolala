@@ -13,6 +13,7 @@ import model.commands.GoHomeCommand;
 import model.commands.MoveCommand;
 import model.commands.RotateCommand;
 import model.commands.SetPenCommand;
+import model.commands.StampCommand;
 import model.commands.TellCommand;
 
 public class CommandModel {
@@ -45,7 +46,7 @@ public class CommandModel {
         case "st" -> System.out.println("Show turtle");
         case "ht" -> System.out.println("Hide turtle");
         case "home" -> parsedCommand = handleGoHomeCommand();
-        case "stamp" -> System.out.println("Stamp turtle");
+        case "stamp" -> parsedCommand = handleStampCommand();
         case "tell" -> parsedCommand = handleTellCommand();
         default -> throw new InputMismatchException();
       }
@@ -94,6 +95,10 @@ public class CommandModel {
 
   private Command handleGoHomeCommand() {
     return new GoHomeCommand();
+  }
+
+  private Command handleStampCommand() {
+    return new StampCommand();
   }
 
   private Command handleTellCommand() {

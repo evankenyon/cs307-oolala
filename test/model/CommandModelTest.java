@@ -85,6 +85,12 @@ class CommandModelTest {
   }
 
   @Test
+  public void parseInputStampCommand() {
+    commandModel.parseInput("stamp").runCommand(turtleController);
+    Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldStamp());
+  }
+
+  @Test
   public void handleFileSelectedNotTxt() {
     Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.handleFileSelected(new File("./data/FOLDER_PURPOSE.md")));
   }

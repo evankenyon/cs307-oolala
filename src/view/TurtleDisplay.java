@@ -1,12 +1,9 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
@@ -17,6 +14,7 @@ public class TurtleDisplay extends DisplayComponent {
   private ImageView turtleImgView;
   private int[] turtleHome;
   private int id;
+  private double ratio;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
@@ -31,7 +29,7 @@ public class TurtleDisplay extends DisplayComponent {
   }
 
   private void updateImageSize(Image turtleImg) {
-    double ratio = turtleImg.getHeight() / turtleImg.getWidth();
+    ratio = turtleImg.getHeight() / turtleImg.getWidth();
     turtleImgView.setFitHeight(20 / ratio);
     turtleImgView.setFitWidth(20);
   }
@@ -72,7 +70,17 @@ public class TurtleDisplay extends DisplayComponent {
     updateImageSize(img);
   }
 
-  public ImageView getImageView(){
+  public ImageView getStillTurtleImage() {
+    ImageView turtleImgViewStill = new ImageView(turtleImgView.getImage());
+    turtleImgViewStill.setFitHeight(20 / ratio);
+    turtleImgViewStill.setFitWidth(20);
+    turtleImgViewStill.setX(turtleImgView.getX());
+    turtleImgViewStill.setY(turtleImgView.getY());
+    turtleImgViewStill.setRotate(turtleImgView.getRotate());
+    return turtleImgViewStill;
+  }
+
+  public ImageView getImageView() {
     return turtleImgView;
   }
 
@@ -80,6 +88,6 @@ public class TurtleDisplay extends DisplayComponent {
   public Node getDisplayComponentNode() {
     // Used pane here because of advice from
     // https://stackoverflow.com/questions/42939530/setx-and-sety-not-working-when-trying-to-position-images/42939857
-    return turtleImgView;
+    return getImageView();
   }
 }

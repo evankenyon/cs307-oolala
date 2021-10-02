@@ -6,6 +6,7 @@ import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
@@ -72,6 +73,9 @@ public class LogoDisplay {
         if(logoModel.isTurtleActive(turtleDisplay.getId())) {
           turtleWindow.getChildren().add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()), logoModel.getTurtlePenDown(turtleDisplay.getId())));
           turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+          if(logoModel.getShouldTurtleStamp(turtleDisplay.getId())) {
+            turtleWindow.getChildren().add(turtleDisplay.getStillTurtleImage());
+          }
         }
       }
     }

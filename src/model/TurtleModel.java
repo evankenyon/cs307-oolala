@@ -12,6 +12,7 @@ public class TurtleModel {
   private boolean penSetting;
   private int[] myHome;
   private int myID;
+  private boolean shouldStamp;
 
   /**
    * Create a TurtleModel with the initial where we want the turtle to be initialized on the screen.
@@ -25,14 +26,11 @@ public class TurtleModel {
     penSetting = true;
     myHome = new int[]{0, 0};
     myID = turtleID;
+    shouldStamp = false;
   }
 
   public TurtleModel(int turtleID) {
-    myPosition = new int[2];
-    myTrajectory = 0;
-    penSetting = true;
-    myHome = new int[]{0, 0};
-    myID = turtleID;
+    this(turtleID, new int[]{0,0});
   }
 
   /**
@@ -94,6 +92,18 @@ public class TurtleModel {
 
   public boolean getPen() {
     return penSetting;
+  }
+
+  public boolean getShouldStamp() {
+    if(shouldStamp) {
+      shouldStamp = false;
+      return true;
+    }
+    return false;
+  }
+
+  public void setShouldStampTrue() {
+    shouldStamp = true;
   }
 
   /**

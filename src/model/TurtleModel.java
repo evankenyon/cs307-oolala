@@ -13,6 +13,7 @@ public class TurtleModel {
   private int[] myHome;
   private int myID;
   private boolean shouldStamp;
+  private boolean shouldShow;
 
   /**
    * Create a TurtleModel with the initial where we want the turtle to be initialized on the screen.
@@ -27,6 +28,7 @@ public class TurtleModel {
     myHome = new int[]{0, 0};
     myID = turtleID;
     shouldStamp = false;
+    shouldShow = true;
   }
 
   public TurtleModel(int turtleID) {
@@ -106,6 +108,13 @@ public class TurtleModel {
     shouldStamp = true;
   }
 
+  public boolean getShouldShow() {
+    return shouldShow;
+  }
+
+  public void setShouldShow(boolean shouldShow) {
+    this.shouldShow = shouldShow;
+  }
   /**
    * Set home location for turtle
    *

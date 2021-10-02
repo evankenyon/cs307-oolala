@@ -13,6 +13,7 @@ import model.commands.GoHomeCommand;
 import model.commands.MoveCommand;
 import model.commands.RotateCommand;
 import model.commands.SetPenCommand;
+import model.commands.ShowOrHideCommand;
 import model.commands.StampCommand;
 import model.commands.TellCommand;
 
@@ -43,8 +44,8 @@ public class CommandModel {
         case "rt" -> parsedCommand = handleAngleCommand(1);
         case "pd" -> parsedCommand = handlePenCommand(true);
         case "pu" -> parsedCommand = handlePenCommand(false);
-        case "st" -> System.out.println("Show turtle");
-        case "ht" -> System.out.println("Hide turtle");
+        case "st" -> parsedCommand = handleShowOrHideCommand(true);
+        case "ht" -> parsedCommand = handleShowOrHideCommand(false);
         case "home" -> parsedCommand = handleGoHomeCommand();
         case "stamp" -> parsedCommand = handleStampCommand();
         case "tell" -> parsedCommand = handleTellCommand();
@@ -108,6 +109,10 @@ public class CommandModel {
       currTurtleIds.add(parseNumInput());
     }
     return new TellCommand(currTurtleIds);
+  }
+
+  private Command handleShowOrHideCommand(boolean shouldShow) {
+    return new ShowOrHideCommand(shouldShow);
   }
 
   private int parseFirstNumArg() {

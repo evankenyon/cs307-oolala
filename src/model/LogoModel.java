@@ -46,7 +46,7 @@ public class LogoModel {
 
   public boolean isTurtleActive(int turtleId) {
     try {
-      TurtleModel turtleModel = getTurtleModel(turtleId);
+      getTurtleModel(turtleId);
     } catch(NullPointerException e) {
       return false;
     }
@@ -84,6 +84,12 @@ public class LogoModel {
     return turtleModel.getShouldStamp();
   }
 
+  public boolean getTurtleShouldShow(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    return turtleModel.getShouldShow();
+  }
+
   public TurtleModel getNewTurtle() {
     return turtleController.getNewTurtle();
   }
@@ -101,6 +107,7 @@ public class LogoModel {
     }
 
     // Change this to check for wrong turtleID
+
     if (turtleModel == null) {
       throw new NullPointerException();
     }

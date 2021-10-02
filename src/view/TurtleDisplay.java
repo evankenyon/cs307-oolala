@@ -12,23 +12,22 @@ public class TurtleDisplay extends DisplayComponent {
 
   private int penThickness;
   private ImageView turtleImgView;
-  private int[] turtleHome;
+  private Image turtleImg;
   private int id;
   private double ratio;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
 
-    Image turtleImg = new Image(props.getProperty("turtleImagePath"));
+    turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
     setAngle(0);
-    updateImageSize(turtleImg);
+    updateImageSize();
     penThickness = 1;
-    turtleHome = new int[]{0,0};
     this.id = id;
   }
 
-  private void updateImageSize(Image turtleImg) {
+  private void updateImageSize() {
     ratio = turtleImg.getHeight() / turtleImg.getWidth();
     turtleImgView.setFitHeight(20 / ratio);
     turtleImgView.setFitWidth(20);
@@ -57,21 +56,18 @@ public class TurtleDisplay extends DisplayComponent {
     return id;
   }
 
-  public void setHomeLocation(int[] coordinates) {
-    turtleHome = coordinates;
-  }
-
   public void setPenThickness(int i) {
     penThickness = i;
   }
 
   public void setImage(Image img) {
-    turtleImgView = new ImageView(img);
-    updateImageSize(img);
+    turtleImgView.setImage(img);
+    turtleImg = img;
+    updateImageSize();
   }
 
   public ImageView getStillTurtleImage() {
-    ImageView turtleImgViewStill = new ImageView(turtleImgView.getImage());
+    ImageView turtleImgViewStill = new ImageView(turtleImg);
     turtleImgViewStill.setFitHeight(20 / ratio);
     turtleImgViewStill.setFitWidth(20);
     turtleImgViewStill.setX(turtleImgView.getX());
@@ -82,6 +78,14 @@ public class TurtleDisplay extends DisplayComponent {
 
   public ImageView getImageView() {
     return turtleImgView;
+  }
+
+  public void setShowOrHide(boolean shouldShow) {
+    if(shouldShow) {
+      turtleImgView.setImage(turtleImg);
+    } else {
+      turtleImgView.setImage(null);
+    }
   }
 
   @Override

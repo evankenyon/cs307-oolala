@@ -76,6 +76,7 @@ public class LogoDisplay {
           if(logoModel.getShouldTurtleStamp(turtleDisplay.getId())) {
             turtleWindow.getChildren().add(turtleDisplay.getStillTurtleImage());
           }
+          turtleDisplay.setShowOrHide(logoModel.getTurtleShouldShow(turtleDisplay.getId()));
         }
       }
     }

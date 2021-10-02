@@ -13,6 +13,8 @@ import model.commands.GoHomeCommand;
 import model.commands.MoveCommand;
 import model.commands.RotateCommand;
 import model.commands.SetPenCommand;
+import model.commands.ShowOrHideCommand;
+import model.commands.StampCommand;
 import model.commands.TellCommand;
 
 public class CommandModel {
@@ -30,7 +32,6 @@ public class CommandModel {
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
     if (input.startsWith("#") || input.equals("")) {
-      System.out.println("Test1");
       return null;
     }
     Command parsedCommand = null;
@@ -43,10 +44,10 @@ public class CommandModel {
         case "rt" -> parsedCommand = handleAngleCommand(1);
         case "pd" -> parsedCommand = handlePenCommand(true);
         case "pu" -> parsedCommand = handlePenCommand(false);
-        case "st" -> System.out.println("Show turtle");
-        case "ht" -> System.out.println("Hide turtle");
+        case "st" -> parsedCommand = handleShowOrHideCommand(true);
+        case "ht" -> parsedCommand = handleShowOrHideCommand(false);
         case "home" -> parsedCommand = handleGoHomeCommand();
-        case "stamp" -> System.out.println("Stamp turtle");
+        case "stamp" -> parsedCommand = handleStampCommand();
         case "tell" -> parsedCommand = handleTellCommand();
         default -> throw new InputMismatchException();
       }
@@ -76,7 +77,6 @@ public class CommandModel {
         + ".txt", "UTF-8");
     currProgram.println("#Saved program number " + numProgramsSaved);
     for (String command : prevCommands) {
-      System.out.println(command);
       currProgram.println(command);
     }
     currProgram.close();
@@ -98,6 +98,10 @@ public class CommandModel {
     return new GoHomeCommand();
   }
 
+  private Command handleStampCommand() {
+    return new StampCommand();
+  }
+
   private Command handleTellCommand() {
     List<Integer> currTurtleIds = new ArrayList<>();
     currTurtleIds.add(parseFirstNumArg());
@@ -105,6 +109,10 @@ public class CommandModel {
       currTurtleIds.add(parseNumInput());
     }
     return new TellCommand(currTurtleIds);
+  }
+
+  private Command handleShowOrHideCommand(boolean shouldShow) {
+    return new ShowOrHideCommand(shouldShow);
   }
 
   private int parseFirstNumArg() {
@@ -119,7 +127,6 @@ public class CommandModel {
     try {
       numInput = Integer.parseInt(scanner.next());
     } catch (NumberFormatException e) {
-      // TODO: fix this up??
       throw new IllegalArgumentException();
     }
     return numInput;

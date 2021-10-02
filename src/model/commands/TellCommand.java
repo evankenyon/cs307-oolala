@@ -1,10 +1,8 @@
 package model.commands;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import model.TurtleController;
-import model.TurtleModel;
 
 public class TellCommand extends Command {
 

@@ -1,15 +1,10 @@
 package view;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
-import javafx.scene.shape.Rectangle;
 import util.PropertiesLoader;
 
 
@@ -17,45 +12,40 @@ public class TurtleDisplay extends DisplayComponent {
 
   private int penThickness;
   private ImageView turtleImgView;
-  private boolean draw;
-  private int[] turtleHome;
-  private List<Line> lines;
+  private Image turtleImg;
   private int id;
+  private double ratio;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
-    Image turtleImg = new Image(props.getProperty("turtleImagePath"));
+
+    turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
     setAngle(0);
-    updateImageSize(turtleImg);
+    updateImageSize();
     penThickness = 1;
-    draw = true;
-    turtleHome = new int[]{0,0};
-    lines = new ArrayList<>();
     this.id = id;
   }
 
-  private void updateImageSize(Image turtleImg) {
-    double ratio = turtleImg.getHeight() / turtleImg.getWidth();
+  private void updateImageSize() {
+    ratio = turtleImg.getHeight() / turtleImg.getWidth();
     turtleImgView.setFitHeight(20 / ratio);
     turtleImgView.setFitWidth(20);
   }
 
-  public Line setPosition(int[] position) {
+  public Line setPosition(int[] position, boolean turtlePenUp) {
     double oldX = turtleImgView.getX();
     double oldY = turtleImgView.getY();
     turtleImgView.setX(position[0]);
     turtleImgView.setY(position[1]);
-    Line ret;
-    if(draw){
-      ret = new Line(oldX, oldY, position[0], position[1]);
+    Line drawnLine;
+    if (turtlePenUp) {
+      drawnLine = new Line(oldX, oldY, position[0], position[1]);
     } else {
-      ret = new Line();
+      drawnLine = new Line();
     }
-    lines.add(ret);
-    ret.setStrokeWidth(penThickness);
-    System.out.println(ret);
-    return ret;
+    drawnLine.setStrokeWidth(penThickness);
+    return drawnLine;
   }
 
   public void setAngle(double angle) {
@@ -66,40 +56,42 @@ public class TurtleDisplay extends DisplayComponent {
     return id;
   }
 
-  public void turtleDrawing(boolean isItDrawing) {
-    draw = isItDrawing;
-  }
-
-  public void setHomeLocation(int[] coordinates) {
-    turtleHome = coordinates;
-  }
-
-  public void moveTurtleToHome(){
-    turtleImgView.setX(turtleHome[0]);
-    turtleImgView.setY(turtleHome[1]);
-  }
-
   public void setPenThickness(int i) {
     penThickness = i;
   }
 
   public void setImage(Image img) {
-    turtleImgView = new ImageView(img);
-    updateImageSize(img);
+    turtleImgView.setImage(img);
+    turtleImg = img;
+    updateImageSize();
   }
 
-  public ImageView getImageView(){
+  public ImageView getStillTurtleImage() {
+    ImageView turtleImgViewStill = new ImageView(turtleImg);
+    turtleImgViewStill.setFitHeight(20 / ratio);
+    turtleImgViewStill.setFitWidth(20);
+    turtleImgViewStill.setX(turtleImgView.getX());
+    turtleImgViewStill.setY(turtleImgView.getY());
+    turtleImgViewStill.setRotate(turtleImgView.getRotate());
+    return turtleImgViewStill;
+  }
+
+  public ImageView getImageView() {
     return turtleImgView;
+  }
+
+  public void setShowOrHide(boolean shouldShow) {
+    if (shouldShow) {
+      turtleImgView.setImage(turtleImg);
+    } else {
+      turtleImgView.setImage(null);
+    }
   }
 
   @Override
   public Node getDisplayComponentNode() {
     // Used pane here because of advice from
     // https://stackoverflow.com/questions/42939530/setx-and-sety-not-working-when-trying-to-position-images/42939857
-    Rectangle rect = new Rectangle(300, 300);
-    rect.setFill(Color.WHITE);
-    Pane pane = new Pane(rect, turtleImgView);
-    pane.getChildren().addAll(lines);
-    return new Pane(pane);
+    return getImageView();
   }
 }

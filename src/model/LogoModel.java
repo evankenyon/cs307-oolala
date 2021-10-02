@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import model.commands.Command;
 
@@ -39,11 +40,19 @@ public class LogoModel {
    * @param input
    * @return
    */
-  public void handleTextInput(String input) {
+  public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
     Command command = commandModel.parseInput(input);
     command.runCommand(turtleController);
   }
 
+  public boolean isTurtleActive(int turtleId) {
+    try {
+      getTurtleModel(turtleId);
+    } catch (NullPointerException e) {
+      return false;
+    }
+    return true;
+  }
 
   /**
    * Returns the position of a turtle found by its ID This will be used in the step function to
@@ -55,24 +64,42 @@ public class LogoModel {
   public int[] getTurtlePosition(int turtleId) {
     TurtleModel turtleModel = getTurtleModel(turtleId);
 
-    int[] turtlePosition = new int[2];
-    if (turtleModel != null) {
-      turtlePosition = turtleModel.getPosition();
-    }
-    return turtlePosition;
+    return turtleModel.getPosition();
   }
 
   public double getTurtleTrajectory(int turtleId) {
     TurtleModel turtleModel = getTurtleModel(turtleId);
 
-    double turtleAngle = -999;
-    if (turtleModel != null) {
-      turtleAngle = turtleModel.getTrajectory();
-    }
-    return turtleAngle;
+    return turtleModel.getTrajectory();
   }
 
-  private TurtleModel getTurtleModel(int turtleId) {
+  public boolean getTurtlePenDown(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    return turtleModel.getPen();
+  }
+
+  public boolean getShouldTurtleStamp(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    return turtleModel.getShouldStamp();
+  }
+
+  public boolean getTurtleShouldShow(int turtleId) {
+    TurtleModel turtleModel = getTurtleModel(turtleId);
+
+    return turtleModel.getShouldShow();
+  }
+
+  public TurtleModel getNewTurtle() throws NullPointerException {
+    return turtleController.getNewTurtle();
+  }
+
+  public boolean hasNewTurtle() {
+    return turtleController.hasNewTurtle();
+  }
+
+  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
       if (turtle.getID() == turtleId) {
@@ -80,9 +107,8 @@ public class LogoModel {
       }
     }
 
-    // Change this to check for wrong turtleID
     if (turtleModel == null) {
-      System.out.println("Invalid turtle ID passed in");
+      throw new NullPointerException();
     }
     return turtleModel;
   }
@@ -92,11 +118,11 @@ public class LogoModel {
    *
    * @return
    */
-  public TurtleController getTurtleController() {
+  TurtleController getTurtleController() {
     return turtleController;
   }
 
-  public CommandModel getCommandModel() {
+  CommandModel getCommandModel() {
     return commandModel;
   }
 }

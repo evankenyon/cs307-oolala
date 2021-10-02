@@ -25,5 +25,21 @@ class TurtleControllerTest {
     assertEquals(expected, turtleController.getActiveTurtles().size());
   }
 
+  @Test
+  public void hasNewTurtleCorrect() {
+    turtleController.addTurtleToActives(2);
+    assertTrue(turtleController.hasNewTurtle());
+  }
 
+  @Test
+  public void getNewTurtleCorrect() {
+    turtleController.addTurtleToActives(2);
+    TurtleModel turtleModel = new TurtleModel(2);
+    assertEquals(turtleModel.getID(), turtleController.getNewTurtle().getID());
+  }
+
+  @Test
+  public void getNewTurtleIncorrect() {
+    assertThrows(NullPointerException.class, () -> turtleController.getNewTurtle());
+  }
 }

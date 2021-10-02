@@ -2,14 +2,18 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
+import util.PropertiesLoader;
 
 public class LogoDisplay {
 
@@ -24,8 +28,10 @@ public class LogoDisplay {
   private GridPane root;
   private LogoModel logoModel;
   private Pane turtleWindow;
+  private Properties props;
 
   public LogoDisplay() {
+    props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
     turtleDisplays = new ArrayList<>();
     turtleDisplays.add(new TurtleDisplay(1));
     commandDisplay = new CommandDisplay();
@@ -71,11 +77,24 @@ public class LogoDisplay {
 
   private void step(double elapsedTime) {
     if (commandDisplay.getHasCommandUpdated()) {
-      logoModel.handleTextInput(commandDisplay.getCommand());
+      try {
+        logoModel.handleTextInput(commandDisplay.getCommand());
+      } catch (Exception e) {
+        commandDisplay.removeCommandFromHistory();
+        showError();
+      }
       addNewTurtle();
       updateTurtleWindowAndDisplays();
     }
   }
+
+  //Borrowed from lab_browser course gitlab repo
+  private void showError () {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setContentText(props.getProperty("errorMessage"));
+    alert.show();
+  }
+
 
   private void updateTurtleWindowAndDisplays() {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {

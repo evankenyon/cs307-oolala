@@ -127,7 +127,6 @@ public class CommandModel {
     try {
       numInput = Integer.parseInt(scanner.next());
     } catch (NumberFormatException e) {
-      // TODO: fix this up??
       throw new IllegalArgumentException();
     }
     return numInput;

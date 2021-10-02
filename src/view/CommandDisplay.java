@@ -31,6 +31,7 @@ public class CommandDisplay extends DisplayComponent {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/command.properties");
     prevCommands = new ListView<>();
+    prevCommands.setId("Prev-Commands");
     setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);
@@ -67,7 +68,7 @@ public class CommandDisplay extends DisplayComponent {
     }
     return false;
   }
-  
+
   private Button makeButton(String label, EventHandler<ActionEvent> event) {
     Button button = new Button(label);
     button.setOnAction(event);
@@ -83,6 +84,7 @@ public class CommandDisplay extends DisplayComponent {
   private void setupCommandInput(Properties props) {
     commandInput = new TextField(props.getProperty("commandInputPrompt"));
     commandInput.setOnAction(event -> onCommandInput());
+    commandInput.setId("Command-Input");
     hasCommandUpdated = false;
   }
 

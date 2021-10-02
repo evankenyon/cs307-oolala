@@ -26,10 +26,7 @@ public class TurtleController {
    * @param id
    */
   public void addTurtleToActives(int id) {
-    if(checkIfTurtleIDExists(id)){
-      return;
-    }
-    else {
+    if (!checkIfTurtleIDExists(id)) {
       TurtleModel turtleModel = new TurtleModel(id);
       allTurtles.add(turtleModel);
       activeTurtles.add(turtleModel);
@@ -41,7 +38,7 @@ public class TurtleController {
   private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
       if (turtleModel.getID() == id) {
-        if(!activeTurtles.contains(turtleModel)) {
+        if (!activeTurtles.contains(turtleModel)) {
           activeTurtles.add(turtleModel);
         }
         return true;
@@ -64,7 +61,7 @@ public class TurtleController {
 
   public TurtleModel getNewTurtle() {
     hasNewTurtle = false;
-    if(newTurtle == null) {
+    if (newTurtle == null) {
       throw new NullPointerException();
     }
     return newTurtle;

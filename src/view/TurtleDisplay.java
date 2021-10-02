@@ -38,14 +38,14 @@ public class TurtleDisplay extends DisplayComponent {
     double oldY = turtleImgView.getY();
     turtleImgView.setX(position[0]);
     turtleImgView.setY(position[1]);
-    Line ret;
-    if(turtlePenUp){
-      ret = new Line(oldX, oldY, position[0], position[1]);
+    Line drawnLine;
+    if (turtlePenUp) {
+      drawnLine = new Line(oldX, oldY, position[0], position[1]);
     } else {
-      ret = new Line();
+      drawnLine = new Line();
     }
-    ret.setStrokeWidth(penThickness);
-    return ret;
+    drawnLine.setStrokeWidth(penThickness);
+    return drawnLine;
   }
 
   public void setAngle(double angle) {
@@ -81,7 +81,7 @@ public class TurtleDisplay extends DisplayComponent {
   }
 
   public void setShowOrHide(boolean shouldShow) {
-    if(shouldShow) {
+    if (shouldShow) {
       turtleImgView.setImage(turtleImg);
     } else {
       turtleImgView.setImage(null);

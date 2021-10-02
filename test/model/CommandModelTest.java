@@ -91,6 +91,19 @@ class CommandModelTest {
   }
 
   @Test
+  public void parseInputHideCommand() {
+    commandModel.parseInput("ht").runCommand(turtleController);
+    Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getShouldShow());
+  }
+
+  @Test
+  public void parseInputShowCommand() {
+    parseInputHideCommand();
+    commandModel.parseInput("st").runCommand(turtleController);
+    Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldShow());
+  }
+
+  @Test
   public void handleFileSelectedNotTxt() {
     Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.handleFileSelected(new File("./data/FOLDER_PURPOSE.md")));
   }

@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 public class TurtleModel {
 
   // Coordinate [x,y] denoting the position of the turtle
@@ -32,7 +30,7 @@ public class TurtleModel {
   }
 
   public TurtleModel(int turtleID) {
-    this(turtleID, new int[]{0,0});
+    this(turtleID, new int[]{0, 0});
   }
 
   /**
@@ -97,7 +95,7 @@ public class TurtleModel {
   }
 
   public boolean getShouldStamp() {
-    if(shouldStamp) {
+    if (shouldStamp) {
       shouldStamp = false;
       return true;
     }
@@ -115,6 +113,7 @@ public class TurtleModel {
   public void setShouldShow(boolean shouldShow) {
     this.shouldShow = shouldShow;
   }
+
   /**
    * Set home location for turtle
    *

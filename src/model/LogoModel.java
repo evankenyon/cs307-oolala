@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import model.commands.Command;
 
@@ -39,7 +40,7 @@ public class LogoModel {
    * @param input
    * @return
    */
-  public void handleTextInput(String input) {
+  public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
     Command command = commandModel.parseInput(input);
     command.runCommand(turtleController);
   }
@@ -47,7 +48,7 @@ public class LogoModel {
   public boolean isTurtleActive(int turtleId) {
     try {
       getTurtleModel(turtleId);
-    } catch(NullPointerException e) {
+    } catch (NullPointerException e) {
       return false;
     }
     return true;
@@ -90,7 +91,7 @@ public class LogoModel {
     return turtleModel.getShouldShow();
   }
 
-  public TurtleModel getNewTurtle() {
+  public TurtleModel getNewTurtle() throws NullPointerException {
     return turtleController.getNewTurtle();
   }
 
@@ -98,15 +99,13 @@ public class LogoModel {
     return turtleController.hasNewTurtle();
   }
 
-  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException{
+  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
       if (turtle.getID() == turtleId) {
         turtleModel = turtle;
       }
     }
-
-    // Change this to check for wrong turtleID
 
     if (turtleModel == null) {
       throw new NullPointerException();
@@ -119,11 +118,11 @@ public class LogoModel {
    *
    * @return
    */
-  public TurtleController getTurtleController() {
+  TurtleController getTurtleController() {
     return turtleController;
   }
 
-  public CommandModel getCommandModel() {
+  CommandModel getCommandModel() {
     return commandModel;
   }
 }

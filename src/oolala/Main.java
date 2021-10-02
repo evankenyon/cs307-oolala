@@ -1,16 +1,9 @@
 package oolala;
 
-
 import java.awt.Dimension;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import view.CommandDisplay;
-import view.InstructionsDisplay;
 import view.LogoDisplay;
-import view.TurtleDisplay;
-import view.TurtleInfoDisplay;
 
 /**
  * Feel free to completely change this code or delete it entirely.

@@ -5,7 +5,7 @@ import model.TurtleModel;
 
 public class RotateCommand extends Command {
 
-  private int trajectory;
+  private final int trajectory;
 
   public RotateCommand(int trajectory) {
     this.trajectory = trajectory;

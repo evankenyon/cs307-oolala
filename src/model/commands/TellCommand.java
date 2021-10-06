@@ -6,7 +6,7 @@ import model.TurtleController;
 
 public class TellCommand extends Command {
 
-  private List<Integer> ids;
+  private final List<Integer> ids;
 
   public TellCommand(List<Integer> ids) {
     this.ids = new ArrayList<>(ids);

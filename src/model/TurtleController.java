@@ -5,10 +5,12 @@ import java.util.List;
 
 public class TurtleController {
 
-  private List<TurtleModel> allTurtles;
-  private List<TurtleModel> activeTurtles;
+
+  private final List<TurtleModel> allTurtles;
+  private final List<TurtleModel> activeTurtles;
   private TurtleModel newTurtle;
   private boolean hasNewTurtle;
+
 
   public TurtleController() {
     allTurtles = new ArrayList<>();

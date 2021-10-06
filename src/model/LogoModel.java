@@ -9,8 +9,8 @@ import model.commands.Command;
 
 public class LogoModel {
 
-  private TurtleController turtleController;
-  private CommandModel commandModel;
+  private final TurtleController turtleController;
+  private final CommandModel commandModel;
 
   public LogoModel() {
     turtleController = new TurtleController();

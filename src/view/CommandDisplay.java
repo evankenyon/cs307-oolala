@@ -14,12 +14,12 @@ import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
 
-  private TextField commandInput;
-  private ListView<String> prevCommands;
-  private Button runPrevCommand;
-  private Button selectCommandsFile;
-  private Button saveCommandsFile;
-  private FileChooser chooseCommandsFile;
+  private final TextField commandInput;
+  private final ListView<String> prevCommands;
+  private final Button runPrevCommand;
+  private final Button selectCommandsFile;
+  private final Button saveCommandsFile;
+  private final FileChooser chooseCommandsFile;
   private String command;
   private File commandFile;
   private boolean saveCommandsAsFile;
@@ -39,11 +39,11 @@ public class CommandDisplay extends DisplayComponent {
     runPrevCommand.setOnAction(event -> onRunPrevCommand());
     selectCommandsFile = new Button("Select a commands file");
     selectCommandsFile.setOnAction(event -> {
-        commandFile = chooseCommandsFile.showOpenDialog(null);
+      commandFile = chooseCommandsFile.showOpenDialog(null);
     });
     saveCommandsFile = new Button("Save current program as .txt file");
     saveCommandsFile.setOnAction(event -> {
-        saveCommandsAsFile = true;
+      saveCommandsAsFile = true;
     });
     saveCommandsAsFile = false;
     hasCommandUpdated = false;
@@ -51,7 +51,8 @@ public class CommandDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(prevCommands, new HBox(commandInput, runPrevCommand, saveCommandsFile, selectCommandsFile));
+    return new VBox(prevCommands,
+        new HBox(commandInput, runPrevCommand, saveCommandsFile, selectCommandsFile));
   }
 
   public String getCommand() {
@@ -68,7 +69,7 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   public boolean shouldSaveAsFile() {
-    if(saveCommandsAsFile) {
+    if (saveCommandsAsFile) {
       saveCommandsAsFile = false;
       return true;
     }

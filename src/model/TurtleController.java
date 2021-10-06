@@ -8,8 +8,8 @@ import java.util.Set;
 
 public class TurtleController {
 
-  private List<TurtleModel> allTurtles;
-  private List<TurtleModel> activeTurtles;
+  private final List<TurtleModel> allTurtles;
+  private final List<TurtleModel> activeTurtles;
 
   public TurtleController() {
     allTurtles = new ArrayList<>();
@@ -26,10 +26,9 @@ public class TurtleController {
    * @param id
    */
   public void addTurtleToActives(int id) {
-    if(checkIfTurtleIDExists(id)){
+    if (checkIfTurtleIDExists(id)) {
       return;
-    }
-    else {
+    } else {
       TurtleModel turtleModel = new TurtleModel(id);
       allTurtles.add(turtleModel);
       activeTurtles.add(turtleModel);

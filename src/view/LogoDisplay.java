@@ -13,16 +13,17 @@ import javafx.util.Duration;
 import model.LogoModel;
 
 public class LogoDisplay {
+
   // Magic values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private List<TurtleDisplay> turtleDisplays;
-  private CommandDisplay commandDisplay;
-  private DisplayComponent instructionsDisplay;
-  private DisplayComponent turtleInfoDisplay;
+  private final List<TurtleDisplay> turtleDisplays;
+  private final CommandDisplay commandDisplay;
+  private final DisplayComponent instructionsDisplay;
+  private final DisplayComponent turtleInfoDisplay;
   private Group root;
-  private LogoModel logoModel;
+  private final LogoModel logoModel;
   private Group turtlesAndLines;
 
   public LogoDisplay() {
@@ -37,7 +38,7 @@ public class LogoDisplay {
   public Scene makeScene(int width, int height) {
     root = new Group();
     turtlesAndLines = new Group();
-    for(TurtleDisplay turtleDisplay : turtleDisplays) {
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
       turtlesAndLines.getChildren().add(turtleDisplay.getDisplayComponentNode());
     }
     VBox vBox = new VBox();
@@ -48,17 +49,19 @@ public class LogoDisplay {
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
-    animation.getKeyFrames().add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
+    animation.getKeyFrames()
+        .add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
     animation.play();
 
     return new Scene(root, width, height);
   }
 
   private void step(double elapsedTime) {
-    if(commandDisplay.getHasCommandUpdated()) {
+    if (commandDisplay.getHasCommandUpdated()) {
       logoModel.handleTextInput(commandDisplay.getCommand());
-      for(TurtleDisplay turtleDisplay : turtleDisplays) {
-        turtlesAndLines.getChildren().add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId())));
+      for (TurtleDisplay turtleDisplay : turtleDisplays) {
+        turtlesAndLines.getChildren()
+            .add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId())));
         turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
       }
     }

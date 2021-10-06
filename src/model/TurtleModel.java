@@ -5,13 +5,13 @@ import java.util.Arrays;
 public class TurtleModel {
 
   // Coordinate [x,y] denoting the position of the turtle
-  private int[] myPosition;
+  private final int[] myPosition;
   // A number from 0 to 2pi representing the angle of travel of the turtle
   private double myTrajectory;
   // If true, pen is down and drawing; if false, pen is up and not drawing
   private boolean penSetting;
   private int[] myHome;
-  private int myID;
+  private final int myID;
 
   /**
    * Create a TurtleModel with the initial where we want the turtle to be initialized on the screen.

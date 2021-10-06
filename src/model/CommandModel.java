@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -19,7 +20,7 @@ public class CommandModel {
 
   private Scanner scanner;
   private int numProgramsSaved;
-  private List<String> prevCommands;
+  private final List<String> prevCommands;
 
   public CommandModel() {
     numProgramsSaved = 0;
@@ -73,7 +74,7 @@ public class CommandModel {
     // Code for creating a file and writing to it borrowed from
     // https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it
     PrintWriter currProgram = new PrintWriter("./data/programs/program" + numProgramsSaved
-        + ".txt", "UTF-8");
+        + ".txt", StandardCharsets.UTF_8);
     currProgram.println("#Saved program number " + numProgramsSaved);
     for (String command : prevCommands) {
       System.out.println(command);

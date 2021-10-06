@@ -19,8 +19,8 @@ public class TurtleDisplay extends DisplayComponent {
   private ImageView turtleImgView;
   private boolean draw;
   private int[] turtleHome;
-  private List<Line> lines;
-  private int id;
+  private final List<Line> lines;
+  private final int id;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
@@ -30,7 +30,7 @@ public class TurtleDisplay extends DisplayComponent {
     updateImageSize(turtleImg);
     penThickness = 1;
     draw = true;
-    turtleHome = new int[]{0,0};
+    turtleHome = new int[]{0, 0};
     lines = new ArrayList<>();
     this.id = id;
   }
@@ -47,7 +47,7 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setX(position[0]);
     turtleImgView.setY(position[1]);
     Line ret;
-    if(draw){
+    if (draw) {
       ret = new Line(oldX, oldY, position[0], position[1]);
     } else {
       ret = new Line();
@@ -74,7 +74,7 @@ public class TurtleDisplay extends DisplayComponent {
     turtleHome = coordinates;
   }
 
-  public void moveTurtleToHome(){
+  public void moveTurtleToHome() {
     turtleImgView.setX(turtleHome[0]);
     turtleImgView.setY(turtleHome[1]);
   }
@@ -88,7 +88,7 @@ public class TurtleDisplay extends DisplayComponent {
     updateImageSize(img);
   }
 
-  public ImageView getImageView(){
+  public ImageView getImageView() {
     return turtleImgView;
   }
 

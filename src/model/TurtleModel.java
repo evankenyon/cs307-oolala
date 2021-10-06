@@ -10,7 +10,7 @@ public class TurtleModel {
   private boolean penSetting;
   private int[] myHome;
 
-  private int myID;
+  private final int myID;
   private boolean shouldStamp;
   private boolean shouldShow;
 

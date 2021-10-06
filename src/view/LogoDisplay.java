@@ -22,14 +22,14 @@ public class LogoDisplay {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
 
-  private List<TurtleDisplay> turtleDisplays;
-  private CommandDisplay commandDisplay;
-  private DisplayComponent instructionsDisplay;
-  private DisplayComponent turtleInfoDisplay;
+  private final List<TurtleDisplay> turtleDisplays;
+  private final CommandDisplay commandDisplay;
+  private final DisplayComponent instructionsDisplay;
+  private final DisplayComponent turtleInfoDisplay;
   private GridPane root;
-  private LogoModel logoModel;
+  private final LogoModel logoModel;
   private Pane turtleWindow;
-  private Properties props;
+  private final Properties props;
 
   public LogoDisplay() {
     props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
@@ -90,7 +90,7 @@ public class LogoDisplay {
   }
 
   //Borrowed from lab_browser course gitlab repo
-  private void showError () {
+  private void showError() {
     Alert alert = new Alert(AlertType.ERROR);
     alert.setContentText(props.getProperty("errorMessage"));
     alert.show();

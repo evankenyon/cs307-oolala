@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.TurtleController;
 
-public class TellCommand extends Command {
+public class TellCommand implements Command {
 
   private List<Integer> ids;
 

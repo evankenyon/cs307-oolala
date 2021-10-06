@@ -3,7 +3,7 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class MoveCommand extends Command {
+public class MoveCommand implements Command {
 
   private int distance;
 

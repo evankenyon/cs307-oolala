@@ -47,6 +47,17 @@ public class CommandDisplayTest extends DukeApplicationTest {
     assertLabelText(expected);
   }
 
+  @Test
+  public void testCommandInputForward () {
+    String expected = "fd 50";
+    commandInput.clear();
+    clickOn(commandInput).write(expected);
+    assertLabelText(expected);
+    // Borrowed from example_testfx course gitlab repo
+    clickOn(commandInput).write(KeyCode.ENTER.getChar());
+    assertEquals(expected, prevCommands.getItems().get(prevCommands.getItems().size() - 1));
+  }
+
   // Borrowed from example_testfx course gitlab repo
   private void assertLabelText (String expected) {
     assertEquals(expected, commandInput.getText());

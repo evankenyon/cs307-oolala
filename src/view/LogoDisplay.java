@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
+import model.TurtleModel;
 import util.PropertiesLoader;
 
 public class LogoDisplay {
@@ -144,10 +145,12 @@ public class LogoDisplay {
   }
 
   private void addNewTurtle() {
-    if (logoModel.hasNewTurtle()) {
-      TurtleDisplay newTurtleDisplay = new TurtleDisplay(logoModel.getNewTurtle().getID());
-      turtleDisplays.add(newTurtleDisplay);
-      turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+    if (logoModel.hasNewTurtles()) {
+      for (TurtleModel turtleModel : logoModel.getNewTurtles()) {
+        TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID());
+        turtleDisplays.add(newTurtleDisplay);
+        turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+      }
     }
   }
 

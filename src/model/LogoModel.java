@@ -2,7 +2,6 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -100,11 +99,11 @@ public class LogoModel {
     return turtleModel.getShouldShow();
   }
 
-  public TurtleModel getNewTurtle() throws NullPointerException {
-    return turtleController.getNewTurtle();
+  public List<TurtleModel> getNewTurtles() throws NullPointerException {
+    return turtleController.getNewTurtles();
   }
 
-  public boolean hasNewTurtle() {
+  public boolean hasNewTurtles() {
     return turtleController.hasNewTurtle();
   }
 

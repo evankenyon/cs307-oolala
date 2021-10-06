@@ -8,13 +8,14 @@ public class TurtleController {
 
   private final List<TurtleModel> allTurtles;
   private final List<TurtleModel> activeTurtles;
-  private TurtleModel newTurtle;
+  private final List<TurtleModel> newTurtles;
   private boolean hasNewTurtle;
 
 
   public TurtleController() {
     allTurtles = new ArrayList<>();
     activeTurtles = new ArrayList<>();
+    newTurtles = new ArrayList<>();
     TurtleModel turtleModel = new TurtleModel(1);
     allTurtles.add(turtleModel);
     activeTurtles.add(turtleModel);
@@ -32,7 +33,7 @@ public class TurtleController {
       TurtleModel turtleModel = new TurtleModel(id);
       allTurtles.add(turtleModel);
       activeTurtles.add(turtleModel);
-      newTurtle = turtleModel;
+      newTurtles.add(turtleModel);
       hasNewTurtle = true;
     }
   }
@@ -61,11 +62,13 @@ public class TurtleController {
     return hasNewTurtle;
   }
 
-  public TurtleModel getNewTurtle() {
+  public List<TurtleModel> getNewTurtles() {
     hasNewTurtle = false;
-    if (newTurtle == null) {
+    if (newTurtles.isEmpty()) {
       throw new NullPointerException();
     }
-    return newTurtle;
+    List<TurtleModel> newTurtlesCopy = new ArrayList<>(newTurtles);
+    newTurtles.clear();
+    return newTurtlesCopy;
   }
 }

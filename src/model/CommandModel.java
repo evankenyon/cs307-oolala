@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
@@ -65,12 +66,15 @@ public class CommandModel {
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      commands.add(parseInput(fileScanner.next()));
+      Command newCommand = parseInput(fileScanner.next());
+      if (newCommand != null) {
+        commands.add(newCommand);
+      }
     }
     return commands;
   }
 
-  public void saveCommandsAsFile() throws FileNotFoundException, UnsupportedEncodingException {
+  public void saveCommandsAsFile() throws IOException {
     numProgramsSaved++;
     // Code for creating a file and writing to it borrowed from
     // https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it

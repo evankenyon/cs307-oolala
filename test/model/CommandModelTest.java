@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -109,7 +110,7 @@ class CommandModelTest {
   }
 
   @Test
-  public void saveCommandsAsFileCorrect() throws FileNotFoundException, UnsupportedEncodingException {
+  public void saveCommandsAsFileCorrect() throws IOException {
     commandModel.saveCommandsAsFile();
     Scanner scanner = new Scanner(new File("./data/programs/program1.txt"));
     scanner.useDelimiter("\n");

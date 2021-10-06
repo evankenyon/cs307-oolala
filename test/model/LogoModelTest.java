@@ -91,18 +91,18 @@ class LogoModelTest {
   @Test
   public void getNewTurtle() {
     logoModel.handleTextInput("tell 2");
-    assertEquals(2, logoModel.getNewTurtle().getID());
+    assertEquals(2, logoModel.getNewTurtles().get(0).getID());
   }
 
   @Test
   public void hasNewTurtleTrue() {
     logoModel.handleTextInput("tell 2");
-    assertTrue(logoModel.hasNewTurtle());
+    assertTrue(logoModel.hasNewTurtles());
   }
 
   @Test
   public void hasNewTurtleFalse() {
-    assertFalse(logoModel.hasNewTurtle());
+    assertFalse(logoModel.hasNewTurtles());
   }
 
   private void inputText(String s) {

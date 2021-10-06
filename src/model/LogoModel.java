@@ -2,19 +2,24 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import model.commands.Command;
 
 public class LogoModel {
 
+  private Queue<Command> fileCommands;
   private final TurtleController turtleController;
   private final CommandModel commandModel;
 
   public LogoModel() {
     turtleController = new TurtleController();
     commandModel = new CommandModel();
+    fileCommands = new LinkedList<>();
   }
 
   /**
@@ -23,14 +28,19 @@ public class LogoModel {
    * @param file
    * @return
    */
-  public List<Command> handleFileInput(File file) {
-    List<Command> commands = new ArrayList<>();
+  public void handleFileInput(File file) {
     try {
-      commands = commandModel.handleFileSelected(file);
+      fileCommands.addAll(commandModel.handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
+      // TODO: fix
       e.printStackTrace();
     }
-    return commands;
+  }
+
+  public void runFileCommand() {
+    if(!fileCommands.isEmpty()) {
+      fileCommands.remove().runCommand(turtleController);
+    }
   }
 
   /**
@@ -52,6 +62,10 @@ public class LogoModel {
       return false;
     }
     return true;
+  }
+
+  public void saveCommandsAsFile() throws IOException {
+    commandModel.saveCommandsAsFile();
   }
 
   /**
@@ -91,11 +105,11 @@ public class LogoModel {
     return turtleModel.getShouldShow();
   }
 
-  public TurtleModel getNewTurtle() throws NullPointerException {
-    return turtleController.getNewTurtle();
+  public List<TurtleModel> getNewTurtles() throws NullPointerException {
+    return turtleController.getNewTurtles();
   }
 
-  public boolean hasNewTurtle() {
+  public boolean hasNewTurtles() {
     return turtleController.hasNewTurtle();
   }
 

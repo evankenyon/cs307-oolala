@@ -13,6 +13,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
+import model.TurtleModel;
 import util.PropertiesLoader;
 
 public class LogoDisplay {
@@ -77,6 +78,37 @@ public class LogoDisplay {
   }
 
   private void step(double elapsedTime) {
+    handleCommandInputted();
+    handleFileInputted();
+    handleFileSave();
+  }
+
+  private void handleFileSave() {
+    if(commandDisplay.shouldSaveAsFile()) {
+      try {
+        logoModel.saveCommandsAsFile();
+      } catch(Exception e) {
+        // TODO: fix
+        showError();
+      }
+    }
+  }
+
+  private void handleFileInputted() {
+    if (commandDisplay.getIsFileUploaded()) {
+      try {
+        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
+      } catch (Exception e) {
+        // TODO: change
+        showError();
+      }
+    }
+    logoModel.runFileCommand();
+    addNewTurtle();
+    updateTurtleWindowAndDisplays();
+  }
+
+  private void handleCommandInputted() {
     if (commandDisplay.getHasCommandUpdated()) {
       try {
         logoModel.handleTextInput(commandDisplay.getCommand());
@@ -126,10 +158,12 @@ public class LogoDisplay {
   }
 
   private void addNewTurtle() {
-    if (logoModel.hasNewTurtle()) {
-      TurtleDisplay newTurtleDisplay = new TurtleDisplay(logoModel.getNewTurtle().getID());
-      turtleDisplays.add(newTurtleDisplay);
-      turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+    if (logoModel.hasNewTurtles()) {
+      for (TurtleModel turtleModel : logoModel.getNewTurtles()) {
+        TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID());
+        turtleDisplays.add(newTurtleDisplay);
+        turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+      }
     }
   }
 

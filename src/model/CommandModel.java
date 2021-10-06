@@ -36,25 +36,46 @@ public class CommandModel {
     if (input.startsWith("#") || input.equals("")) {
       return null;
     }
-    Command parsedCommand = null;
     scanner = new Scanner(input);
     while (scanner.hasNext()) {
       switch (scanner.next().toLowerCase()) {
-        case "fd" -> parsedCommand = handleMovementCommand(1);
-        case "bk" -> parsedCommand = handleMovementCommand(-1);
-        case "lt" -> parsedCommand = handleAngleCommand(-1);
-        case "rt" -> parsedCommand = handleAngleCommand(1);
-        case "pd" -> parsedCommand = handlePenCommand(true);
-        case "pu" -> parsedCommand = handlePenCommand(false);
-        case "st" -> parsedCommand = handleShowOrHideCommand(true);
-        case "ht" -> parsedCommand = handleShowOrHideCommand(false);
-        case "home" -> parsedCommand = handleGoHomeCommand();
-        case "stamp" -> parsedCommand = handleStampCommand();
-        case "tell" -> parsedCommand = handleTellCommand();
+        case "fd" -> {
+          return handleMovementCommand(1);
+        }
+        case "bk" -> {
+          return handleMovementCommand(-1);
+        }
+        case "lt" -> {
+          return handleAngleCommand(-1);
+        }
+        case "rt" -> {
+          return handleAngleCommand(1);
+        }
+        case "pd" -> {
+          return handlePenCommand(true);
+        }
+        case "pu" -> {
+          return handlePenCommand(false);
+        }
+        case "st" -> {
+          return handleShowOrHideCommand(true);
+        }
+        case "ht" -> {
+          return handleShowOrHideCommand(false);
+        }
+        case "home" -> {
+          return handleGoHomeCommand();
+        }
+        case "stamp" -> {
+          return handleStampCommand();
+        }
+        case "tell" -> {
+          return handleTellCommand();
+        }
         default -> throw new InputMismatchException();
       }
     }
-    return parsedCommand;
+    return null;
   }
 
   public List<Command> handleFileSelected(File commandFile)

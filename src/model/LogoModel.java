@@ -2,6 +2,7 @@ package model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -60,6 +61,10 @@ public class LogoModel {
       return false;
     }
     return true;
+  }
+
+  public void saveCommandsAsFile() throws FileNotFoundException, UnsupportedEncodingException {
+    commandModel.saveCommandsAsFile();
   }
 
   /**

@@ -79,12 +79,24 @@ public class LogoDisplay {
   private void step(double elapsedTime) {
     handleCommandInputted();
     handleFileInputted();
+    handleFileSave();
+  }
+
+  private void handleFileSave() {
+    if(commandDisplay.shouldSaveAsFile()) {
+      try {
+        logoModel.saveCommandsAsFile();
+      } catch(Exception e) {
+        // TODO: fix
+        showError();
+      }
+    }
   }
 
   private void handleFileInputted() {
     if (commandDisplay.getIsFileUploaded()) {
       try {
-        logoModel.handleFileInput(commandDisplay.getCommandFile());
+        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
         // TODO: change
         showError();

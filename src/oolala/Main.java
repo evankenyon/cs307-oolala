@@ -11,7 +11,7 @@ import view.LogoDisplay;
 public class Main extends Application {
 
   public static final String TITLE = "Logo Application";
-  public static final Dimension DEFAULT_SIZE = new Dimension(1000, 800);
+  public static final Dimension DEFAULT_SIZE = new Dimension(1200, 800);
 
   /**
    * A method to test (and a joke :).

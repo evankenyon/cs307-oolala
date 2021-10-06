@@ -60,7 +60,7 @@ public class CommandDisplay extends DisplayComponent {
     return hasCommandUpdated;
   }
 
-  public File getCommandFile() {
+  public File getUploadedCommandFile() {
     return commandFile;
   }
 

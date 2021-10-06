@@ -5,7 +5,7 @@ import model.TurtleModel;
 
 public class MoveCommand extends Command {
 
-  private int distance;
+  private final int distance;
 
   public MoveCommand(int distance) {
     this.distance = distance;

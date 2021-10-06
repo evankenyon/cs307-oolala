@@ -5,7 +5,7 @@ import model.TurtleModel;
 
 public class SetPenCommand extends Command {
 
-  private boolean penPosition;
+  private final boolean penPosition;
 
   public SetPenCommand(boolean penUpOrDown) {
     this.penPosition = penUpOrDown;

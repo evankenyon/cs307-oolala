@@ -11,9 +11,9 @@ import util.PropertiesLoader;
 public class TurtleDisplay extends DisplayComponent {
 
   private int penThickness;
-  private ImageView turtleImgView;
+  private final ImageView turtleImgView;
   private Image turtleImg;
-  private int id;
+  private final int id;
   private double ratio;
 
   public TurtleDisplay(int id) {
@@ -65,6 +65,7 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImg = img;
     updateImageSize();
   }
+
 
   public ImageView getStillTurtleImage() {
     ImageView turtleImgViewStill = new ImageView(turtleImg);

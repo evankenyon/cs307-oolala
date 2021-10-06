@@ -17,7 +17,7 @@ import util.PropertiesLoader;
 public class CommandDisplay extends DisplayComponent {
 
   private TextField commandInput;
-  private ListView<String> prevCommands;
+  private final ListView<String> prevCommands;
   private Button runPrevCommand;
   private Button selectCommandsFile;
   private Button saveCommandsFile;
@@ -87,8 +87,10 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   private void makeButtons(Properties props) {
-    runPrevCommand = makeButton(props.getProperty("runPrevCommandText"), event -> onRunPrevCommand());
-    selectCommandsFile = makeButton(props.getProperty("selectFile"), event -> onSelectCommandsFile());
+    runPrevCommand = makeButton(props.getProperty("runPrevCommandText"),
+        event -> onRunPrevCommand());
+    selectCommandsFile = makeButton(props.getProperty("selectFile"),
+        event -> onSelectCommandsFile());
     saveCommandsFile = makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
     saveCommandsFile.setId("Save-Commands-File");
   }

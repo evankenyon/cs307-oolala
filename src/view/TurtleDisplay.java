@@ -15,13 +15,15 @@ public class TurtleDisplay extends DisplayComponent {
   private Image turtleImg;
   private final int id;
   private double ratio;
+  private final int defaultAngle = 0;
+  private final int availbleImageSize = 20;
 
   public TurtleDisplay(int id) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
 
     turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
-    setAngle(0);
+    setAngle(defaultAngle);
     updateImageSize();
     penThickness = 1;
     this.id = id;
@@ -29,8 +31,8 @@ public class TurtleDisplay extends DisplayComponent {
 
   private void updateImageSize() {
     ratio = turtleImg.getHeight() / turtleImg.getWidth();
-    turtleImgView.setFitHeight(20 / ratio);
-    turtleImgView.setFitWidth(20);
+    turtleImgView.setFitHeight(availbleImageSize / ratio);
+    turtleImgView.setFitWidth(availbleImageSize);
   }
 
   public Line setPosition(int[] position, boolean turtlePenUp) {
@@ -69,8 +71,8 @@ public class TurtleDisplay extends DisplayComponent {
 
   public ImageView getStillTurtleImage() {
     ImageView turtleImgViewStill = new ImageView(turtleImg);
-    turtleImgViewStill.setFitHeight(20 / ratio);
-    turtleImgViewStill.setFitWidth(20);
+    turtleImgViewStill.setFitHeight(availbleImageSize / ratio);
+    turtleImgViewStill.setFitWidth(availbleImageSize);
     turtleImgViewStill.setX(turtleImgView.getX());
     turtleImgViewStill.setY(turtleImgView.getY());
     turtleImgViewStill.setRotate(turtleImgView.getRotate());

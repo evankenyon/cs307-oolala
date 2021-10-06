@@ -76,6 +76,25 @@ public class LogoDisplay {
   }
 
   private void step(double elapsedTime) {
+    handleCommandInputted();
+    handleFileInputted();
+  }
+
+  private void handleFileInputted() {
+    if (commandDisplay.getIsFileUploaded()) {
+      try {
+        logoModel.handleFileInput(commandDisplay.getCommandFile());
+      } catch (Exception e) {
+        // TODO: change
+        showError();
+      }
+    }
+    logoModel.runFileCommand();
+    addNewTurtle();
+    updateTurtleWindowAndDisplays();
+  }
+
+  private void handleCommandInputted() {
     if (commandDisplay.getHasCommandUpdated()) {
       try {
         logoModel.handleTextInput(commandDisplay.getCommand());

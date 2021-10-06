@@ -1,6 +1,7 @@
 package view;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -56,6 +57,17 @@ public class CommandDisplayTest extends DukeApplicationTest {
     // Borrowed from example_testfx course gitlab repo
     clickOn(commandInput).write(KeyCode.ENTER.getChar());
     assertEquals(expected, prevCommands.getItems().get(prevCommands.getItems().size() - 1));
+  }
+
+  @Test
+  public void testCommandInputIncorrect () {
+    String expected = "";
+    assertLabelText(expected);
+  }
+
+  @Test
+  public void testPrevCommandsDefault () {
+    assertTrue(prevCommands.getItems().isEmpty());
   }
 
   // Borrowed from example_testfx course gitlab repo

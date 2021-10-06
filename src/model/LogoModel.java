@@ -4,17 +4,21 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 import model.commands.Command;
 
 public class LogoModel {
 
   private TurtleController turtleController;
   private CommandModel commandModel;
+  private Queue<Command> fileCommands;
 
   public LogoModel() {
     turtleController = new TurtleController();
     commandModel = new CommandModel();
+    fileCommands = new LinkedList<>();
   }
 
   /**
@@ -23,14 +27,19 @@ public class LogoModel {
    * @param file
    * @return
    */
-  public List<Command> handleFileInput(File file) {
-    List<Command> commands = new ArrayList<>();
+  public void handleFileInput(File file) {
     try {
-      commands = commandModel.handleFileSelected(file);
+      fileCommands.addAll(commandModel.handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
+      // TODO: fix
       e.printStackTrace();
     }
-    return commands;
+  }
+
+  public void runFileCommand() {
+    if(!fileCommands.isEmpty()) {
+      fileCommands.remove().runCommand(turtleController);
+    }
   }
 
   /**

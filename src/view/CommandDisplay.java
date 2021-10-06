@@ -26,6 +26,7 @@ public class CommandDisplay extends DisplayComponent {
   private File commandFile;
   private boolean saveCommandsAsFile;
   private boolean hasCommandUpdated;
+  private boolean isFileUploaded;
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
@@ -35,6 +36,8 @@ public class CommandDisplay extends DisplayComponent {
     setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);
+    saveCommandsAsFile = false;
+    isFileUploaded = false;
     saveCommandsAsFile = false;
   }
 
@@ -59,6 +62,14 @@ public class CommandDisplay extends DisplayComponent {
 
   public File getCommandFile() {
     return commandFile;
+  }
+
+  public boolean getIsFileUploaded() {
+    if (isFileUploaded) {
+      isFileUploaded = false;
+      return true;
+    }
+    return false;
   }
 
   public boolean shouldSaveAsFile() {
@@ -105,6 +116,7 @@ public class CommandDisplay extends DisplayComponent {
 
   private void onSelectCommandsFile() {
     commandFile = chooseCommandsFile.showOpenDialog(null);
+    isFileUploaded = true;
   }
 
   private void onRunPrevCommand() {

@@ -64,7 +64,10 @@ public class CommandModel {
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      commands.add(parseInput(fileScanner.next()));
+      Command newCommand = parseInput(fileScanner.next());
+      if (newCommand != null) {
+        commands.add(newCommand);
+      }
     }
     return commands;
   }

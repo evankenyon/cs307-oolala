@@ -54,7 +54,7 @@
                 <source>16</source>
                 <target>16</target>
                 <compilerArgs>
-                    <arg>--enable-preview</arg>
+                    <arg>&#45;&#45;enable-preview</arg>
                 </compilerArgs>
             </configuration>
         </plugin>
@@ -66,7 +66,7 @@
             <configuration>
                 <argLine>
                     @{argLine}
-                    --enable-preview
+                    &#45;&#45;enable-preview
                     --add-exports javafx.graphics/com.sun.javafx.application=ALL-UNNAMED
                 </argLine>
             </configuration>

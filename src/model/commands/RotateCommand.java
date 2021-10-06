@@ -3,7 +3,7 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class RotateCommand extends Command {
+public class RotateCommand implements Command {
 
   private final int trajectory;
 

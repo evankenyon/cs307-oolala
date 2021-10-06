@@ -3,7 +3,7 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class ShowOrHideCommand extends Command {
+public class ShowOrHideCommand implements Command {
 
   boolean shouldShow;
 

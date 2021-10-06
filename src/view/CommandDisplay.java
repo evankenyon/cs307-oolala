@@ -90,6 +90,7 @@ public class CommandDisplay extends DisplayComponent {
     runPrevCommand = makeButton(props.getProperty("runPrevCommandText"), event -> onRunPrevCommand());
     selectCommandsFile = makeButton(props.getProperty("selectFile"), event -> onSelectCommandsFile());
     saveCommandsFile = makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+    saveCommandsFile.setId("Save-Commands-File");
   }
 
   private void setupCommandInput(Properties props) {

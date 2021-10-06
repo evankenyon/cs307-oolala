@@ -2,6 +2,8 @@ package view;
 
 import java.io.File;
 import java.util.Properties;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -14,12 +16,12 @@ import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
 
-  private final TextField commandInput;
-  private final ListView<String> prevCommands;
-  private final Button runPrevCommand;
-  private final Button selectCommandsFile;
-  private final Button saveCommandsFile;
-  private final FileChooser chooseCommandsFile;
+  private TextField commandInput;
+  private ListView<String> prevCommands;
+  private Button runPrevCommand;
+  private Button selectCommandsFile;
+  private Button saveCommandsFile;
+  private FileChooser chooseCommandsFile;
   private String command;
   private File commandFile;
   private boolean saveCommandsAsFile;
@@ -29,24 +31,11 @@ public class CommandDisplay extends DisplayComponent {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/command.properties");
     prevCommands = new ListView<>();
-    chooseCommandsFile = new FileChooser();
-    chooseCommandsFile.setTitle("Open Commands file");
-    chooseCommandsFile.getExtensionFilters().addAll(
-        new ExtensionFilter("Text Files", "*.txt"));
-    commandInput = new TextField(props.getProperty("commandInputPrompt"));
-    commandInput.setOnAction(event -> onCommandInput());
-    runPrevCommand = new Button(props.getProperty("runPrevCommandText"));
-    runPrevCommand.setOnAction(event -> onRunPrevCommand());
-    selectCommandsFile = new Button("Select a commands file");
-    selectCommandsFile.setOnAction(event -> {
-      commandFile = chooseCommandsFile.showOpenDialog(null);
-    });
-    saveCommandsFile = new Button("Save current program as .txt file");
-    saveCommandsFile.setOnAction(event -> {
-      saveCommandsAsFile = true;
-    });
+    prevCommands.setId("Prev-Commands");
+    setupChooseCommandsFile(props);
+    setupCommandInput(props);
+    makeButtons(props);
     saveCommandsAsFile = false;
-    hasCommandUpdated = false;
   }
 
   @Override
@@ -58,6 +47,10 @@ public class CommandDisplay extends DisplayComponent {
   public String getCommand() {
     hasCommandUpdated = false;
     return command;
+  }
+
+  public void removeCommandFromHistory() {
+    prevCommands.getItems().remove(prevCommands.getItems().size() - 1);
   }
 
   public boolean getHasCommandUpdated() {
@@ -76,6 +69,33 @@ public class CommandDisplay extends DisplayComponent {
     return false;
   }
 
+  private Button makeButton(String label, EventHandler<ActionEvent> event) {
+    Button button = new Button(label);
+    button.setOnAction(event);
+    return button;
+  }
+
+  private void makeButtons(Properties props) {
+    runPrevCommand = makeButton(props.getProperty("runPrevCommandText"), event -> onRunPrevCommand());
+    selectCommandsFile = makeButton(props.getProperty("selectFile"), event -> onSelectCommandsFile());
+    saveCommandsFile = makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+  }
+
+  private void setupCommandInput(Properties props) {
+    commandInput = new TextField(props.getProperty("commandInputPrompt"));
+    commandInput.setOnAction(event -> onCommandInput());
+    commandInput.setId("Command-Input");
+    hasCommandUpdated = false;
+  }
+
+  private void setupChooseCommandsFile(Properties props) {
+    chooseCommandsFile = new FileChooser();
+    chooseCommandsFile.setTitle(props.getProperty("openFile"));
+    chooseCommandsFile.getExtensionFilters().addAll(
+        new ExtensionFilter(props.getProperty("fileDescription"),
+            props.getProperty("fileExtension")));
+  }
+
   private void onCommandInput() {
     hasCommandUpdated = true;
     prevCommands.getItems().add(commandInput.getText());
@@ -83,8 +103,16 @@ public class CommandDisplay extends DisplayComponent {
     commandInput.setText("");
   }
 
+  private void onSelectCommandsFile() {
+    commandFile = chooseCommandsFile.showOpenDialog(null);
+  }
+
   private void onRunPrevCommand() {
     hasCommandUpdated = true;
     command = prevCommands.getSelectionModel().getSelectedItem();
+  }
+
+  private void onSaveCommandsFile() {
+    saveCommandsAsFile = true;
   }
 }

@@ -1,16 +1,19 @@
 package view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
+import util.PropertiesLoader;
 
 public class LogoDisplay {
 
@@ -18,15 +21,18 @@ public class LogoDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private final List<TurtleDisplay> turtleDisplays;
-  private final CommandDisplay commandDisplay;
-  private final DisplayComponent instructionsDisplay;
-  private final DisplayComponent turtleInfoDisplay;
-  private Group root;
-  private final LogoModel logoModel;
-  private Group turtlesAndLines;
+
+  private List<TurtleDisplay> turtleDisplays;
+  private CommandDisplay commandDisplay;
+  private DisplayComponent instructionsDisplay;
+  private DisplayComponent turtleInfoDisplay;
+  private GridPane root;
+  private LogoModel logoModel;
+  private Pane turtleWindow;
+  private Properties props;
 
   public LogoDisplay() {
+    props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
     turtleDisplays = new ArrayList<>();
     turtleDisplays.add(new TurtleDisplay(1));
     commandDisplay = new CommandDisplay();
@@ -36,34 +42,94 @@ public class LogoDisplay {
   }
 
   public Scene makeScene(int width, int height) {
-    root = new Group();
-    turtlesAndLines = new Group();
-    for (TurtleDisplay turtleDisplay : turtleDisplays) {
-      turtlesAndLines.getChildren().add(turtleDisplay.getDisplayComponentNode());
-    }
-    VBox vBox = new VBox();
-    vBox.getChildren().add(instructionsDisplay.getDisplayComponentNode());
-    vBox.getChildren().add(commandDisplay.getDisplayComponentNode());
-    root.getChildren().add(new HBox(vBox, turtlesAndLines));
+    turtleWindowSetup();
+    rootSetup();
+    setupAnimation();
+    return new Scene(root, width, height);
+  }
 
+  private void rootSetup() {
+    root = new GridPane();
+    root.add(instructionsDisplay.getDisplayComponentNode(), 0, 0, 7, 10);
+    root.add(commandDisplay.getDisplayComponentNode(), 0, 11, 7, 10);
+    root.add(turtleWindow, 9, 1, 20, 10);
+  }
+
+  private void turtleWindowSetup() {
+    Group turtleDisplaysGroup = new Group();
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
+    }
+    turtleWindow = new Pane();
+    turtleWindow.setPrefSize(400, 400);
+    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
+        + "  -fx-border-style: solid;");
+    turtleWindow.getChildren().addAll(turtleDisplaysGroup);
+  }
+
+  private void setupAnimation() {
     // Timeline setup borrowed from example_animation course gitlab repo
     Timeline animation = new Timeline();
     animation.setCycleCount(Timeline.INDEFINITE);
     animation.getKeyFrames()
         .add(new KeyFrame(Duration.seconds(SECOND_DELAY), e -> step(SECOND_DELAY)));
     animation.play();
-
-    return new Scene(root, width, height);
   }
 
   private void step(double elapsedTime) {
     if (commandDisplay.getHasCommandUpdated()) {
-      logoModel.handleTextInput(commandDisplay.getCommand());
-      for (TurtleDisplay turtleDisplay : turtleDisplays) {
-        turtlesAndLines.getChildren()
-            .add(turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId())));
-        turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+      try {
+        logoModel.handleTextInput(commandDisplay.getCommand());
+      } catch (Exception e) {
+        commandDisplay.removeCommandFromHistory();
+        showError();
       }
+      addNewTurtle();
+      updateTurtleWindowAndDisplays();
+    }
+  }
+
+  //Borrowed from lab_browser course gitlab repo
+  private void showError () {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setContentText(props.getProperty("errorMessage"));
+    alert.show();
+  }
+
+
+  private void updateTurtleWindowAndDisplays() {
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      if (isTurtleActive(turtleDisplay)) {
+        updateTurtleWindow(turtleDisplay);
+        updateTurtleDisplay(turtleDisplay);
+      }
+    }
+  }
+
+  private void updateTurtleDisplay(TurtleDisplay turtleDisplay) {
+    turtleDisplay.setAngle(logoModel.getTurtleTrajectory(turtleDisplay.getId()));
+    turtleDisplay.setShowOrHide(logoModel.getTurtleShouldShow(turtleDisplay.getId()));
+  }
+
+  private void updateTurtleWindow(TurtleDisplay turtleDisplay) {
+    turtleWindow.getChildren().add(
+        turtleDisplay.setPosition(logoModel.getTurtlePosition(turtleDisplay.getId()),
+            logoModel.getTurtlePenDown(
+                turtleDisplay.getId())));
+    if (logoModel.getShouldTurtleStamp(turtleDisplay.getId())) {
+      turtleWindow.getChildren().add(turtleDisplay.getStillTurtleImage());
+    }
+  }
+
+  private boolean isTurtleActive(TurtleDisplay turtleDisplay) {
+    return logoModel.isTurtleActive(turtleDisplay.getId());
+  }
+
+  private void addNewTurtle() {
+    if (logoModel.hasNewTurtle()) {
+      TurtleDisplay newTurtleDisplay = new TurtleDisplay(logoModel.getNewTurtle().getID());
+      turtleDisplays.add(newTurtleDisplay);
+      turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
     }
   }
 

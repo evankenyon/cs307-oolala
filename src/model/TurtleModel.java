@@ -1,7 +1,5 @@
 package model;
 
-import java.util.Arrays;
-
 public class TurtleModel {
 
   // Coordinate [x,y] denoting the position of the turtle
@@ -11,7 +9,10 @@ public class TurtleModel {
   // If true, pen is down and drawing; if false, pen is up and not drawing
   private boolean penSetting;
   private int[] myHome;
-  private final int myID;
+
+  private int myID;
+  private boolean shouldStamp;
+  private boolean shouldShow;
 
   /**
    * Create a TurtleModel with the initial where we want the turtle to be initialized on the screen.
@@ -25,14 +26,12 @@ public class TurtleModel {
     penSetting = true;
     myHome = new int[]{0, 0};
     myID = turtleID;
+    shouldStamp = false;
+    shouldShow = true;
   }
 
   public TurtleModel(int turtleID) {
-    myPosition = new int[2];
-    myTrajectory = 0;
-    penSetting = true;
-    myHome = new int[]{0, 0};
-    myID = turtleID;
+    this(turtleID, new int[]{0, 0});
   }
 
   /**
@@ -94,6 +93,26 @@ public class TurtleModel {
 
   public boolean getPen() {
     return penSetting;
+  }
+
+  public boolean getShouldStamp() {
+    if (shouldStamp) {
+      shouldStamp = false;
+      return true;
+    }
+    return false;
+  }
+
+  public void setShouldStampTrue() {
+    shouldStamp = true;
+  }
+
+  public boolean getShouldShow() {
+    return shouldShow;
+  }
+
+  public void setShouldShow(boolean shouldShow) {
+    this.shouldShow = shouldShow;
   }
 
   /**

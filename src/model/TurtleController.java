@@ -1,15 +1,16 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Set;
 
 public class TurtleController {
 
-  private final List<TurtleModel> allTurtles;
-  private final List<TurtleModel> activeTurtles;
+
+  private List<TurtleModel> allTurtles;
+  private List<TurtleModel> activeTurtles;
+  private TurtleModel newTurtle;
+  private boolean hasNewTurtle;
+
 
   public TurtleController() {
     allTurtles = new ArrayList<>();
@@ -17,6 +18,7 @@ public class TurtleController {
     TurtleModel turtleModel = new TurtleModel(1);
     allTurtles.add(turtleModel);
     activeTurtles.add(turtleModel);
+    hasNewTurtle = false;
   }
 
   /**
@@ -26,19 +28,21 @@ public class TurtleController {
    * @param id
    */
   public void addTurtleToActives(int id) {
-    if (checkIfTurtleIDExists(id)) {
-      return;
-    } else {
+    if (!checkIfTurtleIDExists(id)) {
       TurtleModel turtleModel = new TurtleModel(id);
       allTurtles.add(turtleModel);
       activeTurtles.add(turtleModel);
+      newTurtle = turtleModel;
+      hasNewTurtle = true;
     }
   }
 
   private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
       if (turtleModel.getID() == id) {
-        activeTurtles.add(turtleModel);
+        if (!activeTurtles.contains(turtleModel)) {
+          activeTurtles.add(turtleModel);
+        }
         return true;
       }
     }
@@ -53,4 +57,15 @@ public class TurtleController {
     return activeTurtles;
   }
 
+  public boolean hasNewTurtle() {
+    return hasNewTurtle;
+  }
+
+  public TurtleModel getNewTurtle() {
+    hasNewTurtle = false;
+    if (newTurtle == null) {
+      throw new NullPointerException();
+    }
+    return newTurtle;
+  }
 }

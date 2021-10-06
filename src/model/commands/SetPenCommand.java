@@ -3,7 +3,7 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class SetPenCommand extends Command {
+public class SetPenCommand implements Command {
 
   private final boolean penPosition;
 

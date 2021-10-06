@@ -3,7 +3,7 @@ package model.commands;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class SetHomeCommand extends Command {
+public class SetHomeCommand implements Command {
 
   private final int[] home = new int[2];
 

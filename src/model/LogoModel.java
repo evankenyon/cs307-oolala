@@ -75,43 +75,6 @@ public class LogoModel {
     return turtleController.getActiveTurtles();
   }
 
-  /**
-   * Returns the position of a turtle found by its ID This will be used in the step function to
-   * determine if the turtle has moved and a new line needs to be made.
-   *
-   * @param turtleId
-   * @return
-   */
-  public int[] getTurtlePosition(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getPosition();
-  }
-
-  public double getTurtleTrajectory(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getTrajectory();
-  }
-
-  public boolean getTurtlePenDown(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getPen();
-  }
-
-  public boolean getShouldTurtleStamp(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getShouldStamp();
-  }
-
-  public boolean getTurtleShouldShow(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getShouldShow();
-  }
-
   public List<TurtleModel> getNewTurtles() throws NullPointerException {
     return turtleController.getNewTurtles();
   }
@@ -120,7 +83,7 @@ public class LogoModel {
     return turtleController.hasNewTurtle();
   }
 
-  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
+  public TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
       if (turtle.getID() == turtleId) {

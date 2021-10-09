@@ -41,7 +41,6 @@ public class LogoDisplay {
   }
 
   public Scene makeScene(int width, int height) {
-    turtleWindowSetup();
     rootSetup();
     setupAnimation();
     return new Scene(root, width, height);
@@ -58,10 +57,6 @@ public class LogoDisplay {
     root.add(turtleWindowDisplay.getDisplayComponentNode(), turtleWindowGridLayout[0], turtleWindowGridLayout[1],
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
-  }
-
-  private void turtleWindowSetup() {
-
   }
 
   private void setupAnimation() {

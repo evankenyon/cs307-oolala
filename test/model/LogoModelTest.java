@@ -38,47 +38,47 @@ class LogoModelTest {
 
   @Test
   public void getTurtlePenDownCorrect() {
-    assertTrue(logoModel.getTurtlePenDown(1));
+    assertTrue(logoModel.getTurtleModel(1).getPen());
   }
 
   @Test
   public void getTurtlePenDownIncorrect() {
-    assertThrows(NullPointerException.class, () -> logoModel.getTurtlePenDown(2));
+    assertThrows(NullPointerException.class, () -> logoModel.getTurtleModel(2));
   }
 
   @Test
   public void getTurtleShouldShowTrue() {
-    assertTrue(logoModel.getTurtleShouldShow(1));
+    assertTrue(logoModel.getTurtleModel(1).getShouldShow());
   }
 
   @Test
   public void getTurtleShouldShowFalse() {
     logoModel.handleTextInput("ht");
     logoModel.runNextCommand();
-    assertFalse(logoModel.getTurtleShouldShow(1));
+    assertFalse(logoModel.getTurtleModel(1).getShouldShow());
   }
 
   @Test
   public void getShouldTurtleStampFalse() {
-    assertFalse(logoModel.getShouldTurtleStamp(1));
+    assertFalse(logoModel.getTurtleModel(1).getShouldStamp());
   }
 
   @Test
   public void getShouldTurtleStampTrue() {
     logoModel.handleTextInput("stamp");
     logoModel.runNextCommand();
-    assertTrue(logoModel.getShouldTurtleStamp(1));
+    assertTrue(logoModel.getTurtleModel(1).getShouldStamp());
   }
 
   @Test
   public void getTurtlePositionBasic() {
-    assertEquals(0, logoModel.getTurtlePosition(1)[0]);
-    assertEquals(0, logoModel.getTurtlePosition(1)[1]);
+    assertEquals(0, logoModel.getTurtleModel(1).getPosition()[0]);
+    assertEquals(0, logoModel.getTurtleModel(1).getPosition()[1]);
   }
 
   @Test
   public void getTurtleTrajectoryBasic() {
-    assertEquals(0, logoModel.getTurtleTrajectory(1));
+    assertEquals(0, logoModel.getTurtleModel(1).getTrajectory());
   }
 
   @Test

@@ -12,9 +12,17 @@ import java.util.Properties;
 import java.util.Scanner;
 import model.commands.Command;
 import model.commands.GoHomeCommand;
+import model.commands.HideCommand;
+import model.commands.MoveBackwardCommand;
 import model.commands.MoveCommand;
+import model.commands.MoveForwardCommand;
 import model.commands.RotateCommand;
+import model.commands.RotateLeftCommand;
+import model.commands.RotateRightCommand;
 import model.commands.SetPenCommand;
+import model.commands.SetPenDownCommand;
+import model.commands.SetPenUpCommand;
+import model.commands.ShowCommand;
 import model.commands.ShowOrHideCommand;
 import model.commands.StampCommand;
 import model.commands.TellCommand;
@@ -75,16 +83,16 @@ public class CommandModel {
   private Command getCommandFromInput(String function, List<Integer> args)
       throws IndexOutOfBoundsException {
     return switch (function) {
-      case "fd" -> new MoveCommand(args.get(0));
-      case "bk" -> new MoveCommand(-args.get(0));
-      case "lt" -> new RotateCommand(-args.get(0));
-      case "rt" -> new RotateCommand(args.get(0));
-      case "pd" -> new SetPenCommand(true);
-      case "pu" -> new SetPenCommand(false);
-      case "st" -> new ShowOrHideCommand(true);
-      case "ht" -> new ShowOrHideCommand(false);
-      case "home" -> new GoHomeCommand();
-      case "stamp" -> new StampCommand();
+      case "fd" -> new MoveForwardCommand(args);
+      case "bk" -> new MoveBackwardCommand(args);
+      case "lt" -> new RotateLeftCommand(args);
+      case "rt" -> new RotateRightCommand(args);
+      case "pd" -> new SetPenDownCommand(args);
+      case "pu" -> new SetPenUpCommand(args);
+      case "st" -> new ShowCommand(args);
+      case "ht" -> new HideCommand(args);
+      case "home" -> new GoHomeCommand(args);
+      case "stamp" -> new StampCommand(args);
       case "tell" -> new TellCommand(args);
       default -> throw new InputMismatchException();
     };

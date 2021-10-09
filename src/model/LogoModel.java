@@ -3,7 +3,6 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -51,7 +50,7 @@ public class LogoModel {
    * @return
    */
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    commandsToRun.addAll(commandModel.parseInput(input));
+    commandsToRun.addAll(commandModel.getCommandsFromInput(input));
   }
 
   public boolean isTurtleActive(int turtleId) {

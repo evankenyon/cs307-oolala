@@ -1,9 +1,7 @@
 package model;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 import org.junit.jupiter.api.Assertions;
@@ -23,84 +21,79 @@ class CommandModelTest {
 
   @Test
   public void parseInputForwardCorrect() {
-    commandModel.parseInput("fd 50").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("fd 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
   public void parseInputForwardIncorrect() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.parseInput("fd bad"));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.getCommandsFromInput("fd bad"));
   }
 
   @Test
   public void parseInputBackwardCorrect() {
-    commandModel.parseInput("bk 50").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("bk 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
   public void parseInputBackwardIncorrect() {
-    Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.parseInput("bk bad"));
+    Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.getCommandsFromInput("bk bad"));
   }
 
   @Test
   public void parseInputLeftCorrect() {
-    commandModel.parseInput("lt 50").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("lt 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputRightCorrect() {
-    commandModel.parseInput("rt 50").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("rt 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputPenUpCommand() {
-    commandModel.parseInput("pd").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("pd").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputPenDownCommand() {
-    commandModel.parseInput("pu").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("pu").get(0).runCommand(turtleController);
     Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputGoHomeCommand() {
-    commandModel.parseInput("fd 50").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("fd 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
-    commandModel.parseInput("home").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("home").get(0).runCommand(turtleController);
     Assertions.assertEquals(0, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
   public void parseInputNonExistentCommand() {
-    Assertions.assertThrows(InputMismatchException.class, () -> commandModel.parseInput("bad"));
-  }
-
-  @Test
-  public void parseInputPenUpNumArg() {
-    Assertions.assertThrows(InputMismatchException.class, () -> commandModel.parseInput("pu 50"));
+    Assertions.assertThrows(InputMismatchException.class, () -> commandModel.getCommandsFromInput("bad"));
   }
 
   @Test
   public void parseInputStampCommand() {
-    commandModel.parseInput("stamp").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("stamp").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldStamp());
   }
 
   @Test
   public void parseInputHideCommand() {
-    commandModel.parseInput("ht").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("ht").get(0).runCommand(turtleController);
     Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getShouldShow());
   }
 
   @Test
   public void parseInputShowCommand() {
     parseInputHideCommand();
-    commandModel.parseInput("st").get(0).runCommand(turtleController);
+    commandModel.getCommandsFromInput("st").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldShow());
   }
 

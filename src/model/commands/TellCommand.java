@@ -8,7 +8,10 @@ public class TellCommand implements Command {
 
   private final List<Integer> ids;
 
-  public TellCommand(List<Integer> ids) {
+  public TellCommand(List<Integer> ids) throws IllegalArgumentException {
+    if(ids.isEmpty()) {
+      throw new IllegalArgumentException();
+    }
     this.ids = new ArrayList<>(ids);
   }
 

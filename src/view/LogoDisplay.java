@@ -26,7 +26,7 @@ public class LogoDisplay {
   private final List<TurtleDisplay> turtleDisplays;
   private final CommandDisplay commandDisplay;
   private final DisplayComponent instructionsDisplay;
-  private final DisplayComponent turtleInfoDisplay;
+  private final TurtleInfoDisplay turtleInfoDisplay;
   private GridPane root;
   private final LogoModel logoModel;
   private Pane turtleWindow;
@@ -61,6 +61,7 @@ public class LogoDisplay {
             commandDispGridLayout[2], commandDispGridLayout[3]);
     root.add(turtleWindow, turtleWindowGridLayout[0], turtleWindowGridLayout[1], turtleWindowGridLayout[2],
             turtleWindowGridLayout[3]);
+    root.add(turtleInfoDisplay.getDisplayComponentNode(), 9, 11, 7, 10);
   }
 
   private void turtleWindowSetup() {
@@ -88,6 +89,9 @@ public class LogoDisplay {
     handleCommandInputted();
     handleFileInputted();
     handleFileSave();
+    for(TurtleDisplay t: turtleDisplays){
+      t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
+    }
   }
 
   private void handleFileSave() {

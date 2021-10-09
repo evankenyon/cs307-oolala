@@ -25,6 +25,7 @@ public class CommandModel {
   private Scanner scanner;
   private int numProgramsSaved;
   private final List<String> prevCommands;
+  private LSystemsModel lsystemsModel;
   private Properties props;
 
   public CommandModel() {
@@ -32,6 +33,7 @@ public class CommandModel {
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
+    lsystemsModel = new LSystemsModel();
     props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
   }
 
@@ -41,6 +43,23 @@ public class CommandModel {
     }
     scanner = new Scanner(input);
     while (scanner.hasNext()) {
+<<<<<<< src/model/CommandModel.java
+      switch (scanner.next().toLowerCase()) {
+        case "fd" -> parsedCommand = handleMovementCommand(1);
+        case "bk" -> parsedCommand = handleMovementCommand(-1);
+        case "lt" -> parsedCommand = handleAngleCommand(-1);
+        case "rt" -> parsedCommand = handleAngleCommand(1);
+        case "pd" -> parsedCommand = handlePenCommand(true);
+        case "pu" -> parsedCommand = handlePenCommand(false);
+        case "st" -> parsedCommand = handleShowOrHideCommand(true);
+        case "ht" -> parsedCommand = handleShowOrHideCommand(false);
+        case "home" -> parsedCommand = handleGoHomeCommand();
+        case "stamp" -> parsedCommand = handleStampCommand();
+        case "tell" -> parsedCommand = handleTellCommand();
+        case "start" -> lsystemsModel.setStartingRule(parseString());
+        case "rule" -> lsystemsModel.createRule(parseString() + parseString());
+        default -> throw new InputMismatchException();
+      }
       return getCommandFromInput();
     }
     return null;
@@ -143,4 +162,20 @@ public class CommandModel {
     return numInput;
   }
 
+  private String parseString() {
+    if (!scanner.hasNext()) {
+      throw new InputMismatchException();
+    }
+    return parseRuleString();
+  }
+
+  private String parseRuleString() throws IllegalArgumentException {
+    String inputRule;
+    try{
+      inputRule = scanner.next().toLowerCase();
+    } catch (IllegalArgumentException e){
+      throw new IllegalArgumentException();
+    }
+    return inputRule;
+  }
 }

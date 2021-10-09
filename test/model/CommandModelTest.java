@@ -104,6 +104,20 @@ class CommandModelTest {
 
   @Test
   public void saveCommandsAsFileCorrect() throws IOException {
+    commandModel.getCommandsFromInput("fd 50 rt 50");
+    commandModel.saveCommandsAsFile();
+    Scanner scanner = new Scanner(new File("./data/programs/program1.txt"));
+    scanner.useDelimiter("\n");
+    Assertions.assertEquals("#Saved program number 1", scanner.next());
+    Assertions.assertEquals("fd 50", scanner.next());
+    Assertions.assertEquals( "rt 50", scanner.next());
+  }
+
+  @Test
+  public void saveCommandsAsFileIncorrect() throws IOException {
+    Assertions.assertThrows(IllegalArgumentException.class, () -> commandModel.getCommandsFromInput("fd"));
+    commandModel.getCommandsFromInput("fd 50");
+    commandModel.getCommandsFromInput("rt 50");
     commandModel.saveCommandsAsFile();
     Scanner scanner = new Scanner(new File("./data/programs/program1.txt"));
     scanner.useDelimiter("\n");
@@ -116,5 +130,4 @@ class CommandModelTest {
   public void handleFileSelectedBadCommands() {
     Assertions.assertThrows(InputMismatchException.class, () -> commandModel.handleFileSelected(new File("./data/examples/logo/bad.txt")));
   }
-
 }

@@ -14,16 +14,12 @@ import model.commands.Command;
 import model.commands.GoHomeCommand;
 import model.commands.HideCommand;
 import model.commands.MoveBackwardCommand;
-import model.commands.MoveCommand;
 import model.commands.MoveForwardCommand;
-import model.commands.RotateCommand;
 import model.commands.RotateLeftCommand;
 import model.commands.RotateRightCommand;
-import model.commands.SetPenCommand;
 import model.commands.SetPenDownCommand;
 import model.commands.SetPenUpCommand;
 import model.commands.ShowCommand;
-import model.commands.ShowOrHideCommand;
 import model.commands.StampCommand;
 import model.commands.TellCommand;
 import util.PropertiesLoader;
@@ -38,13 +34,11 @@ public class CommandModel {
   public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
-    prevCommands.add("fd 50");
-    prevCommands.add("rt 50");
     props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
   }
 
   public List<Command> getCommandsFromInput(String input)
-      throws InputMismatchException, NumberFormatException {
+      throws InputMismatchException, IllegalArgumentException {
     scanner = new Scanner(input);
     List<List<Integer>> args = new ArrayList<>();
     List<String> functions = new ArrayList<>();
@@ -73,11 +67,22 @@ public class CommandModel {
     for (int index = 0; index < functions.size(); index++) {
       try {
         commands.add(getCommandFromInput(functions.get(index), args.get(index)));
+        prevCommands.add(commandStringConstruction(functions.get(index), args.get(index)));
       } catch (IndexOutOfBoundsException e) {
         throw new IllegalArgumentException();
       }
     }
     return commands;
+  }
+
+  private String commandStringConstruction(String function, List<Integer> args) {
+    StringBuilder commandString = new StringBuilder();
+    commandString.append(function);
+    for (Integer arg : args) {
+      commandString.append(" ");
+      commandString.append(arg);
+    }
+    return commandString.toString();
   }
 
   private Command getCommandFromInput(String function, List<Integer> args)
@@ -107,7 +112,11 @@ public class CommandModel {
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      commands.addAll(getCommandsFromInput(fileScanner.next()));
+      String next = fileScanner.next();
+      if (next.startsWith("#") || next.equals(" ")) {
+        continue;
+      }
+      commands.addAll(getCommandsFromInput(next));
     }
     return commands;
   }
@@ -123,5 +132,9 @@ public class CommandModel {
       currProgram.println(command);
     }
     currProgram.close();
+  }
+
+  public List<String> getCommandHistory() {
+    return prevCommands;
   }
 }

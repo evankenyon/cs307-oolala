@@ -42,6 +42,10 @@ public class LogoModel {
     }
   }
 
+  public List<String> getCommandHistory() {
+    return commandModel.getCommandHistory();
+  }
+
   /**
    * When the user inputs a string of texts, have the command model parse the text and run the
    * appropriate command.

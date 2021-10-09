@@ -113,7 +113,6 @@ public class LogoDisplay {
       try {
         logoModel.handleTextInput(commandDisplay.getCommand());
       } catch (Exception e) {
-        commandDisplay.removeCommandFromHistory();
         showError();
       }
     }
@@ -131,6 +130,7 @@ public class LogoDisplay {
   }
 
   private void handleRunNextCommand() {
+    commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
     addNewTurtles();
     updateTurtleWindowAndDisplays();

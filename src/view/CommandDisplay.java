@@ -1,7 +1,9 @@
 package view;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
@@ -52,8 +54,10 @@ public class CommandDisplay extends DisplayComponent {
     return command;
   }
 
-  public void removeCommandFromHistory() {
-    prevCommands.getItems().remove(prevCommands.getItems().size() - 1);
+  public void updateCommandHistory(List<String> commands) {
+    // Borrowed usage of FXCollections from
+    // https://stackoverflow.com/questions/41920217/what-is-the-difference-between-arraylist-and-observablelist
+    prevCommands.setItems(FXCollections.observableList(commands));
   }
 
   public boolean getHasCommandUpdated() {
@@ -112,7 +116,6 @@ public class CommandDisplay extends DisplayComponent {
 
   private void onCommandInput() {
     hasCommandUpdated = true;
-    prevCommands.getItems().add(commandInput.getText());
     command = commandInput.getText();
     commandInput.setText("");
   }

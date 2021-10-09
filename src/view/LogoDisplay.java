@@ -31,6 +31,10 @@ public class LogoDisplay {
   private final LogoModel logoModel;
   private Pane turtleWindow;
   private final Properties props;
+  private final int[] instructDispGridLayout = new int[]{0,0,7,10};
+  private final int[] commandDispGridLayout = new int[]{0,11,7,10};
+  private final int[] turtleWindowGridLayout = new int[]{9,1,20,10};
+  private final int PREF_WINDOW_SIZE = 400;
 
   public LogoDisplay() {
     props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
@@ -51,9 +55,12 @@ public class LogoDisplay {
 
   private void rootSetup() {
     root = new GridPane();
-    root.add(instructionsDisplay.getDisplayComponentNode(), 0, 0, 7, 10);
-    root.add(commandDisplay.getDisplayComponentNode(), 0, 11, 7, 10);
-    root.add(turtleWindow, 9, 1, 20, 10);
+    root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0], instructDispGridLayout[1],
+            instructDispGridLayout[2], instructDispGridLayout[3]);
+    root.add(commandDisplay.getDisplayComponentNode(), commandDispGridLayout[0], commandDispGridLayout[1],
+            commandDispGridLayout[2], commandDispGridLayout[3]);
+    root.add(turtleWindow, turtleWindowGridLayout[0], turtleWindowGridLayout[1], turtleWindowGridLayout[2],
+            turtleWindowGridLayout[3]);
     root.add(turtleInfoDisplay.getDisplayComponentNode(), 9, 11, 7, 10);
   }
 
@@ -63,7 +70,7 @@ public class LogoDisplay {
       turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
     }
     turtleWindow = new Pane();
-    turtleWindow.setPrefSize(400, 400);
+    turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
     turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
         + "  -fx-border-style: solid;");
     turtleWindow.getChildren().addAll(turtleDisplaysGroup);

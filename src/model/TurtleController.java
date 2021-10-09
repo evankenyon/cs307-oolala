@@ -41,13 +41,17 @@ public class TurtleController {
   private boolean checkIfTurtleIDExists(int id) {
     for (TurtleModel turtleModel : allTurtles) {
       if (turtleModel.getID() == id) {
-        if (!activeTurtles.contains(turtleModel)) {
-          activeTurtles.add(turtleModel);
-        }
+        checkNotInActiveTurtles(turtleModel);
         return true;
       }
     }
     return false;
+  }
+
+  private void checkNotInActiveTurtles(TurtleModel turtleModel) {
+    if (!activeTurtles.contains(turtleModel)) {
+      activeTurtles.add(turtleModel);
+    }
   }
 
   public void resetActiveTurtles() {

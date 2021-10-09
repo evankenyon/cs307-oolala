@@ -4,11 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.UnsupportedEncodingException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 import model.commands.Command;
 import model.commands.GoHomeCommand;
@@ -18,6 +18,7 @@ import model.commands.SetPenCommand;
 import model.commands.ShowOrHideCommand;
 import model.commands.StampCommand;
 import model.commands.TellCommand;
+import util.PropertiesLoader;
 
 public class CommandModel {
 
@@ -25,6 +26,7 @@ public class CommandModel {
   private int numProgramsSaved;
   private final List<String> prevCommands;
   private LSystemsModel lsystemsModel;
+  private Properties props;
 
   public CommandModel() {
     numProgramsSaved = 0;
@@ -32,15 +34,16 @@ public class CommandModel {
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
     lsystemsModel = new LSystemsModel();
+    props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
   }
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
     if (input.startsWith("#") || input.equals("")) {
       return null;
     }
-    Command parsedCommand = null;
     scanner = new Scanner(input);
     while (scanner.hasNext()) {
+<<<<<<< src/model/CommandModel.java
       switch (scanner.next().toLowerCase()) {
         case "fd" -> parsedCommand = handleMovementCommand(1);
         case "bk" -> parsedCommand = handleMovementCommand(-1);
@@ -57,8 +60,26 @@ public class CommandModel {
         case "rule" -> lsystemsModel.createRule(parseString() + parseString());
         default -> throw new InputMismatchException();
       }
+      return getCommandFromInput();
     }
-    return parsedCommand;
+    return null;
+  }
+
+  private Command getCommandFromInput() {
+    return switch (scanner.next().toLowerCase()) {
+      case "fd" -> handleMovementCommand(1);
+      case "bk" -> handleMovementCommand(-1);
+      case "lt" -> handleAngleCommand(-1);
+      case "rt" -> handleAngleCommand(1);
+      case "pd" -> handlePenCommand(true);
+      case "pu" -> handlePenCommand(false);
+      case "st" -> handleShowOrHideCommand(true);
+      case "ht" -> handleShowOrHideCommand(false);
+      case "home" -> handleGoHomeCommand();
+      case "stamp" -> handleStampCommand();
+      case "tell" -> handleTellCommand();
+      default -> throw new InputMismatchException();
+    };
   }
 
   public List<Command> handleFileSelected(File commandFile)

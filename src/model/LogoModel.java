@@ -26,7 +26,6 @@ public class LogoModel {
    * When the user inputs a file, use CommandModel's handleFile to return a list of commands
    *
    * @param file
-   * @return
    */
   public void handleFileInput(File file) {
     try {
@@ -48,7 +47,6 @@ public class LogoModel {
    * appropriate command.
    *
    * @param input
-   * @return
    */
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
     Command command = commandModel.parseInput(input);

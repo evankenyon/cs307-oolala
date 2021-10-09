@@ -11,6 +11,7 @@ public class LSystemsModel {
     private int rotationAngle;
     private boolean stampBranchImage;
     private int[] location;
+    private LSystemCommandRunner lsystemCommandRunner;
 
     public LSystemsModel(){
         this("");
@@ -58,23 +59,24 @@ public class LSystemsModel {
     public void run(TurtleController turtleController){
         turtleController.resetActiveTurtles();
         turtleController.addTurtleToActives(1);
-        moveTurtleRecursively(numLevels, startingRule , turtleController);
+        lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
+                stampBranchImage, location);
+        lsystemCommand.goToStartLocation();
+        moveTurtleRecursively(numLevels, startingRule);
     }
 
-    public void moveTurtleRecursively(int levelnum, String ruleId, TurtleController turtleController){
+    public void moveTurtleRecursively(int levelnum, String ruleId){
         if(levelnum < 0){
-            runCommand(ruleId);
+            lsystemCommandRunner.runLsysCommand(ruleId);
             return;
         }
         String[] rule = findRule(ruleId);
         for(String ruleChar: rule){
-            if(ruleChar.equals("+")){
-                runCommand(ruleChar);
-            } else if(ruleChar.equals("-")){
-                runCommand(ruleChar);
+            if(ruleChar.equals("+") || ruleChar.equals("-")){
+                lsystemCommandRunner.runLsysCommand(ruleChar);
             } else {
                 try{
-                    moveTurtleRecursively(levelnum - 1, ruleChar, turtleController);
+                    moveTurtleRecursively(levelnum - 1, ruleChar);
                 } catch(IllegalArgumentException e){
                     throw new IllegalArgumentException("Rule isn't Defined");
                 }
@@ -85,13 +87,13 @@ public class LSystemsModel {
     public String[] findRule(String ruleId){
         try{
             for(LSystemRules rule :ruleBook){
-                if(rule.getId().equals(ruleId){
+                if(rule.getId().equals(ruleId)){
                     return rule.getRule();
                 }
             }
-        } catch (IllegalCallerException){
+        } catch (IllegalCallerException e){
             throw new IllegalArgumentException("Rule Doesn't Exist");
         }
+        throw new NullPointerException();
     }
-
 }

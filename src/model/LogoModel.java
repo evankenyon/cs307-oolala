@@ -3,6 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -68,6 +69,10 @@ public class LogoModel {
 
   public void saveCommandsAsFile() throws IOException {
     commandModel.saveCommandsAsFile();
+  }
+
+  public List<TurtleModel> getActiveTurtles() {
+    return turtleController.getActiveTurtles();
   }
 
   /**

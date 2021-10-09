@@ -29,7 +29,9 @@ class LogoModelTest {
     assertEquals(id, 1);
     int xposition = 50;
     int yposition = 50;
-
+    logoModel.runNextCommand();
+    logoModel.runNextCommand();
+    logoModel.runNextCommand();
     assertEquals(xposition, turtle.getPosition()[0]);
     assertEquals(yposition, turtle.getPosition()[1]);
   }
@@ -52,6 +54,7 @@ class LogoModelTest {
   @Test
   public void getTurtleShouldShowFalse() {
     logoModel.handleTextInput("ht");
+    logoModel.runNextCommand();
     assertFalse(logoModel.getTurtleShouldShow(1));
   }
 
@@ -63,6 +66,7 @@ class LogoModelTest {
   @Test
   public void getShouldTurtleStampTrue() {
     logoModel.handleTextInput("stamp");
+    logoModel.runNextCommand();
     assertTrue(logoModel.getShouldTurtleStamp(1));
   }
 
@@ -85,18 +89,21 @@ class LogoModelTest {
   @Test
   public void isTurtleActiveFalse() {
     logoModel.handleTextInput("tell 2");
+    logoModel.runNextCommand();
     assertFalse(logoModel.isTurtleActive(1));
   }
 
   @Test
   public void getNewTurtle() {
     logoModel.handleTextInput("tell 2");
+    logoModel.runNextCommand();
     assertEquals(2, logoModel.getNewTurtles().get(0).getID());
   }
 
   @Test
   public void hasNewTurtleTrue() {
     logoModel.handleTextInput("tell 2");
+    logoModel.runNextCommand();
     assertTrue(logoModel.hasNewTurtles());
   }
 

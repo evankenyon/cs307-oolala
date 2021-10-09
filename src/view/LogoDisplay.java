@@ -31,14 +31,17 @@ public class LogoDisplay {
   private final LogoModel logoModel;
   private Pane turtleWindow;
   private final Properties props;
-  private final int[] instructDispGridLayout = new int[]{0,0,7,10};
-  private final int[] commandDispGridLayout = new int[]{0,11,7,10};
-  private final int[] turtleWindowGridLayout = new int[]{9,1,20,10};
+  // Could store this data in file
+  // Or a String to int map
+  private final int[] instructDispGridLayout = new int[]{0, 0, 7, 10};
+  private final int[] commandDispGridLayout = new int[]{0, 11, 7, 10};
+  private final int[] turtleWindowGridLayout = new int[]{9, 1, 20, 10};
   private final int PREF_WINDOW_SIZE = 400;
 
   public LogoDisplay() {
     props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
     turtleDisplays = new ArrayList<>();
+    // Have default constructor that just sets id to 1
     turtleDisplays.add(new TurtleDisplay(1));
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
@@ -55,12 +58,15 @@ public class LogoDisplay {
 
   private void rootSetup() {
     root = new GridPane();
-    root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0], instructDispGridLayout[1],
-            instructDispGridLayout[2], instructDispGridLayout[3]);
-    root.add(commandDisplay.getDisplayComponentNode(), commandDispGridLayout[0], commandDispGridLayout[1],
-            commandDispGridLayout[2], commandDispGridLayout[3]);
-    root.add(turtleWindow, turtleWindowGridLayout[0], turtleWindowGridLayout[1], turtleWindowGridLayout[2],
-            turtleWindowGridLayout[3]);
+    root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
+        instructDispGridLayout[1],
+        instructDispGridLayout[2], instructDispGridLayout[3]);
+    root.add(commandDisplay.getDisplayComponentNode(), commandDispGridLayout[0],
+        commandDispGridLayout[1],
+        commandDispGridLayout[2], commandDispGridLayout[3]);
+    root.add(turtleWindow, turtleWindowGridLayout[0], turtleWindowGridLayout[1],
+        turtleWindowGridLayout[2],
+        turtleWindowGridLayout[3]);
   }
 
   private void turtleWindowSetup() {
@@ -87,15 +93,27 @@ public class LogoDisplay {
   private void step(double elapsedTime) {
     handleCommandInputted();
     handleFileInputted();
+    handleRunNextCommand();
     handleFileSave();
   }
 
   private void handleFileSave() {
-    if(commandDisplay.shouldSaveAsFile()) {
+    if (commandDisplay.shouldSaveAsFile()) {
       try {
         logoModel.saveCommandsAsFile();
-      } catch(Exception e) {
+      } catch (Exception e) {
         // TODO: fix
+        showError();
+      }
+    }
+  }
+
+  private void handleCommandInputted() {
+    if (commandDisplay.getHasCommandUpdated()) {
+      try {
+        logoModel.handleTextInput(commandDisplay.getCommand());
+      } catch (Exception e) {
+        commandDisplay.removeCommandFromHistory();
         showError();
       }
     }
@@ -110,31 +128,23 @@ public class LogoDisplay {
         showError();
       }
     }
-    logoModel.runFileCommand();
-    addNewTurtle();
+  }
+
+  private void handleRunNextCommand() {
+    logoModel.runNextCommand();
+    addNewTurtles();
     updateTurtleWindowAndDisplays();
   }
 
-  private void handleCommandInputted() {
-    if (commandDisplay.getHasCommandUpdated()) {
-      try {
-        logoModel.handleTextInput(commandDisplay.getCommand());
-      } catch (Exception e) {
-        commandDisplay.removeCommandFromHistory();
-        showError();
+  private void addNewTurtles() {
+    if (logoModel.hasNewTurtles()) {
+      for (TurtleModel turtleModel : logoModel.getNewTurtles()) {
+        TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID());
+        turtleDisplays.add(newTurtleDisplay);
+        turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
       }
-      addNewTurtle();
-      updateTurtleWindowAndDisplays();
     }
   }
-
-  //Borrowed from lab_browser course gitlab repo
-  private void showError() {
-    Alert alert = new Alert(AlertType.ERROR);
-    alert.setContentText(props.getProperty("errorMessage"));
-    alert.show();
-  }
-
 
   private void updateTurtleWindowAndDisplays() {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
@@ -164,14 +174,10 @@ public class LogoDisplay {
     return logoModel.isTurtleActive(turtleDisplay.getId());
   }
 
-  private void addNewTurtle() {
-    if (logoModel.hasNewTurtles()) {
-      for (TurtleModel turtleModel : logoModel.getNewTurtles()) {
-        TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID());
-        turtleDisplays.add(newTurtleDisplay);
-        turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
-      }
-    }
+  //Borrowed from lab_browser course gitlab repo
+  private void showError() {
+    Alert alert = new Alert(AlertType.ERROR);
+    alert.setContentText(props.getProperty("errorMessage"));
+    alert.show();
   }
-
 }

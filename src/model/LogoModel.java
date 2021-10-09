@@ -12,14 +12,14 @@ import model.commands.Command;
 
 public class LogoModel {
 
-  private Queue<Command> fileCommands;
+  private Queue<Command> commandsToRun;
   private final TurtleController turtleController;
   private final CommandModel commandModel;
 
   public LogoModel() {
     turtleController = new TurtleController();
     commandModel = new CommandModel();
-    fileCommands = new LinkedList<>();
+    commandsToRun = new LinkedList<>();
   }
 
   /**
@@ -30,16 +30,16 @@ public class LogoModel {
    */
   public void handleFileInput(File file) {
     try {
-      fileCommands.addAll(commandModel.handleFileSelected(file));
+      commandsToRun.addAll(commandModel.handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
       // TODO: fix
       e.printStackTrace();
     }
   }
 
-  public void runFileCommand() {
-    if(!fileCommands.isEmpty()) {
-      fileCommands.remove().runCommand(turtleController);
+  public void runNextCommand() {
+    if(!commandsToRun.isEmpty()) {
+      commandsToRun.remove().runCommand(turtleController);
     }
   }
 
@@ -51,8 +51,7 @@ public class LogoModel {
    * @return
    */
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    Command command = commandModel.parseInput(input);
-    command.runCommand(turtleController);
+    commandsToRun.addAll(commandModel.parseInput(input));
   }
 
   public boolean isTurtleActive(int turtleId) {

@@ -23,7 +23,7 @@ class CommandModelTest {
 
   @Test
   public void parseInputForwardCorrect() {
-    commandModel.parseInput("fd 50").runCommand(turtleController);
+    commandModel.parseInput("fd 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
@@ -34,7 +34,7 @@ class CommandModelTest {
 
   @Test
   public void parseInputBackwardCorrect() {
-    commandModel.parseInput("bk 50").runCommand(turtleController);
+    commandModel.parseInput("bk 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
@@ -45,33 +45,33 @@ class CommandModelTest {
 
   @Test
   public void parseInputLeftCorrect() {
-    commandModel.parseInput("lt 50").runCommand(turtleController);
+    commandModel.parseInput("lt 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputRightCorrect() {
-    commandModel.parseInput("rt 50").runCommand(turtleController);
+    commandModel.parseInput("rt 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getTrajectory());
   }
 
   @Test
   public void parseInputPenUpCommand() {
-    commandModel.parseInput("pd").runCommand(turtleController);
+    commandModel.parseInput("pd").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputPenDownCommand() {
-    commandModel.parseInput("pu").runCommand(turtleController);
+    commandModel.parseInput("pu").get(0).runCommand(turtleController);
     Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getPen());
   }
 
   @Test
   public void parseInputGoHomeCommand() {
-    commandModel.parseInput("fd 50").runCommand(turtleController);
+    commandModel.parseInput("fd 50").get(0).runCommand(turtleController);
     Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
-    commandModel.parseInput("home").runCommand(turtleController);
+    commandModel.parseInput("home").get(0).runCommand(turtleController);
     Assertions.assertEquals(0, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
@@ -87,20 +87,20 @@ class CommandModelTest {
 
   @Test
   public void parseInputStampCommand() {
-    commandModel.parseInput("stamp").runCommand(turtleController);
+    commandModel.parseInput("stamp").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldStamp());
   }
 
   @Test
   public void parseInputHideCommand() {
-    commandModel.parseInput("ht").runCommand(turtleController);
+    commandModel.parseInput("ht").get(0).runCommand(turtleController);
     Assertions.assertFalse(turtleController.getActiveTurtles().get(0).getShouldShow());
   }
 
   @Test
   public void parseInputShowCommand() {
     parseInputHideCommand();
-    commandModel.parseInput("st").runCommand(turtleController);
+    commandModel.parseInput("st").get(0).runCommand(turtleController);
     Assertions.assertTrue(turtleController.getActiveTurtles().get(0).getShouldShow());
   }
 

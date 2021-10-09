@@ -35,15 +35,13 @@ public class CommandModel {
     props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
   }
 
-  public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
-    if (input.startsWith("#") || input.equals("")) {
-      return null;
-    }
+  public List<Command> parseInput(String input) throws InputMismatchException, NumberFormatException {
+    List<Command> commands = new ArrayList<>();
     scanner = new Scanner(input);
     while (scanner.hasNext()) {
-      return getCommandFromInput();
+      commands.add(getCommandFromInput());
     }
-    return null;
+    return commands;
   }
 
   private Command getCommandFromInput() {
@@ -72,10 +70,7 @@ public class CommandModel {
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      Command newCommand = parseInput(fileScanner.next());
-      if (newCommand != null) {
-        commands.add(newCommand);
-      }
+      commands.addAll(parseInput(fileScanner.next()));
     }
     return commands;
   }
@@ -114,6 +109,7 @@ public class CommandModel {
   }
 
   private Command handleTellCommand() {
+    // figure out how to put this in tell command
     List<Integer> currTurtleIds = new ArrayList<>();
     currTurtleIds.add(parseFirstNumArg());
     while (scanner.hasNext()) {

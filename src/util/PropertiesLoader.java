@@ -7,6 +7,9 @@ import java.util.Properties;
 
 public class PropertiesLoader {
 
+  private PropertiesLoader() {
+  }
+
   public static Properties loadProperties(String path) {
     Properties props = new Properties();
     try (InputStream input = new FileInputStream(path)) {

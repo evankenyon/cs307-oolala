@@ -12,6 +12,10 @@ public class LSystemsModel {
     private boolean stampBranchImage;
     private int[] location;
 
+    public LSystemsModel(){
+        this("");
+    }
+
     public LSystemsModel(String beginningRule){
         startingRule = beginningRule.toLowerCase();
         ruleBook = new ArrayList<>();
@@ -42,7 +46,11 @@ public class LSystemsModel {
         this.stampBranchImage = stampBranchImage;
     }
 
-    public void create(String rulePassedIn){
+    public void setStartingRule(String startingRule) {
+        this.startingRule = startingRule;
+    }
+
+    public void createRule(String rulePassedIn){
         LSystemRules newRule = new LSystemRules(rulePassedIn);
         ruleBook.add(newRule);
     }
@@ -55,19 +63,20 @@ public class LSystemsModel {
 
     public void moveTurtleRecursively(int levelnum, String ruleId, TurtleController turtleController){
         if(levelnum < 0){
+            runCommand(ruleId);
             return;
         }
         String[] rule = findRule(ruleId);
         for(String ruleChar: rule){
             if(ruleChar.equals("+")){
-
+                runCommand(ruleChar);
             } else if(ruleChar.equals("-")){
-
+                runCommand(ruleChar);
             } else {
                 try{
-
-                } catch{
-
+                    moveTurtleRecursively(levelnum - 1, ruleChar, turtleController);
+                } catch(IllegalArgumentException e){
+                    throw new IllegalArgumentException("Rule isn't Defined");
                 }
             }
         }

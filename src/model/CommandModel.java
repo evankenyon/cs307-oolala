@@ -24,12 +24,14 @@ public class CommandModel {
   private Scanner scanner;
   private int numProgramsSaved;
   private final List<String> prevCommands;
+  private LSystemsModel lsystemsModel;
 
   public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
+    lsystemsModel = new LSystemsModel();
   }
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
@@ -51,6 +53,8 @@ public class CommandModel {
         case "home" -> parsedCommand = handleGoHomeCommand();
         case "stamp" -> parsedCommand = handleStampCommand();
         case "tell" -> parsedCommand = handleTellCommand();
+        case "start" -> lsystemsModel.setStartingRule(parseString());
+        case "rule" -> lsystemsModel.createRule(parseString() + parseString());
         default -> throw new InputMismatchException();
       }
     }
@@ -137,4 +141,20 @@ public class CommandModel {
     return numInput;
   }
 
+  private String parseString() {
+    if (!scanner.hasNext()) {
+      throw new InputMismatchException();
+    }
+    return parseRuleString();
+  }
+
+  private String parseRuleString() throws IllegalArgumentException {
+    String inputRule;
+    try{
+      inputRule = scanner.next().toLowerCase();
+    } catch (IllegalArgumentException e){
+      throw new IllegalArgumentException();
+    }
+    return inputRule;
+  }
 }

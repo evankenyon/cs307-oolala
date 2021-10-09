@@ -38,6 +38,5 @@ public class InstructionsDisplay extends DisplayComponent {
     VBox instructionsNode = new VBox();
     instructionsNode.getChildren().addAll(instructions);
     return instructionsNode;
-
   }
 }

@@ -11,7 +11,7 @@ class TurtleDisplayTest {
 
     @BeforeEach
     public void setUp(){
-        testTurtleDisplay = new TurtleDisplay(1);
+        testTurtleDisplay = new TurtleDisplay(1, new int[]{0, 0});
     }
 
     @Test

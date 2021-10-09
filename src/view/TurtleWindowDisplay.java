@@ -8,21 +8,24 @@ import javafx.scene.layout.Pane;
 import model.TurtleModel;
 
 public class TurtleWindowDisplay extends DisplayComponent {
-  private final int PREF_WINDOW_SIZE = 400;
+  public static final int PREF_WINDOW_SIZE = 400;
 
   private Pane turtleWindow;
   private final List<TurtleDisplay> turtleDisplays;
+  private int[] defaultHome;
 
   public TurtleWindowDisplay() {
     turtleDisplays = new ArrayList<>();
     // Have default constructor that just sets id to 1
-    turtleDisplays.add(new TurtleDisplay(1));
+    turtleWindow = new Pane();
+    turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
+    defaultHome = new int[]{PREF_WINDOW_SIZE / 2, PREF_WINDOW_SIZE / 2};
+    turtleDisplays.add(new TurtleDisplay(1, defaultHome));
     Group turtleDisplaysGroup = new Group();
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
       turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
     }
-    turtleWindow = new Pane();
-    turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
+
     turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
         + "  -fx-border-style: solid;");
     turtleWindow.getChildren().addAll(turtleDisplaysGroup);
@@ -40,7 +43,7 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   public void addNewTurtles(List<TurtleModel> newTurtles) {
     for (TurtleModel turtleModel : newTurtles) {
-      TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID());
+      TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID(), defaultHome);
       turtleDisplays.add(newTurtleDisplay);
       turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
     }

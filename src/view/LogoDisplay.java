@@ -17,13 +17,14 @@ public class LogoDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private final CommandDisplay commandDisplay;
-  private final DisplayComponent instructionsDisplay;
-  private final DisplayComponent turtleInfoDisplay;
-  private final TurtleWindowDisplay turtleWindowDisplay;
+  private CommandDisplay commandDisplay;
+  private ClearDisplay clearDisplay;
+  private DisplayComponent instructionsDisplay;
+  private DisplayComponent turtleInfoDisplay;
+  private TurtleWindowDisplay turtleWindowDisplay;
   private GridPane root;
-  private final LogoModel logoModel;
-  private final Properties props;
+  private LogoModel logoModel;
+  private Properties props;
   // Could store this data in file
   // Or a String to int map
   private final int[] instructDispGridLayout = new int[]{0, 0, 7, 10};
@@ -32,22 +33,28 @@ public class LogoDisplay {
 
 
   public LogoDisplay() {
+    root = new GridPane();
+    setupLogoDisplay();
+  }
+
+  private void setupLogoDisplay() {
     props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();
     logoModel = new LogoModel();
     turtleWindowDisplay = new TurtleWindowDisplay();
+    clearDisplay = new ClearDisplay();
+    rootSetup();
   }
 
   public Scene makeScene(int width, int height) {
-    rootSetup();
     setupAnimation();
     return new Scene(root, width, height);
   }
 
   private void rootSetup() {
-    root = new GridPane();
+//    root = new GridPane();
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],
         instructDispGridLayout[2], instructDispGridLayout[3]);
@@ -57,6 +64,7 @@ public class LogoDisplay {
     root.add(turtleWindowDisplay.getDisplayComponentNode(), turtleWindowGridLayout[0], turtleWindowGridLayout[1],
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
+    root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
   }
 
   private void setupAnimation() {
@@ -69,10 +77,17 @@ public class LogoDisplay {
   }
 
   private void step(double elapsedTime) {
+    handleReset();
     handleCommandInputted();
     handleFileInputted();
     handleRunNextCommand();
     handleFileSave();
+  }
+
+  private void handleReset() {
+    if(clearDisplay.getShouldReset()) {
+      setupLogoDisplay();
+    }
   }
 
   private void handleCommandInputted() {

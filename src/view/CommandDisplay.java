@@ -36,7 +36,6 @@ public class CommandDisplay extends DisplayComponent {
     setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);
-    saveCommandsAsFile = false;
     isFileUploaded = false;
     saveCommandsAsFile = false;
   }

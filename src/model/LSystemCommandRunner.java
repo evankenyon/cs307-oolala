@@ -1,9 +1,6 @@
 package model;
 
-import model.commands.MoveCommand;
-import model.commands.RotateCommand;
-import model.commands.SetPenCommand;
-import model.commands.StampCommand;
+import model.commands.*;
 
 public class LSystemCommandRunner {
     private TurtleController turtleController;
@@ -32,7 +29,6 @@ public class LSystemCommandRunner {
             case "x" -> stamp();
         }
     }
-
     private void move(boolean penPosition, int direction){
         new SetPenCommand(penPosition).runCommand(turtleController);
         new MoveCommand(direction * movementLength).runCommand(turtleController);
@@ -44,6 +40,11 @@ public class LSystemCommandRunner {
 
     private void stamp(){
         new StampCommand().runCommand(turtleController);
+    }
+
+    public void goToStartLocation(){
+        new SetHomeCommand(location).runCommand(turtleController);
+        new GoHomeCommand().runCommand(turtleController);
     }
 
     public void setStartLocation(int[] inputStartLocation){

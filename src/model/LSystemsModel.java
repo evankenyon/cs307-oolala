@@ -61,7 +61,7 @@ public class LSystemsModel {
         turtleController.addTurtleToActives(1);
         lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
                 stampBranchImage, location);
-        lsystemCommand.goToStartLocation();
+        lsystemCommandRunner.goToStartLocation();
         moveTurtleRecursively(numLevels, startingRule);
     }
 

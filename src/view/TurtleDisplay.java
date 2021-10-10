@@ -15,15 +15,18 @@ public class TurtleDisplay extends DisplayComponent {
   private Image turtleImg;
   private final int id;
   private double ratio;
+  private int[] home;
   private final int DEFAULT_ANGLE = 0;
   private final int IMAGE_SIZE_FIT = 20;
   private final int ROTATION_FACTOR = 90;
 
-  public TurtleDisplay(int id) {
+  public TurtleDisplay(int id, int[] home) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
-
     turtleImg = new Image(props.getProperty("turtleImagePath"));
     turtleImgView = new ImageView(turtleImg);
+    turtleImgView.setX(home[0]);
+    turtleImgView.setY(home[1]);
+    this.home = home;
     setAngle(DEFAULT_ANGLE);
     updateImageSize();
     penThickness = 1;
@@ -43,12 +46,17 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setY(position[1]);
     Line drawnLine;
     if (turtlePenUp) {
-      drawnLine = new Line(oldX, oldY, position[0], position[1]);
+      drawnLine = new Line(oldX, oldY, turtleImgView.getX(), turtleImgView.getY());
     } else {
       drawnLine = new Line();
     }
     drawnLine.setStrokeWidth(penThickness);
     return drawnLine;
+  }
+
+  public void setHome(int[] home) {
+    this.home[0] = home[0];
+    this.home[1] = home[1];
   }
 
   public void setAngle(double angle) {

@@ -12,10 +12,14 @@ import java.util.Properties;
 import java.util.Scanner;
 import model.commands.Command;
 import model.commands.GoHomeCommand;
-import model.commands.MoveCommand;
-import model.commands.RotateCommand;
-import model.commands.SetPenCommand;
-import model.commands.ShowOrHideCommand;
+import model.commands.HideCommand;
+import model.commands.MoveBackwardCommand;
+import model.commands.MoveForwardCommand;
+import model.commands.RotateLeftCommand;
+import model.commands.RotateRightCommand;
+import model.commands.SetPenDownCommand;
+import model.commands.SetPenUpCommand;
+import model.commands.ShowCommand;
 import model.commands.StampCommand;
 import model.commands.TellCommand;
 import util.PropertiesLoader;
@@ -30,35 +34,72 @@ public class CommandModel {
   public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
-    prevCommands.add("fd 50");
-    prevCommands.add("rt 50");
+
     props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
   }
 
-  public Command parseInput(String input) throws InputMismatchException, NumberFormatException {
-    if (input.startsWith("#") || input.equals("")) {
-      return null;
-    }
+  public List<Command> getCommandsFromInput(String input)
+      throws InputMismatchException, IllegalArgumentException {
     scanner = new Scanner(input);
-    while (scanner.hasNext()) {
-      return getCommandFromInput();
-    }
-    return null;
+    List<List<Integer>> args = new ArrayList<>();
+    List<String> functions = new ArrayList<>();
+    getCommandsFromInput(args, functions);
+    return getCommands(args, functions);
   }
 
-  private Command getCommandFromInput() {
-    return switch (scanner.next().toLowerCase()) {
-      case "fd" -> handleMovementCommand(1);
-      case "bk" -> handleMovementCommand(-1);
-      case "lt" -> handleAngleCommand(-1);
-      case "rt" -> handleAngleCommand(1);
-      case "pd" -> handlePenCommand(true);
-      case "pu" -> handlePenCommand(false);
-      case "st" -> handleShowOrHideCommand(true);
-      case "ht" -> handleShowOrHideCommand(false);
-      case "home" -> handleGoHomeCommand();
-      case "stamp" -> handleStampCommand();
-      case "tell" -> handleTellCommand();
+  private void getCommandsFromInput(List<List<Integer>> args, List<String> functions) {
+    args.add(new ArrayList<>());
+    int count = 0;
+    while (scanner.hasNext()) {
+      String next = scanner.next();
+      try {
+        args.get(count - 1).add(Integer.parseInt(next));
+      } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        functions.add(next);
+        args.add(new ArrayList<>());
+        count++;
+      }
+    }
+  }
+
+  private List<Command> getCommands(List<List<Integer>> args, List<String> functions)
+      throws IllegalArgumentException {
+    List<Command> commands = new ArrayList<>();
+    for (int index = 0; index < functions.size(); index++) {
+      try {
+        commands.add(getCommandFromInput(functions.get(index), args.get(index)));
+        prevCommands.add(commandStringConstruction(functions.get(index), args.get(index)));
+      } catch (IndexOutOfBoundsException e) {
+        throw new IllegalArgumentException();
+      }
+    }
+    return commands;
+  }
+
+  private String commandStringConstruction(String function, List<Integer> args) {
+    StringBuilder commandString = new StringBuilder();
+    commandString.append(function);
+    for (Integer arg : args) {
+      commandString.append(" ");
+      commandString.append(arg);
+    }
+    return commandString.toString();
+  }
+
+  private Command getCommandFromInput(String function, List<Integer> args)
+      throws IndexOutOfBoundsException {
+    return switch (function) {
+      case "fd" -> new MoveForwardCommand(args);
+      case "bk" -> new MoveBackwardCommand(args);
+      case "lt" -> new RotateLeftCommand(args);
+      case "rt" -> new RotateRightCommand(args);
+      case "pd" -> new SetPenDownCommand(args);
+      case "pu" -> new SetPenUpCommand(args);
+      case "st" -> new ShowCommand(args);
+      case "ht" -> new HideCommand(args);
+      case "home" -> new GoHomeCommand(args);
+      case "stamp" -> new StampCommand(args);
+      case "tell" -> new TellCommand(args);
       default -> throw new InputMismatchException();
     };
   }
@@ -72,10 +113,11 @@ public class CommandModel {
     Scanner fileScanner = new Scanner(commandFile);
     fileScanner.useDelimiter("\n");
     while (fileScanner.hasNext()) {
-      Command newCommand = parseInput(fileScanner.next());
-      if (newCommand != null) {
-        commands.add(newCommand);
+      String next = fileScanner.next();
+      if (next.startsWith("#") || next.equals(" ")) {
+        continue;
       }
+      commands.addAll(getCommandsFromInput(next));
     }
     return commands;
   }
@@ -93,54 +135,7 @@ public class CommandModel {
     currProgram.close();
   }
 
-  private Command handleMovementCommand(int direction) throws InputMismatchException {
-    return new MoveCommand(direction * parseFirstNumArg());
+  public List<String> getCommandHistory() {
+    return prevCommands;
   }
-
-  private Command handleAngleCommand(int direction) throws InputMismatchException {
-    return new RotateCommand(direction * parseFirstNumArg());
-  }
-
-  private Command handlePenCommand(boolean isPenUp) {
-    return new SetPenCommand(isPenUp);
-  }
-
-  private Command handleGoHomeCommand() {
-    return new GoHomeCommand();
-  }
-
-  private Command handleStampCommand() {
-    return new StampCommand();
-  }
-
-  private Command handleTellCommand() {
-    List<Integer> currTurtleIds = new ArrayList<>();
-    currTurtleIds.add(parseFirstNumArg());
-    while (scanner.hasNext()) {
-      currTurtleIds.add(parseNumInput());
-    }
-    return new TellCommand(currTurtleIds);
-  }
-
-  private Command handleShowOrHideCommand(boolean shouldShow) {
-    return new ShowOrHideCommand(shouldShow);
-  }
-
-  private int parseFirstNumArg() {
-    if (!scanner.hasNext()) {
-      throw new InputMismatchException();
-    }
-    return parseNumInput();
-  }
-
-  private int parseNumInput() throws IllegalArgumentException {
-    int numInput;
-    try {
-      numInput = Integer.parseInt(scanner.next());
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException();
-    }
-    return numInput;
-  }
-
 }

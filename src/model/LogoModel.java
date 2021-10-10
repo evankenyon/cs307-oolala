@@ -3,7 +3,7 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -12,14 +12,14 @@ import model.commands.Command;
 
 public class LogoModel {
 
-  private Queue<Command> fileCommands;
+  private Queue<Command> commandsToRun;
   private final TurtleController turtleController;
   private final CommandModel commandModel;
 
   public LogoModel() {
     turtleController = new TurtleController();
     commandModel = new CommandModel();
-    fileCommands = new LinkedList<>();
+    commandsToRun = new LinkedList<>();
   }
 
   /**
@@ -29,17 +29,21 @@ public class LogoModel {
    */
   public void handleFileInput(File file) {
     try {
-      fileCommands.addAll(commandModel.handleFileSelected(file));
+      commandsToRun.addAll(commandModel.handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
       // TODO: fix
       e.printStackTrace();
     }
   }
 
-  public void runFileCommand() {
-    if(!fileCommands.isEmpty()) {
-      fileCommands.remove().runCommand(turtleController);
+  public void runNextCommand() {
+    if(!commandsToRun.isEmpty()) {
+      commandsToRun.remove().runCommand(turtleController);
     }
+  }
+
+  public List<String> getCommandHistory() {
+    return commandModel.getCommandHistory();
   }
 
   /**
@@ -49,8 +53,7 @@ public class LogoModel {
    * @param input
    */
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    Command command = commandModel.parseInput(input);
-    command.runCommand(turtleController);
+    commandsToRun.addAll(commandModel.getCommandsFromInput(input));
   }
 
   public boolean isTurtleActive(int turtleId) {
@@ -66,41 +69,8 @@ public class LogoModel {
     commandModel.saveCommandsAsFile();
   }
 
-  /**
-   * Returns the position of a turtle found by its ID This will be used in the step function to
-   * determine if the turtle has moved and a new line needs to be made.
-   *
-   * @param turtleId
-   * @return
-   */
-  public int[] getTurtlePosition(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getPosition();
-  }
-
-  public double getTurtleTrajectory(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getTrajectory();
-  }
-
-  public boolean getTurtlePenDown(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getPen();
-  }
-
-  public boolean getShouldTurtleStamp(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getShouldStamp();
-  }
-
-  public boolean getTurtleShouldShow(int turtleId) {
-    TurtleModel turtleModel = getTurtleModel(turtleId);
-
-    return turtleModel.getShouldShow();
+  public List<TurtleModel> getActiveTurtles() {
+    return turtleController.getActiveTurtles();
   }
 
   public List<TurtleModel> getNewTurtles() throws NullPointerException {
@@ -111,7 +81,7 @@ public class LogoModel {
     return turtleController.hasNewTurtle();
   }
 
-  private TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
+  public TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
     TurtleModel turtleModel = null;
     for (TurtleModel turtle : turtleController.getActiveTurtles()) {
       if (turtle.getID() == turtleId) {

@@ -1,9 +1,9 @@
 package view;
 
 import java.io.File;
+import java.util.List;
 import java.util.Properties;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -12,12 +12,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import util.ButtonMaker;
 import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
+  // For TestFX purposes
+  private static int numResets = 0;
 
   private TextField commandInput;
-  private final ListView<String> prevCommands;
+  private ListView<String> prevCommands;
   private Button runPrevCommand;
   private Button selectCommandsFile;
   private Button saveCommandsFile;
@@ -30,15 +33,22 @@ public class CommandDisplay extends DisplayComponent {
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
+    setupCommandDisplay();
+  }
+
+  private void setupCommandDisplay() {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/command.properties");
     prevCommands = new ListView<>();
-    prevCommands.setId("Prev-Commands");
+    prevCommands.setId("Prev-Commands-" + numResets);
     setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);
     hasCommandUpdated = false;
     isFileUploaded = false;
     saveCommandsAsFile = false;
+
+    // For TestFX purposes
+    numResets++;
   }
 
   @Override
@@ -52,8 +62,10 @@ public class CommandDisplay extends DisplayComponent {
     return command;
   }
 
-  public void removeCommandFromHistory() {
-    prevCommands.getItems().remove(prevCommands.getItems().size() - 1);
+  public void updateCommandHistory(List<String> commands) {
+    // Borrowed usage of FXCollections from
+    // https://stackoverflow.com/questions/41920217/what-is-the-difference-between-arraylist-and-observablelist
+    prevCommands.setItems(FXCollections.observableList(commands));
   }
 
   public boolean getHasCommandUpdated() {
@@ -80,18 +92,12 @@ public class CommandDisplay extends DisplayComponent {
     return false;
   }
 
-  private Button makeButton(String label, EventHandler<ActionEvent> event) {
-    Button button = new Button(label);
-    button.setOnAction(event);
-    return button;
-  }
-
   private void makeButtons(Properties props) {
-    runPrevCommand = makeButton(props.getProperty("runPrevCommandText"),
+    runPrevCommand = ButtonMaker.makeButton(props.getProperty("runPrevCommandText"),
         event -> onRunPrevCommand());
-    selectCommandsFile = makeButton(props.getProperty("selectFile"),
+    selectCommandsFile = ButtonMaker.makeButton(props.getProperty("selectFile"),
         event -> onSelectCommandsFile());
-    saveCommandsFile = makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+    saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
     saveCommandsFile.setId("Save-Commands-File");
   }
 
@@ -112,7 +118,6 @@ public class CommandDisplay extends DisplayComponent {
 
   private void onCommandInput() {
     hasCommandUpdated = true;
-    prevCommands.getItems().add(commandInput.getText());
     command = commandInput.getText();
     commandInput.setText("");
   }

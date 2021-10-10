@@ -17,8 +17,6 @@ public class LogoDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-<<<<<<< src/view/LogoDisplay.java
-
   private final List<TurtleDisplay> turtleDisplays;
   private final CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
@@ -61,7 +59,6 @@ public class LogoDisplay {
   }
 
   private void rootSetup() {
-<<<<<<< src/view/LogoDisplay.java
 //    root = new GridPane();
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],

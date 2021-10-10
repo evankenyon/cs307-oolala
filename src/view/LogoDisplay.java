@@ -21,21 +21,26 @@ public class LogoDisplay {
   public static final String DEFAULT_RESOURCE_FOLDER = "/" + DEFAULT_RESOURCES_PACKAGE.replace(".", "/");
   public static final String STYLESHEET = "Default.css";
 
+  private List<TurtleDisplay> turtleDisplays;
   private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
+  
   private DisplayComponent instructionsDisplay;
-  private DisplayComponent turtleInfoDisplay;
+  private TurtleInfoDisplay turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
+  
   private GridPane root;
   private LogoModel logoModel;
+  private Pane turtleWindow;
   private Properties props;
   private String language;
   // Could store this data in file
   // Or a String to int map
-  private final int[] instructDispGridLayout = new int[]{0, 0, 7, 10};
-  private final int[] commandDispGridLayout = new int[]{0, 11, 7, 10};
-  private final int[] turtleWindowGridLayout = new int[]{9, 1, 20, 10};
-
+  private final int[] instructDispGridLayout = new int[]{0,0,7,10};
+  private final int[] commandDispGridLayout = new int[]{0,11,7,10};
+  private final int[] turtleWindowGridLayout = new int[]{9,1,20,10};
+  private final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
+  private final int PREF_WINDOW_SIZE = 400;
 
   public LogoDisplay() {
     root = new GridPane();
@@ -70,7 +75,22 @@ public class LogoDisplay {
     root.add(turtleWindowDisplay.getDisplayComponentNode(), turtleWindowGridLayout[0], turtleWindowGridLayout[1],
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
+    root.add(turtleInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
+            turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
+
     root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
+  }
+
+  private void turtleWindowSetup() {
+    Group turtleDisplaysGroup = new Group();
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
+    }
+    turtleWindow = new Pane();
+    turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
+    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
+        + "  -fx-border-style: solid;");
+    turtleWindow.getChildren().addAll(turtleDisplaysGroup);
   }
 
   private void setupAnimation() {
@@ -88,6 +108,9 @@ public class LogoDisplay {
     handleFileInputted();
     handleRunNextCommand();
     handleFileSave();
+    for(TurtleDisplay t: turtleDisplays){
+      t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
+    }
   }
 
   private void handleReset() {

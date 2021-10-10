@@ -26,7 +26,7 @@ public class LogoDisplay {
   private final List<TurtleDisplay> turtleDisplays;
   private final CommandDisplay commandDisplay;
   private final DisplayComponent instructionsDisplay;
-  private final DisplayComponent turtleInfoDisplay;
+  private final TurtleInfoDisplay turtleInfoDisplay;
   private GridPane root;
   private final LogoModel logoModel;
   private Pane turtleWindow;
@@ -34,6 +34,7 @@ public class LogoDisplay {
   private final int[] instructDispGridLayout = new int[]{0,0,7,10};
   private final int[] commandDispGridLayout = new int[]{0,11,7,10};
   private final int[] turtleWindowGridLayout = new int[]{9,1,20,10};
+  private final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
   private final int PREF_WINDOW_SIZE = 400;
 
   public LogoDisplay() {
@@ -61,6 +62,8 @@ public class LogoDisplay {
             commandDispGridLayout[2], commandDispGridLayout[3]);
     root.add(turtleWindow, turtleWindowGridLayout[0], turtleWindowGridLayout[1], turtleWindowGridLayout[2],
             turtleWindowGridLayout[3]);
+    root.add(turtleInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
+            turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }
 
   private void turtleWindowSetup() {
@@ -88,6 +91,9 @@ public class LogoDisplay {
     handleCommandInputted();
     handleFileInputted();
     handleFileSave();
+    for(TurtleDisplay t: turtleDisplays){
+      t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
+    }
   }
 
   private void handleFileSave() {

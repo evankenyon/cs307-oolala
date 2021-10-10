@@ -1,5 +1,6 @@
 package model;
 
+// fix this
 public class LSystemRules{
     private String id;
     private String[] rule;

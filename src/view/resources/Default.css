@@ -1,0 +1,67 @@
+.root {
+  -fx-font-family: "Roboto Light";
+  -fx-background: #4a72d7;
+  /* define variables to avoid duplicating values */
+  text_color: black;
+}
+
+.grid-pane {
+  -fx-alignment: baseline-center;
+  -fx-hgap: 20px;
+  -fx-vgap: 10px;
+  -fx-padding: 0 0 0 10px;
+}
+
+.choice-box {
+  -fx-border-style: solid;
+  -fx-padding: 5px;
+  -fx-spacing: 2px;
+}
+
+.list-cell, /* items in combo-box */
+.check-box,
+.toggle-button,
+.radio-button {
+  -fx-text-fill: text_color;
+}
+
+.vbox {
+  -fx-alignment: bottom-left;
+  -fx-spacing: 8px;
+  -fx-hgap: 5px;
+}
+
+.button {
+  -fx-text-fill: text_color;
+  -fx-background-color: lightgray;
+  -fx-padding: 10px;
+}
+
+.reset {
+  -fx-alignment: bottom-right;
+  -fx-background-color: red;
+  -fx-text-fill: text_color;
+  -fx-padding: 10px;
+}
+
+.label {
+  -fx-text-fill: text_color;
+  -fx-min-width: 200px;
+  -fx-padding: 10px;
+}
+
+.text-field {
+  -fx-text-fill: text_color;
+  -fx-background-color: #7fddff;
+  -fx-min-width: 150px;
+}
+
+.canvas {
+  -fx-background-color: floralwhite;
+  -fx-border-style: solid;
+}
+
+/* set background to provide highlight */
+.highlight {
+  -fx-background-color: #CCFF99;
+}

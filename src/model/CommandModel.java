@@ -8,6 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Properties;
 import java.util.Scanner;
 import model.commands.Command;
@@ -26,15 +27,19 @@ import util.PropertiesLoader;
 
 public class CommandModel {
 
+  private static final String DEFAULT_RESOURCE_PACKAGE = "./src/model/resources/";
   private Scanner scanner;
   private int numProgramsSaved;
   private final List<String> prevCommands;
   private Properties props;
+  private String language;
 
   public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
-    props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
+    language = "English.properties";
+
+    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCE_PACKAGE + language);
   }
 
   public List<Command> getCommandsFromInput(String input)
@@ -50,7 +55,7 @@ public class CommandModel {
     args.add(new ArrayList<>());
     int count = 0;
     while (scanner.hasNext()) {
-      String next = scanner.next();
+      String next = scanner.next().toLowerCase();
       try {
         args.get(count - 1).add(Integer.parseInt(next));
       } catch (NumberFormatException | IndexOutOfBoundsException e) {

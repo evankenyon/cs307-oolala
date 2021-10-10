@@ -16,8 +16,10 @@ import util.ButtonMaker;
 import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
+
   // For TestFX purposes
   private static int numResets = 0;
+  private static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/command/";
 
   private TextField commandInput;
   private ListView<String> prevCommands;
@@ -37,7 +39,7 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   private void setupCommandDisplay() {
-    Properties props = PropertiesLoader.loadProperties("./src/view/resources/command.properties");
+    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
     setupChooseCommandsFile(props);
@@ -95,9 +97,12 @@ public class CommandDisplay extends DisplayComponent {
   private void makeButtons(Properties props) {
     runPrevCommand = ButtonMaker.makeButton(props.getProperty("runPrevCommandText"),
         event -> onRunPrevCommand());
+    runPrevCommand.getStyleClass().add("button");
     selectCommandsFile = ButtonMaker.makeButton(props.getProperty("selectFile"),
         event -> onSelectCommandsFile());
+    selectCommandsFile.getStyleClass().add("button");
     saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+    saveCommandsFile.getStyleClass().add("button");
     saveCommandsFile.setId("Save-Commands-File");
   }
 
@@ -105,6 +110,7 @@ public class CommandDisplay extends DisplayComponent {
     commandInput = new TextField(props.getProperty("commandInputPrompt"));
     commandInput.setOnAction(event -> onCommandInput());
     commandInput.setId("Command-Input");
+    commandInput.getStyleClass().add("text-field");
     hasCommandUpdated = false;
   }
 

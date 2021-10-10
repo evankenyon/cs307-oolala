@@ -1,15 +1,2 @@
 #Saved program number 2
 fd 50
-rt 90
-fd 50
-fd 100
-pu
-fd 100
-lt 90
-pd
-fd 50
-lt 90
-pu
-fd 50
-pd
-fd 25

@@ -16,8 +16,10 @@ import util.ButtonMaker;
 import util.PropertiesLoader;
 
 public class CommandDisplay extends DisplayComponent {
+
   // For TestFX purposes
   private static int numResets = 0;
+  private static final String DEFAULT_RESOURCES = "./src/view/resources/command/";
 
   private TextField commandInput;
   private ListView<String> prevCommands;
@@ -30,14 +32,16 @@ public class CommandDisplay extends DisplayComponent {
   private boolean saveCommandsAsFile;
   private boolean hasCommandUpdated;
   private boolean isFileUploaded;
+  private String language;
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     setupCommandDisplay();
+    language = "English";
   }
 
   private void setupCommandDisplay() {
-    Properties props = PropertiesLoader.loadProperties("./src/view/resources/command/English.properties");
+    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES + language);
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
     setupChooseCommandsFile(props);

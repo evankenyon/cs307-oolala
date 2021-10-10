@@ -16,6 +16,7 @@ public class LogoDisplay {
   // Magic values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+  public static final String DEFAULT_RESOURCES = "./src/view/resources/logo/";
 
   private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
@@ -25,6 +26,7 @@ public class LogoDisplay {
   private GridPane root;
   private LogoModel logoModel;
   private Properties props;
+  private String language;
   // Could store this data in file
   // Or a String to int map
   private final int[] instructDispGridLayout = new int[]{0, 0, 7, 10};
@@ -35,10 +37,11 @@ public class LogoDisplay {
   public LogoDisplay() {
     root = new GridPane();
     setupLogoDisplay();
+    language = "English";
   }
 
   private void setupLogoDisplay() {
-    props = PropertiesLoader.loadProperties("./src/view/resources/logo/English.properties");
+    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES + language);
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();

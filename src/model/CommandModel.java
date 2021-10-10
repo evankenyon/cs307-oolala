@@ -27,7 +27,7 @@ import util.PropertiesLoader;
 
 public class CommandModel {
 
-  private static final String DEFAULT_RESOURCES = "./src/model/resources/";
+  private static final String DEFAULT_RESOURCE_PACKAGE = "./src/model/resources/";
   private Scanner scanner;
   private int numProgramsSaved;
   private final List<String> prevCommands;
@@ -39,7 +39,7 @@ public class CommandModel {
     prevCommands = new ArrayList<>();
     language = "English";
 
-    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES + language);
+    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCE_PACKAGE + language);
   }
 
   public List<Command> getCommandsFromInput(String input)

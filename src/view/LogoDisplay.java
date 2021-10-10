@@ -16,7 +16,10 @@ public class LogoDisplay {
   // Magic values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-  public static final String DEFAULT_RESOURCES = "./src/view/resources/logo/";
+  public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/";
+  public static final String LOGO_RESOURCES_PACKAGE = DEFAULT_RESOURCES_PACKAGE + "logo/";
+  public static final String DEFAULT_RESOURCE_FOLDER = "/" + DEFAULT_RESOURCES_PACKAGE.replace(".", "/");
+  public static final String STYLESHEET = "Default.css";
 
   private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
@@ -41,7 +44,7 @@ public class LogoDisplay {
   }
 
   private void setupLogoDisplay() {
-    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES + language);
+    props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + language);
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();

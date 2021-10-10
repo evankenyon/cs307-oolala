@@ -19,7 +19,7 @@ public class CommandDisplay extends DisplayComponent {
 
   // For TestFX purposes
   private static int numResets = 0;
-  private static final String DEFAULT_RESOURCES = "./src/view/resources/command/";
+  private static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/command/";
 
   private TextField commandInput;
   private ListView<String> prevCommands;
@@ -41,7 +41,7 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   private void setupCommandDisplay() {
-    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES + language);
+    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + language);
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
     setupChooseCommandsFile(props);

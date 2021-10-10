@@ -4,6 +4,7 @@ import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
@@ -15,6 +16,7 @@ public class TurtleDisplay extends DisplayComponent {
   private Image turtleImg;
   private final int id;
   private double ratio;
+  private Color penColor;
   private int[] home;
   private final int DEFAULT_ANGLE = 0;
   private final int IMAGE_SIZE_FIT = 20;
@@ -39,6 +41,10 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(IMAGE_SIZE_FIT);
   }
 
+  public void setPenColor(Color penColor) {
+    this.penColor = penColor;
+  }
+
   public Line setPosition(int[] position, boolean turtlePenUp) {
     double oldX = turtleImgView.getX();
     double oldY = turtleImgView.getY();
@@ -50,6 +56,7 @@ public class TurtleDisplay extends DisplayComponent {
     } else {
       drawnLine = new Line();
     }
+    drawnLine.setStroke(penColor);
     drawnLine.setStrokeWidth(penThickness);
     return drawnLine;
   }

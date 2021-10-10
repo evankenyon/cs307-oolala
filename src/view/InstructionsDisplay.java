@@ -11,7 +11,7 @@ import util.PropertiesLoader;
 
 public class InstructionsDisplay extends DisplayComponent {
 
-  private final List<Text> instructions;
+  private List<Text> instructions;
 
   public InstructionsDisplay() {
     Properties props = PropertiesLoader.loadProperties(

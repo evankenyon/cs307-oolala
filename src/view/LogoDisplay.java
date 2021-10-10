@@ -22,6 +22,7 @@ public class LogoDisplay {
   private DisplayComponent instructionsDisplay;
   private DisplayComponent turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
+  private SetPenColorDisplay setPenColorDisplay;
   private GridPane root;
   private LogoModel logoModel;
   private Properties props;
@@ -45,6 +46,7 @@ public class LogoDisplay {
     logoModel = new LogoModel();
     turtleWindowDisplay = new TurtleWindowDisplay();
     clearDisplay = new ClearDisplay();
+    setPenColorDisplay = new SetPenColorDisplay();
     rootSetup();
   }
 
@@ -54,7 +56,6 @@ public class LogoDisplay {
   }
 
   private void rootSetup() {
-//    root = new GridPane();
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],
         instructDispGridLayout[2], instructDispGridLayout[3]);
@@ -65,6 +66,7 @@ public class LogoDisplay {
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
     root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
+    root.add(setPenColorDisplay.getDisplayComponentNode(), 10, 12, 1, 1);
   }
 
   private void setupAnimation() {
@@ -112,6 +114,7 @@ public class LogoDisplay {
   }
 
   private void handleRunNextCommand() {
+    turtleWindowDisplay.updateActiveTurtlesPenColor(logoModel.getActiveTurtles(), setPenColorDisplay.getColor());
     commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
     if (logoModel.hasNewTurtles()) {

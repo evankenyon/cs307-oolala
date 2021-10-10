@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import model.TurtleModel;
 
 public class TurtleWindowDisplay extends DisplayComponent {
@@ -18,6 +19,7 @@ public class TurtleWindowDisplay extends DisplayComponent {
     turtleDisplays = new ArrayList<>();
     // Have default constructor that just sets id to 1
     turtleWindow = new Pane();
+    turtleWindow.setId("Turtle-Window");
     turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
     defaultHome = new int[]{PREF_WINDOW_SIZE / 2, PREF_WINDOW_SIZE / 2};
     turtleDisplays.add(new TurtleDisplay(1, defaultHome));
@@ -46,6 +48,15 @@ public class TurtleWindowDisplay extends DisplayComponent {
       TurtleDisplay newTurtleDisplay = new TurtleDisplay(turtleModel.getID(), defaultHome);
       turtleDisplays.add(newTurtleDisplay);
       turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
+    }
+  }
+
+  public void updateActiveTurtlesPenColor(List<TurtleModel> activeTurtles, Color penColor) {
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
+      if (activeTurtle != null) {
+        turtleDisplay.setPenColor(penColor);
+      }
     }
   }
 

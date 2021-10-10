@@ -1,66 +1,67 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.List;
 import model.commands.*;
 
 // fix this
-public class LSystemCommandRunner {
-    private TurtleController turtleController;
-    private int movementLength;
-    private int rotationAngle;
-    private boolean stampBranchImage;
-    private int[] location;
+public class LSystemCommandRunner extends CommandModel {
 
-    public LSystemCommandRunner(TurtleController inputTurtController, int distance, int angle, boolean branchStamp, int[]
-                                startingLoc){
-        turtleController = inputTurtController;
-        movementLength = distance;
-        rotationAngle = angle;
-        stampBranchImage = branchStamp;
-        location = startingLoc;
-    }
+  private TurtleController turtleController;
+  private int movementLength;
+  private int rotationAngle;
+  private boolean stampBranchImage;
+  private List<Integer> location;
 
-    public void runLsysCommand(String ruleMovement){
-        switch (ruleMovement){
-            case "f" -> move(true, 1);
-            case "g" -> move(false, 1);
-            case "a" -> move(true, -1);
-            case "b" -> move(false, -1);
-            case "+" -> rotate(1);
-            case "-" -> rotate(-1);
-            case "x" -> stamp();
-        }
-    }
-    private void move(boolean penPosition, int direction){
-        new SetPenCommand(penPosition).runCommand(turtleController);
-        new MoveCommand(direction * movementLength).runCommand(turtleController);
-    }
+  public LSystemCommandRunner(TurtleController inputTurtController, int distance, int angle,
+      boolean branchStamp, int[]
+      startingLoc) {
+    turtleController = inputTurtController;
+    movementLength = distance;
+    rotationAngle = angle;
+    stampBranchImage = branchStamp;
+    location = new ArrayList<>();
+    location.add(startingLoc[0]);
+    location.add(startingLoc[1]);
+  }
 
-    private void rotate(int direction){
-        new RotateCommand(direction).runCommand(turtleController);
-    }
+  public Command runLsysCommand(String ruleMovement) throws InputMismatchException {
+    List<Integer> rotateNum = new ArrayList<>();
+    rotateNum.add(rotationAngle);
+    return switch (ruleMovement) {
+      case "f" -> new FCommand(movementLength);
+      case "g" -> new GCommand(movementLength);
+      case "a" -> new ACommand(movementLength);
+      case "b" -> new BCommand(movementLength);
+      case "+" -> new RotateRightCommand(new ArrayList<>());
+      case "-" -> new RotateLeftCommand(rotateNum);
+      case "x" -> new StampCommand(new ArrayList<>());
+      default -> throw new InputMismatchException();
+    };
+  }
 
-    private void stamp(){
-        new StampCommand().runCommand(turtleController);
-    }
 
-    public void goToStartLocation(){
-        new SetHomeCommand(location).runCommand(turtleController);
-        new GoHomeCommand().runCommand(turtleController);
-    }
+  public void goToStartLocation() {
+    new SetHomeCommand(location).runCommand(turtleController);
+    new GoHomeCommand(new ArrayList<>()).runCommand(turtleController);
+  }
 
-    public void setStartLocation(int[] inputStartLocation){
-        location = inputStartLocation;
-    }
+  public void setStartLocation(int[] inputStartLocation) {
+    location.clear();
+    location.add(inputStartLocation[0]);
+    location.add(inputStartLocation[1]);
+  }
 
-    public void setMovementLength(int distance){
-        this.movementLength = distance;
-    }
+  public void setMovementLength(int distance) {
+    this.movementLength = distance;
+  }
 
-    public void setRotationAngle(int rotationAngle) {
-        this.rotationAngle = rotationAngle;
-    }
+  public void setRotationAngle(int rotationAngle) {
+    this.rotationAngle = rotationAngle;
+  }
 
-    public void setStampBranchImage(boolean stampBranchImage) {
-        this.stampBranchImage = stampBranchImage;
-    }
+  public void setStampBranchImage(boolean stampBranchImage) {
+    this.stampBranchImage = stampBranchImage;
+  }
 }

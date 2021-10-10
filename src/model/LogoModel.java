@@ -3,7 +3,6 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,11 +13,11 @@ public class LogoModel {
 
   private Queue<Command> commandsToRun;
   private final TurtleController turtleController;
-  private final CommandModel commandModel;
+  private final LogoCommandModel logoCommandModel;
 
   public LogoModel() {
     turtleController = new TurtleController();
-    commandModel = new CommandModel();
+    logoCommandModel = new LogoCommandModel();
     commandsToRun = new LinkedList<>();
   }
 
@@ -29,7 +28,7 @@ public class LogoModel {
    */
   public void handleFileInput(File file) {
     try {
-      commandsToRun.addAll(commandModel.handleFileSelected(file));
+      commandsToRun.addAll(logoCommandModel.handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
       // TODO: fix
       e.printStackTrace();
@@ -43,7 +42,7 @@ public class LogoModel {
   }
 
   public List<String> getCommandHistory() {
-    return commandModel.getCommandHistory();
+    return logoCommandModel.getCommandHistory();
   }
 
   /**
@@ -53,7 +52,7 @@ public class LogoModel {
    * @param input
    */
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    commandsToRun.addAll(commandModel.getCommandsFromInput(input));
+    commandsToRun.addAll(logoCommandModel.getCommandsFromInput(input));
   }
 
   public boolean isTurtleActive(int turtleId) {
@@ -66,7 +65,7 @@ public class LogoModel {
   }
 
   public void saveCommandsAsFile() throws IOException {
-    commandModel.saveCommandsAsFile();
+    logoCommandModel.saveCommandsAsFile();
   }
 
   public List<TurtleModel> getActiveTurtles() {
@@ -104,7 +103,7 @@ public class LogoModel {
     return turtleController;
   }
 
-  CommandModel getCommandModel() {
-    return commandModel;
+  LogoCommandModel getLogoCommandModel() {
+    return logoCommandModel;
   }
 }

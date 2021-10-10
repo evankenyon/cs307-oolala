@@ -1,21 +1,22 @@
 package model;
 
 // fix this
-public class LSystemRules{
-    private String id;
-    private String[] rule;
+public class LSystemRules {
 
-    public LSystemRules(String fullRule){
-        String[] brokenRuleStr = fullRule.toLowerCase().split(" ");
-        id = brokenRuleStr[0];
-        rule = brokenRuleStr[1].split("(?!^)");
-    }
+  private String id;
+  private String[] rule;
 
-    public String getId(){
-        return id;
-    }
+  public LSystemRules(String fullRule) {
+    String[] brokenRuleStr = fullRule.toLowerCase().split(" ");
+    id = brokenRuleStr[0];
+    rule = brokenRuleStr[1].split("(?!^)");
+  }
 
-    public String[] getRule(){
-        return rule;
-    }
+  public String getId() {
+    return id;
+  }
+
+  public String[] getRule() {
+    return rule;
+  }
 }

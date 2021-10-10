@@ -8,13 +8,13 @@ import org.junit.jupiter.api.Test;
 class LogoModelTest {
 
   private LogoModel logoModel;
-  private CommandModel commandModel;
+  private LogoCommandModel commandModel;
   private TurtleController turtleController;
 
   @BeforeEach
   public void setUp() {
     logoModel = new LogoModel();
-    commandModel = logoModel.getCommandModel();
+    commandModel = logoModel.getLogoCommandModel();
     turtleController = logoModel.getTurtleController();
   }
 

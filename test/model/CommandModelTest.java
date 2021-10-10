@@ -9,12 +9,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class CommandModelTest {
-  private CommandModel commandModel;
+  private LogoCommandModel commandModel;
   private TurtleController turtleController;
 
   @BeforeEach
   void setUp() {
-    commandModel = new CommandModel();
+    commandModel = new LogoCommandModel();
 
     turtleController = new TurtleController();
   }

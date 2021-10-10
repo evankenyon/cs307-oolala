@@ -8,7 +8,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.Scanner;
 import model.commands.Command;

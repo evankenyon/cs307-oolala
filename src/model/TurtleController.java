@@ -16,6 +16,8 @@ import java.util.List;
  * for these IDs if these turtles do not yet exist. Then to move each turtle forward, the move
  * command would get all the active turtles from the turtle controller, iterate through them and
  * apply the move command on each TurtleModel.
+ *
+ * @author Luis Pereda
  */
 public class TurtleController {
 

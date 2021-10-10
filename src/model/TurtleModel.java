@@ -8,6 +8,8 @@ package model;
  * Example: When a user starts the program, or calls tell on a non-existing turtle, instantiate a
  * new turtle model. This turtle can then be used to draw on the screen by moving it, rotating it,
  * and can implement the various other commands outlined in the instructions.
+ *
+ * @author Luis Pereda
  */
 public class TurtleModel {
   public static final int DEFAULT_X_POSITION = 200;

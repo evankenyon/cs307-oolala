@@ -7,22 +7,24 @@ import java.util.Scanner;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.TurtleWindowDisplay;
 
 class CommandModelTest {
   private LogoCommandModel commandModel;
   private TurtleController turtleController;
+  private int originalHome;
 
   @BeforeEach
   void setUp() {
     commandModel = new LogoCommandModel();
-
+    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE/2;
     turtleController = new TurtleController();
   }
 
   @Test
   public void parseInputForwardCorrect() {
     commandModel.getCommandsFromInput("fd 50").get(0).runCommand(turtleController);
-    Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
+    Assertions.assertEquals(originalHome + 50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
@@ -33,7 +35,7 @@ class CommandModelTest {
   @Test
   public void parseInputBackwardCorrect() {
     commandModel.getCommandsFromInput("bk 50").get(0).runCommand(turtleController);
-    Assertions.assertEquals(-50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
+    Assertions.assertEquals(originalHome - 50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test
@@ -68,9 +70,9 @@ class CommandModelTest {
   @Test
   public void parseInputGoHomeCommand() {
     commandModel.getCommandsFromInput("fd 50").get(0).runCommand(turtleController);
-    Assertions.assertEquals(50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
+    Assertions.assertEquals(originalHome + 50, turtleController.getActiveTurtles().get(0).getPosition()[0]);
     commandModel.getCommandsFromInput("home").get(0).runCommand(turtleController);
-    Assertions.assertEquals(0, turtleController.getActiveTurtles().get(0).getPosition()[0]);
+    Assertions.assertEquals(originalHome, turtleController.getActiveTurtles().get(0).getPosition()[0]);
   }
 
   @Test

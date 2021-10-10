@@ -4,18 +4,21 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import view.TurtleWindowDisplay;
 
 class LogoModelTest {
 
   private LogoModel logoModel;
   private LogoCommandModel commandModel;
   private TurtleController turtleController;
+  private int originalHome;
 
   @BeforeEach
   public void setUp() {
     logoModel = new LogoModel();
     commandModel = logoModel.getLogoCommandModel();
     turtleController = logoModel.getTurtleController();
+    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE/2;
   }
 
   @Test
@@ -32,8 +35,8 @@ class LogoModelTest {
     logoModel.runNextCommand();
     logoModel.runNextCommand();
     logoModel.runNextCommand();
-    assertEquals(xposition, turtle.getPosition()[0]);
-    assertEquals(yposition, turtle.getPosition()[1]);
+    assertEquals(originalHome + xposition, turtle.getPosition()[0]);
+    assertEquals(originalHome + yposition, turtle.getPosition()[1]);
   }
 
   @Test
@@ -72,8 +75,8 @@ class LogoModelTest {
 
   @Test
   public void getTurtlePositionBasic() {
-    assertEquals(0, logoModel.getTurtleModel(1).getPosition()[0]);
-    assertEquals(0, logoModel.getTurtleModel(1).getPosition()[1]);
+    assertEquals(originalHome, logoModel.getTurtleModel(1).getPosition()[0]);
+    assertEquals(originalHome, logoModel.getTurtleModel(1).getPosition()[1]);
   }
 
   @Test

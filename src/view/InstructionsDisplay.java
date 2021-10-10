@@ -15,7 +15,7 @@ public class InstructionsDisplay extends DisplayComponent {
 
   public InstructionsDisplay() {
     Properties props = PropertiesLoader.loadProperties(
-        "./src/view/resources/instructions.properties");
+        "./src/view/resources/instructions/English.properties");
     setupInstructions(props);
     setupInstructionsIds();
   }
@@ -57,6 +57,7 @@ public class InstructionsDisplay extends DisplayComponent {
   public Node getDisplayComponentNode() {
     VBox instructionsNode = new VBox();
     instructionsNode.getChildren().addAll(instructions);
+    instructionsNode.getStyleClass().add("vbox");
     return instructionsNode;
   }
 }

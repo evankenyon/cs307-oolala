@@ -61,6 +61,4 @@ public class SetPenColorDisplayTest extends DukeApplicationTest {
     Thread.sleep(2000);
     assertEquals(expected, ((Line) turtleWindow.getChildren().get(turtleWindow.getChildren().size() - 1)).getStroke());
   }
-
-
 }

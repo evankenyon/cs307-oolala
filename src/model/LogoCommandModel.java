@@ -34,7 +34,7 @@ public class LogoCommandModel extends CommandModel {
   public LogoCommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
-    props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
+    props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
   }
 
   public List<Command> getCommandsFromInput(String input)

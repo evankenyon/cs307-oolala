@@ -17,18 +17,18 @@ public class LogoDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private final List<TurtleDisplay> turtleDisplays;
-  private final CommandDisplay commandDisplay;
+  private List<TurtleDisplay> turtleDisplays;
+  private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
   
-  private final DisplayComponent instructionsDisplay;
-  private final TurtleInfoDisplay turtleInfoDisplay;
+  private DisplayComponent instructionsDisplay;
+  private TurtleInfoDisplay turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
   
   private GridPane root;
-  private final LogoModel logoModel;
+  private LogoModel logoModel;
   private Pane turtleWindow;
-  private final Properties props;
+  private Properties props;
   // Could store this data in file
   // Or a String to int map
   private final int[] instructDispGridLayout = new int[]{0,0,7,10};

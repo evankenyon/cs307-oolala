@@ -32,16 +32,14 @@ public class CommandDisplay extends DisplayComponent {
   private boolean saveCommandsAsFile;
   private boolean hasCommandUpdated;
   private boolean isFileUploaded;
-  private String language;
 
   public CommandDisplay() {
     // Prop setup borrowed from https://mkyong.com/java/java-properties-file-examples/
     setupCommandDisplay();
-    language = "English";
   }
 
   private void setupCommandDisplay() {
-    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + language);
+    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
     setupChooseCommandsFile(props);
@@ -99,9 +97,12 @@ public class CommandDisplay extends DisplayComponent {
   private void makeButtons(Properties props) {
     runPrevCommand = ButtonMaker.makeButton(props.getProperty("runPrevCommandText"),
         event -> onRunPrevCommand());
+    runPrevCommand.getStyleClass().add("button");
     selectCommandsFile = ButtonMaker.makeButton(props.getProperty("selectFile"),
         event -> onSelectCommandsFile());
+    selectCommandsFile.getStyleClass().add("button");
     saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+    saveCommandsFile.getStyleClass().add("button");
     saveCommandsFile.setId("Save-Commands-File");
   }
 
@@ -109,6 +110,7 @@ public class CommandDisplay extends DisplayComponent {
     commandInput = new TextField(props.getProperty("commandInputPrompt"));
     commandInput.setOnAction(event -> onCommandInput());
     commandInput.setId("Command-Input");
+    commandInput.getStyleClass().add("text-field");
     hasCommandUpdated = false;
   }
 

@@ -37,7 +37,7 @@ public class CommandModel {
   public CommandModel() {
     numProgramsSaved = 0;
     prevCommands = new ArrayList<>();
-    language = "English";
+    language = "English.properties";
 
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCE_PACKAGE + language);
   }

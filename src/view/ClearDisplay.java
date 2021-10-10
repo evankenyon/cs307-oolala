@@ -11,6 +11,7 @@ public class ClearDisplay extends DisplayComponent {
   public ClearDisplay() {
     resetButton = ButtonMaker.makeButton("Reset everything", event -> shouldReset = true);
     resetButton.setId("Reset-Button");
+    resetButton.getStyleClass().add("reset");
   }
 
   public boolean getShouldReset() {

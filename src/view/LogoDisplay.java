@@ -1,12 +1,15 @@
 package view;
 
+import java.util.List;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
 import util.PropertiesLoader;
@@ -18,7 +21,7 @@ public class LogoDisplay {
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/";
   public static final String LOGO_RESOURCES_PACKAGE = DEFAULT_RESOURCES_PACKAGE + "logo/";
-  public static final String DEFAULT_RESOURCE_FOLDER = "/" + DEFAULT_RESOURCES_PACKAGE.replace(".", "/");
+  public static final String DEFAULT_RESOURCE_FOLDER = "/view/resources/";
   public static final String STYLESHEET = "Default.css";
 
   private List<TurtleDisplay> turtleDisplays;
@@ -33,7 +36,6 @@ public class LogoDisplay {
   private LogoModel logoModel;
   private Pane turtleWindow;
   private Properties props;
-  private String language;
   // Could store this data in file
   // Or a String to int map
   private final int[] instructDispGridLayout = new int[]{0,0,7,10};
@@ -45,11 +47,10 @@ public class LogoDisplay {
   public LogoDisplay() {
     root = new GridPane();
     setupLogoDisplay();
-    language = "English";
   }
 
   private void setupLogoDisplay() {
-    props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + language);
+    props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + "English.properties");
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();
@@ -61,7 +62,9 @@ public class LogoDisplay {
 
   public Scene makeScene(int width, int height) {
     setupAnimation();
-    return new Scene(root, width, height);
+    Scene scene = new Scene(root, width, height);
+    scene.getStylesheets().add(DEFAULT_RESOURCE_FOLDER + STYLESHEET);
+    return scene;
   }
 
   private void rootSetup() {
@@ -79,6 +82,7 @@ public class LogoDisplay {
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
 
     root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
+    root.getStyleClass().add("grid-pane");
   }
 
   private void turtleWindowSetup() {
@@ -88,8 +92,6 @@ public class LogoDisplay {
     }
     turtleWindow = new Pane();
     turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
-    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
-        + "  -fx-border-style: solid;");
     turtleWindow.getChildren().addAll(turtleDisplaysGroup);
   }
 
@@ -108,8 +110,10 @@ public class LogoDisplay {
     handleFileInputted();
     handleRunNextCommand();
     handleFileSave();
-    for(TurtleDisplay t: turtleDisplays){
-      t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
+    if (turtleDisplays != null) {
+      for (TurtleDisplay t : turtleDisplays) {
+        t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
+      }
     }
   }
 

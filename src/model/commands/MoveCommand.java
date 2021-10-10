@@ -1,14 +1,18 @@
 package model.commands;
 
+import java.util.List;
 import model.TurtleController;
 import model.TurtleModel;
 
-public class MoveCommand implements Command {
+public abstract class MoveCommand implements Command {
 
   private final int distance;
 
-  public MoveCommand(int distance) {
-    this.distance = distance;
+  public MoveCommand(int direction, List<Integer> args) throws IllegalArgumentException {
+    if (args.size() != 1) {
+      throw new IllegalArgumentException();
+    }
+    distance = direction * args.get(0);
   }
 
   @Override

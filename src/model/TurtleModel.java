@@ -1,5 +1,7 @@
 package model;
 
+import view.TurtleWindowDisplay;
+
 public class TurtleModel {
 
   // Coordinate [x,y] denoting the position of the turtle
@@ -24,14 +26,14 @@ public class TurtleModel {
     myPosition = initialPosition;
     myTrajectory = 0;
     penSetting = true;
-    myHome = new int[]{0, 0};
+    myHome = new int[]{initialPosition[0], initialPosition[1]};
     myID = turtleID;
     shouldStamp = false;
     shouldShow = true;
   }
 
   public TurtleModel(int turtleID) {
-    this(turtleID, new int[]{0, 0});
+    this(turtleID, new int[]{TurtleWindowDisplay.PREF_WINDOW_SIZE / 2, TurtleWindowDisplay.PREF_WINDOW_SIZE / 2});
   }
 
   /**

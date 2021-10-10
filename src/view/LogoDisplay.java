@@ -37,7 +37,7 @@ public class LogoDisplay {
   private final int PREF_WINDOW_SIZE = 400;
 
   public LogoDisplay() {
-    props = PropertiesLoader.loadProperties("./src/view/resources/logo.properties");
+    props = PropertiesLoader.loadProperties("./src/view/resources/logo/English.properties");
     turtleDisplays = new ArrayList<>();
     turtleDisplays.add(new TurtleDisplay(1));
     commandDisplay = new CommandDisplay();

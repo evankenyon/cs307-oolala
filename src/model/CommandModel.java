@@ -32,7 +32,7 @@ public class CommandModel {
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
-    props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
+    props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
   }
 
   public Command parseInput(String input) throws InputMismatchException, NumberFormatException {

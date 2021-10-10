@@ -25,7 +25,6 @@ public class CommandModel {
   private Scanner scanner;
   private int numProgramsSaved;
   private final List<String> prevCommands;
-  private LSystemsModel lsystemsModel;
   private Properties props;
 
   public CommandModel() {
@@ -33,7 +32,6 @@ public class CommandModel {
     prevCommands = new ArrayList<>();
     prevCommands.add("fd 50");
     prevCommands.add("rt 50");
-    lsystemsModel = new LSystemsModel();
     props = PropertiesLoader.loadProperties("./src/model/resources/command.properties");
   }
 
@@ -145,20 +143,4 @@ public class CommandModel {
     return numInput;
   }
 
-  private String parseString() {
-    if (!scanner.hasNext()) {
-      throw new InputMismatchException();
-    }
-    return parseRuleString();
-  }
-
-  private String parseRuleString() throws IllegalArgumentException {
-    String inputRule;
-    try{
-      inputRule = scanner.next().toLowerCase();
-    } catch (IllegalArgumentException e){
-      throw new IllegalArgumentException();
-    }
-    return inputRule;
-  }
 }

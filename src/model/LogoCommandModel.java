@@ -37,6 +37,7 @@ public class LogoCommandModel extends CommandModel {
     props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
   }
 
+  @Override
   public List<Command> getCommandsFromInput(String input)
       throws InputMismatchException, IllegalArgumentException {
     scanner = new Scanner(input);

@@ -3,6 +3,7 @@ package model;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Scanner;
 import model.commands.*;
 
 // fix this
@@ -23,10 +24,22 @@ public class LSystemCommandRunner extends CommandModel {
     location.add(startingLoc[1]);
   }
 
-  public Command runLsysCommand(String ruleMovement) throws InputMismatchException {
+  @Override
+  public List<Command> getCommandsFromInput(String input) throws InputMismatchException {
+    List<Command> commands = new ArrayList<>();
+    for(String inputChar : input.split("(?!^)")) {
+      commands.add(getCommand(inputChar));
+    }
+    location.set(1, location.get(1) + 100);
+    commands.add(new SetHomeCommand(location));
+    commands.add(new GoHomeCommand(new ArrayList<>()));
+    return commands;
+  }
+
+  private Command getCommand(String inputChar) {
     List<Integer> rotateNum = new ArrayList<>();
     rotateNum.add(rotationAngle);
-    return switch (ruleMovement) {
+    return switch (inputChar) {
       case "f" -> new FCommand(movementLength);
       case "g" -> new GCommand(movementLength);
       case "a" -> new ACommand(movementLength);

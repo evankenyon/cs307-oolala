@@ -1,19 +1,27 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import model.commands.Command;
 
 // fix this
-public class LSystemsModel {
+public class LSystemsModel extends AppModel {
 
   private String startingRule;
   private List<LSystemRules> ruleBook;
+  private int levelNumMax;
+  private int levelNumCurr;
   private int numLevels;
   private int movementLength;
   private int rotationAngle;
   private boolean stampBranchImage;
   private int[] location;
   private LSystemCommandRunner lsystemCommandRunner;
+  private LSystemProgram lSystemProgram;
+  private Queue<Command> commandsToRun;
 
   public LSystemsModel() {
     this("");
@@ -21,9 +29,13 @@ public class LSystemsModel {
 
   public LSystemsModel(String beginningRule) {
     startingRule = beginningRule.toLowerCase();
-    lsystemCommandRunner = new LSystemCommandRunner(10, 30, new int[]{0, 0});
+    lsystemCommandRunner = new LSystemCommandRunner(20, 55, new int[]{0, 0});
+    lSystemProgram = new LSystemProgram();
     ruleBook = new ArrayList<>();
+    commandsToRun = new LinkedList<>();
     numLevels = 1;
+    levelNumCurr = 0;
+    levelNumMax = 3;
     movementLength = 2;
     rotationAngle = 30;
     stampBranchImage = false;
@@ -54,35 +66,37 @@ public class LSystemsModel {
     this.startingRule = startingRule;
   }
 
+  @Override
+  public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
+    try {
+      lSystemProgram.parseInput(input);
+    } catch (Exception e) {
+      // TODO: fix
+      e.printStackTrace();
+    }
+
+  }
+
+  public void runNextCommand() {
+    if(lSystemProgram.getIsValidProgram() && commandsToRun.isEmpty() && levelNumCurr < levelNumMax) {
+      commandsToRun.addAll(lsystemCommandRunner.getCommandsFromInput(lSystemProgram.getNextLevel(levelNumCurr)));
+      levelNumCurr++;
+    }
+    if(!commandsToRun.isEmpty()) {
+      commandsToRun.remove().runCommand(turtleController);
+    }
+  }
+
   public void createRule(String rulePassedIn) {
     LSystemRules newRule = new LSystemRules(rulePassedIn);
     ruleBook.add(newRule);
   }
 
   public void run(TurtleController turtleController) {
-    turtleController.resetActiveTurtles();
-    turtleController.addTurtleToActives(1);
-//    lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
-//        stampBranchImage, location);
     lsystemCommandRunner.goToStartLocation();
-    moveTurtleRecursively(numLevels, startingRule);
   }
 
-  public void moveTurtleRecursively(int levelNum, String ruleId) {
-    String currRule = ruleId;
-    lsystemCommandRunner.runLsysCommand(ruleId);
-    levelNum--;
-    while(levelNum > 0) {
-      currRule = currRule.replace(ruleId, findRule(ruleId));
-      for (String ruleChar : currRule.split("(?!^)")) {
-        lsystemCommandRunner.runLsysCommand(ruleChar);
-      }
-      System.out.println();
-      levelNum--;
-    }
-  }
-
-  public String findRule(String ruleId) {
+  private String findRule(String ruleId) {
     try {
       for (LSystemRules rule : ruleBook) {
         if (rule.getId().equals(ruleId)) {

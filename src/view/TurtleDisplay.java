@@ -55,6 +55,8 @@ public class TurtleDisplay extends DisplayComponent {
       drawnLine = new Line(oldX, oldY, turtleImgView.getX(), turtleImgView.getY());
       drawnLine.setStroke(penColor);
       drawnLine.setStrokeWidth(penThickness);
+      System.out.print(turtleImgView.getX() + " ");
+      System.out.println(turtleImgView.getY());
     } else {
       drawnLine = new Line();
     }

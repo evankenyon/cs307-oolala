@@ -8,6 +8,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
+import model.AppModel;
+import model.LSystemsModel;
 import model.LogoModel;
 import util.PropertiesLoader;
 
@@ -30,7 +32,7 @@ public class LogoDisplay {
   private SetColorDisplay setPenColorDisplay;
   private SetColorDisplay setBackgroundColorDisplay;
   private GridPane root;
-  private LogoModel logoModel;
+  private AppModel logoModel;
   private Properties props;
   // Could store this data in file
   // Or a String to int map
@@ -50,7 +52,7 @@ public class LogoDisplay {
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();
-    logoModel = new LogoModel();
+    logoModel = new LSystemsModel();
     turtleWindowDisplay = new TurtleWindowDisplay();
     clearDisplay = new ClearDisplay();
     setPenColorDisplay = new SetColorDisplay(props.getProperty("penColorLabel"));
@@ -96,11 +98,11 @@ public class LogoDisplay {
   private void step(double elapsedTime) {
     handleReset();
     handleCommandInputted();
-    handleFileInputted();
+//    handleFileInputted();
     handleUpdatePen();
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
-    handleFileSave();
+//    handleFileSave();
   }
 
   private void handleReset() {
@@ -122,7 +124,7 @@ public class LogoDisplay {
   private void handleFileInputted() {
     if (commandDisplay.getIsFileUploaded()) {
       try {
-        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
+//        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
         // TODO: change
         showError();
@@ -136,18 +138,18 @@ public class LogoDisplay {
   }
 
     private void handleRunNextCommand() {
-    commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
+//    commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
-    if (logoModel.hasNewTurtles()) {
-      turtleWindowDisplay.addNewTurtles(logoModel.getNewTurtles());
-    }
+//    if (logoModel.hasNewTurtles()) {
+//      turtleWindowDisplay.addNewTurtles(logoModel.getNewTurtles());
+//    }
     turtleWindowDisplay.updateTurtleWindowAndDisplays(logoModel.getActiveTurtles());
   }
 
   private void handleFileSave() {
     if (commandDisplay.shouldSaveAsFile()) {
       try {
-        logoModel.saveCommandsAsFile();
+//        logoModel.saveCommandsAsFile();
       } catch (Exception e) {
         // TODO: fix
         showError();

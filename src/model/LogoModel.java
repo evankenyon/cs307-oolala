@@ -9,14 +9,13 @@ import java.util.List;
 import java.util.Queue;
 import model.commands.Command;
 
-public class LogoModel {
+public class LogoModel extends AppModel {
 
   private Queue<Command> commandsToRun;
-  private final TurtleController turtleController;
+
   private final LogoCommandModel logoCommandModel;
 
   public LogoModel() {
-    turtleController = new TurtleController();
     logoCommandModel = new LogoCommandModel();
     commandsToRun = new LinkedList<>();
   }
@@ -51,6 +50,7 @@ public class LogoModel {
    *
    * @param input
    */
+  @Override
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
     commandsToRun.addAll(logoCommandModel.getCommandsFromInput(input));
   }

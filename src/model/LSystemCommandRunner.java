@@ -4,20 +4,22 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import model.commands.*;
+import view.TurtleWindowDisplay;
 
 public class LSystemCommandRunner extends CommandModel {
 
   private int movementLength;
   private int rotationAngle;
   private List<Integer> location;
+  private int levelIncrement;
 
-  public LSystemCommandRunner(int distance, int angle,
-      int[] startingLoc) {
+  public LSystemCommandRunner(int distance, int angle, int totalNumLevels) {
     movementLength = distance;
     rotationAngle = angle;
     location = new ArrayList<>();
-    location.add(startingLoc[0]);
-    location.add(startingLoc[1]);
+    location.add(TurtleWindowDisplay.PREF_WINDOW_SIZE / 2);
+    location.add(TurtleWindowDisplay.PREF_WINDOW_SIZE / 2);
+    levelIncrement = (TurtleWindowDisplay.PREF_WINDOW_SIZE / 2) / totalNumLevels;
   }
 
   @Override
@@ -26,8 +28,9 @@ public class LSystemCommandRunner extends CommandModel {
     for(String inputChar : input.split("(?!^)")) {
       commands.add(getCommand(inputChar));
     }
-    location.set(1, location.get(1) + 100);
+    location.set(1, location.get(1) + levelIncrement);
     commands.add(new SetHomeCommand(location));
+    commands.add(new SetPenUpCommand(new ArrayList<>()));
     commands.add(new GoHomeCommand(new ArrayList<>()));
     return commands;
   }

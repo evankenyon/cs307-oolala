@@ -8,12 +8,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import model.commands.Command;
+import view.TurtleWindowDisplay;
 
 // fix this
 public class LSystemsModel extends AppModel {
   private final int DEFAULT_MOVEMENT_LENGTH = 10;
   private final int DEFAULT_ROTATION_ANGLE = 30;
-  private final int[] DEFAULT_HOME = new int[]{0, 0};
+  private final int DEFAULT_LEVEL_NUM_MAX = 3;
+
   private int levelNumMax;
   private int levelNumCurr;
   private int numLevels;
@@ -25,11 +27,11 @@ public class LSystemsModel extends AppModel {
   }
 
   public LSystemsModel(String beginningRule) {
-    commandModel = new LSystemCommandRunner(DEFAULT_MOVEMENT_LENGTH, DEFAULT_ROTATION_ANGLE, DEFAULT_HOME);
     lSystemProgram = new LSystemProgram();
     commandsToRun = new LinkedList<>();
     levelNumCurr = 0;
-    levelNumMax = 5;
+    levelNumMax = DEFAULT_LEVEL_NUM_MAX;
+    commandModel = new LSystemCommandRunner(DEFAULT_MOVEMENT_LENGTH, DEFAULT_ROTATION_ANGLE, levelNumMax);
   }
 
   public void setLevelNumMax(int number) {

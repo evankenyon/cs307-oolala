@@ -14,7 +14,7 @@ class LSystemCommandRunnerTest {
 
   @BeforeEach
   void setUp() {
-    lSystemCommandRunner = new LSystemCommandRunner(10, 30, new int[]{0,0});
+    lSystemCommandRunner = new LSystemCommandRunner(10, 30, 3);
     turtleController = new TurtleController();
     originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE/2;
   }

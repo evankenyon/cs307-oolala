@@ -28,6 +28,7 @@ public class LogoDisplayTest extends DukeApplicationTest {
   private ColorPicker choosePenColor;
   private ColorPicker chooseBackgroundColor;
   private Pane turtleWindow;
+  private Button resetButton;
 
   // Below comment borrowed from Prof. Duvall
   // this method is run BEFORE EACH test to set up application in a fresh state
@@ -35,19 +36,20 @@ public class LogoDisplayTest extends DukeApplicationTest {
   public void start(Stage stage) {
     logoDisplay = new LogoDisplay();
 
-    stage.setScene(logoDisplay.makeScene(800, 800));
+    stage.setScene(logoDisplay.makeScene(1600, 1000));
     stage.show();
 
     // components that will be reused in different test
     // Borrowed setup and comment above from example_testfx course gitlab repo
     commandInput = lookup("#Command-Input").query();
-    choosePenColor = lookup("#Set-Color-0").query();
-    chooseBackgroundColor = lookup("#Set-Color-1").query();
     turtleWindow = lookup("#Turtle-Window").query();
+    resetButton = lookup("#Reset-Button").queryButton();
   }
 
   @Test
   public void testPenChangeRed () throws InterruptedException {
+    choosePenColor = lookup("#Set-Color-0").query();
+    chooseBackgroundColor = lookup("#Set-Color-1").query();
     Color expected = Color.RED;
     String command = "fd 50";
     List<String> commands = new ArrayList<>();
@@ -62,6 +64,8 @@ public class LogoDisplayTest extends DukeApplicationTest {
 
   @Test
   public void testBackgroundChangeRed () {
+    choosePenColor = lookup("#Set-Color-2").query();
+    chooseBackgroundColor = lookup("#Set-Color-3").query();
     Color expected = Color.RED;
     // Below line from example_testfx course gitlab repo
     setValue(chooseBackgroundColor, expected);

@@ -3,7 +3,6 @@ package view;
 import java.io.File;
 import java.util.List;
 import java.util.Properties;
-import javafx.collections.FXCollections;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;

@@ -22,18 +22,13 @@ import model.commands.Command;
  *
  * @author Evan Kenyon
  */
-public class LogoModel {
-
-  private Queue<Command> commandsToRun;
-  private final TurtleController turtleController;
-  private final CommandModel commandModel;
+public class LogoModel extends AppModel {
 
   /**
    * Purpose: Create a LogoModel
    */
   public LogoModel() {
-    turtleController = new TurtleController();
-    commandModel = new CommandModel();
+    commandModel = new LogoCommandModel();
     commandsToRun = new LinkedList<>();
   }
 
@@ -44,29 +39,33 @@ public class LogoModel {
    */
   public void handleFileInput(File file) {
     try {
-      commandsToRun.addAll(commandModel.handleFileSelected(file));
+      commandsToRun.addAll(((LogoCommandModel) commandModel).handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
       // TODO: fix
       e.printStackTrace();
     }
   }
 
+
   /**
    * Purpose: Runs the next command for the turtle to execute.
    * Assumptions: Will do nothing if there are no commands in line
    */
+  @Override
   public void runNextCommand() {
     if(!commandsToRun.isEmpty()) {
       commandsToRun.remove().runCommand(turtleController);
     }
   }
 
+
   /**
    * Purpose: Gets the history of commands that the user has entered to the program.
    * @return List of strings of the previous commands
    */
+  @Override
   public List<String> getCommandHistory() {
-    return commandModel.getCommandHistory();
+    return ((LogoCommandModel) commandModel).getCommandHistory();
   }
 
   /**
@@ -75,6 +74,7 @@ public class LogoModel {
    * Assumptions: Commands are valid if not an error will be thrown.
    * @param input String representing a command for the turtle to execute
    */
+  @Override
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
     commandsToRun.addAll(commandModel.getCommandsFromInput(input));
   }
@@ -98,8 +98,9 @@ public class LogoModel {
    * Purpose: Save the command history as a .txt file.
    * @throws IOException
    */
+  @Override
   public void saveCommandsAsFile() throws IOException {
-    commandModel.saveCommandsAsFile();
+    ((LogoCommandModel) commandModel).saveCommandsAsFile();
   }
 
   /**
@@ -161,7 +162,7 @@ public class LogoModel {
     return turtleController;
   }
 
-  CommandModel getCommandModel() {
-    return commandModel;
+  LogoCommandModel getLogoCommandModel() {
+    return ((LogoCommandModel) commandModel);
   }
 }

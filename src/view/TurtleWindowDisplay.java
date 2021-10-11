@@ -2,9 +2,14 @@ package view;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import model.TurtleModel;
 
 /**
@@ -31,6 +36,7 @@ public class TurtleWindowDisplay extends DisplayComponent {
     turtleDisplays = new ArrayList<>();
     // Have default constructor that just sets id to 1
     turtleWindow = new Pane();
+    turtleWindow.setId("Turtle-Window");
     turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
     defaultHome = new int[]{PREF_WINDOW_SIZE / 2, PREF_WINDOW_SIZE / 2};
     turtleDisplays.add(new TurtleDisplay(1, defaultHome));
@@ -71,6 +77,21 @@ public class TurtleWindowDisplay extends DisplayComponent {
       turtleDisplays.add(newTurtleDisplay);
       turtleWindow.getChildren().add(newTurtleDisplay.getDisplayComponentNode());
     }
+  }
+
+  public void updateActiveTurtlesPens(List<TurtleModel> activeTurtles, Color penColor, int thickness) {
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
+      if (activeTurtle != null) {
+        turtleDisplay.setPenColor(penColor);
+        turtleDisplay.setPenThickness(thickness);
+      }
+    }
+  }
+
+  public void updateBackgroundColor(Color backgroundColor) {
+    turtleWindow.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+//    turtleWindow.setStyle("-fx-background-color: " + backgroundColor + ";");
   }
 
   private TurtleModel getActiveTurtle(TurtleDisplay turtleDisplay, List<TurtleModel> activeTurtles) {

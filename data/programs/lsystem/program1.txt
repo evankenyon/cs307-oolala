@@ -1,2 +1,3 @@
 #Saved program number 1
-fd 50
+start f
+rule f f-f

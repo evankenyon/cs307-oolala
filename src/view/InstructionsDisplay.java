@@ -23,11 +23,16 @@ import util.PropertiesLoader;
  */
 public class InstructionsDisplay extends DisplayComponent {
 
-  private final List<Text> instructions;
+  private List<Text> instructions;
 
   public InstructionsDisplay() {
     Properties props = PropertiesLoader.loadProperties(
         "./src/view/resources/instructions/English.properties");
+    setupInstructions(props);
+    setupInstructionsIds();
+  }
+
+  private void setupInstructions(Properties props) {
     instructions = new ArrayList<>();
     Text instructionsHeader = new Text(props.getProperty("instructionsHeader"));
     instructionsHeader.setFont(new Font(30));
@@ -43,6 +48,21 @@ public class InstructionsDisplay extends DisplayComponent {
     instructions.add(new Text(props.getProperty("homeInstructions")));
     instructions.add(new Text(props.getProperty("stampsInstructions")));
     instructions.add(new Text(props.getProperty("tellInstructions")));
+  }
+
+  private void setupInstructionsIds() {
+    instructions.get(0).setId("Header-Instructions");
+    instructions.get(1).setId("Fd-Instructions");
+    instructions.get(2).setId("Bk-Instructions");
+    instructions.get(3).setId("Lt-Instructions");
+    instructions.get(4).setId("Rt-Instructions");
+    instructions.get(5).setId("Pd-Instructions");
+    instructions.get(6).setId("Pu-Instructions");
+    instructions.get(7).setId("St-Instructions");
+    instructions.get(8).setId("Ht-Instructions");
+    instructions.get(9).setId("Home-Instructions");
+    instructions.get(10).setId("Stamps-Instructions");
+    instructions.get(11).setId("Tell-Instructions");
   }
 
   @Override

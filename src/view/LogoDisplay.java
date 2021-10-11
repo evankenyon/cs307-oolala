@@ -1,16 +1,15 @@
 package view;
 
-import java.util.List;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
+import model.AppModel;
+import model.LSystemsModel;
 import model.LogoModel;
 import util.PropertiesLoader;
 
@@ -41,17 +40,16 @@ public class LogoDisplay {
   public static final String DEFAULT_RESOURCE_FOLDER = "/view/resources/";
   public static final String STYLESHEET = "Default.css";
 
-  private List<TurtleDisplay> turtleDisplays;
   private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
   
   private DisplayComponent instructionsDisplay;
   private TurtleInfoDisplay turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
-  
+  private SetColorDisplay setPenColorDisplay;
+  private SetColorDisplay setBackgroundColorDisplay;
   private GridPane root;
-  private LogoModel logoModel;
-  private Pane turtleWindow;
+  private AppModel logoModel;
   private Properties props;
   // Could store this data in file
   // Or a String to int map
@@ -74,9 +72,11 @@ public class LogoDisplay {
     commandDisplay = new CommandDisplay();
     instructionsDisplay = new InstructionsDisplay();
     turtleInfoDisplay = new TurtleInfoDisplay();
-    logoModel = new LogoModel();
+    logoModel = new LSystemsModel();
     turtleWindowDisplay = new TurtleWindowDisplay();
     clearDisplay = new ClearDisplay();
+    setPenColorDisplay = new SetColorDisplay(props.getProperty("penColorLabel"));
+    setBackgroundColorDisplay = new SetColorDisplay(props.getProperty("backgroundColorLabel"));
     rootSetup();
   }
 
@@ -95,7 +95,6 @@ public class LogoDisplay {
   }
 
   private void rootSetup() {
-//    root = new GridPane();
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],
         instructDispGridLayout[2], instructDispGridLayout[3]);
@@ -109,17 +108,9 @@ public class LogoDisplay {
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
 
     root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
+    root.add(setPenColorDisplay.getDisplayComponentNode(), 10, 12, 1, 1);
+    root.add(setBackgroundColorDisplay.getDisplayComponentNode(), 11, 12, 1, 1);
     root.getStyleClass().add("grid-pane");
-  }
-
-  private void turtleWindowSetup() {
-    Group turtleDisplaysGroup = new Group();
-    for (TurtleDisplay turtleDisplay : turtleDisplays) {
-      turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
-    }
-    turtleWindow = new Pane();
-    turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
-    turtleWindow.getChildren().addAll(turtleDisplaysGroup);
   }
 
   private void setupAnimation() {
@@ -135,13 +126,10 @@ public class LogoDisplay {
     handleReset();
     handleCommandInputted();
     handleFileInputted();
+    handleUpdatePen();
+    turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
     handleFileSave();
-    if (turtleDisplays != null) {
-      for (TurtleDisplay t : turtleDisplays) {
-        t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
-      }
-    }
   }
 
   private void handleReset() {
@@ -166,17 +154,23 @@ public class LogoDisplay {
         logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
         // TODO: change
+        e.printStackTrace();
         showError();
       }
     }
   }
 
-  private void handleRunNextCommand() {
+  private void handleUpdatePen() {
+    turtleWindowDisplay.updateActiveTurtlesPens(logoModel.getActiveTurtles(),
+        setPenColorDisplay.getColor(), turtleInfoDisplay.getPenThicknesss());
+  }
+
+    private void handleRunNextCommand() {
     commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
-    if (logoModel.hasNewTurtles()) {
-      turtleWindowDisplay.addNewTurtles(logoModel.getNewTurtles());
-    }
+//    if (logoModel.hasNewTurtles()) {
+//      turtleWindowDisplay.addNewTurtles(logoModel.getNewTurtles());
+//    }
     turtleWindowDisplay.updateTurtleWindowAndDisplays(logoModel.getActiveTurtles());
   }
 
@@ -186,6 +180,7 @@ public class LogoDisplay {
         logoModel.saveCommandsAsFile();
       } catch (Exception e) {
         // TODO: fix
+        e.printStackTrace();
         showError();
       }
     }

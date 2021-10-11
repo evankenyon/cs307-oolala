@@ -23,13 +23,12 @@ import model.commands.Command;
  * @author Evan Kenyon
  */
 public class LogoModel extends AppModel {
-  private final CommandModel logoCommandModel;
 
   /**
    * Purpose: Create a LogoModel
    */
   public LogoModel() {
-    logoCommandModel = new LogoCommandModel();
+    commandModel = new LogoCommandModel();
     commandsToRun = new LinkedList<>();
   }
 
@@ -40,7 +39,7 @@ public class LogoModel extends AppModel {
    */
   public void handleFileInput(File file) {
     try {
-      commandsToRun.addAll(logoCommandModel.handleFileSelected(file));
+      commandsToRun.addAll(((LogoCommandModel) commandModel).handleFileSelected(file));
     } catch (IllegalArgumentException | FileNotFoundException e) {
       // TODO: fix
       e.printStackTrace();
@@ -66,7 +65,7 @@ public class LogoModel extends AppModel {
    */
   @Override
   public List<String> getCommandHistory() {
-    return ((LogoCommandModel) logoCommandModel).getCommandHistory();
+    return ((LogoCommandModel) commandModel).getCommandHistory();
   }
 
   /**
@@ -77,7 +76,7 @@ public class LogoModel extends AppModel {
    */
   @Override
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    commandsToRun.addAll(logoCommandModel.getCommandsFromInput(input));
+    commandsToRun.addAll(commandModel.getCommandsFromInput(input));
   }
 
   /**
@@ -101,7 +100,7 @@ public class LogoModel extends AppModel {
    */
   @Override
   public void saveCommandsAsFile() throws IOException {
-    ((LogoCommandModel) logoCommandModel).saveCommandsAsFile();
+    ((LogoCommandModel) commandModel).saveCommandsAsFile();
   }
 
   /**
@@ -164,6 +163,6 @@ public class LogoModel extends AppModel {
   }
 
   LogoCommandModel getLogoCommandModel() {
-    return ((LogoCommandModel) logoCommandModel);
+    return ((LogoCommandModel) commandModel);
   }
 }

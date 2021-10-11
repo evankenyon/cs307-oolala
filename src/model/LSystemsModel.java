@@ -1,5 +1,7 @@
 package model;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -63,5 +65,10 @@ public class LSystemsModel extends AppModel {
   @Override
   public void saveCommandsAsFile() throws IOException {
     lSystemProgram.saveCommandsAsFile();
+  }
+
+  @Override
+  public void handleFileInput(File file) throws FileNotFoundException {
+    lSystemProgram.handleFileInput(file);
   }
 }

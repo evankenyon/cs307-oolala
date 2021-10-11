@@ -125,11 +125,11 @@ public class LogoDisplay {
   private void step(double elapsedTime) {
     handleReset();
     handleCommandInputted();
-//    handleFileInputted();
+    handleFileInputted();
     handleUpdatePen();
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
-//    handleFileSave();
+    handleFileSave();
   }
 
   private void handleReset() {
@@ -154,6 +154,7 @@ public class LogoDisplay {
         logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
         // TODO: change
+        e.printStackTrace();
         showError();
       }
     }

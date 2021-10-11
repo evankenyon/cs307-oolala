@@ -29,12 +29,5 @@ public abstract class AppModel {
 
   public abstract void saveCommandsAsFile() throws IOException;
 
-  public void handleFileInput(File file) {
-    try {
-      commandsToRun.addAll(commandModel.handleFileSelected(file));
-    } catch (IllegalArgumentException | FileNotFoundException e) {
-      // TODO: fix
-      e.printStackTrace();
-    }
-  }
+  public abstract void handleFileInput(File file) throws FileNotFoundException;
 }

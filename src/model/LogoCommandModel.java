@@ -87,6 +87,36 @@ public class LogoCommandModel extends CommandModel {
   }
 
   /**
+   * Purpose: Get a list of commands for the turtle(s) to execute based on the commands in the file
+   * provided by the user. Assumptions: The file is in .txt format and commands in the file should
+   * be valid
+   *
+   * @param commandFile A .txt file containing commands for the program
+   * @return List of Commands for the turtles to execute.
+   * @throws FileNotFoundException
+   * @throws IllegalArgumentException
+   */
+  public List<Command> handleFileSelected(File commandFile)
+      throws FileNotFoundException, IllegalArgumentException {
+    ArrayList<Command> commands = new ArrayList<>();
+    if (!commandFile.getName().endsWith(".txt")) {
+      throw new IllegalArgumentException();
+    }
+    Scanner fileScanner = new Scanner(commandFile);
+    fileScanner.useDelimiter("\n");
+    while (fileScanner.hasNext()) {
+      String next = fileScanner.next();
+      if (next.startsWith("#") || next.equals(" ")) {
+        continue;
+      }
+      commands.addAll(getCommandsFromInput(next));
+    }
+    return commands;
+  }
+
+
+
+  /**
    * Purpose: Get a list of the previous commands executed in the program.
    *
    * @return List of strings representing the command history

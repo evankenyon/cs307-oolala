@@ -55,7 +55,7 @@ public class LogoCommandModel extends CommandModel {
   public LogoCommandModel() {
     numProgramsSaved = 0;
     props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
-    prevCommandsHandler = new PrevCommandsHandler();
+    prevCommandsHandler = new PrevCommandsHandler("logo");
   }
 
   /**

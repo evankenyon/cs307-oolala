@@ -1,6 +1,5 @@
 package model;
 
-// fix this
 public class LSystemRules {
 
   private String id;
@@ -10,7 +9,6 @@ public class LSystemRules {
     String[] brokenRuleStr = fullRule.toLowerCase().split(" ");
     id = brokenRuleStr[0];
     rule = brokenRuleStr[1];
-//    rule = brokenRuleStr[1].split("(?!^)");
   }
 
   public String getId() {

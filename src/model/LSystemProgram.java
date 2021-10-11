@@ -22,7 +22,7 @@ public class LSystemProgram {
     isValidProgram = false;
     levelNum = 0;
     rules = new ArrayList<>();
-    prevCommandsHandler = new PrevCommandsHandler();
+    prevCommandsHandler = new PrevCommandsHandler("lsystem");
   }
 
   public void parseInput(String input) throws InputMismatchException {

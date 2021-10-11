@@ -180,6 +180,7 @@ public class LogoDisplay {
         logoModel.saveCommandsAsFile();
       } catch (Exception e) {
         // TODO: fix
+        e.printStackTrace();
         showError();
       }
     }

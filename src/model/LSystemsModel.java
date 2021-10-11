@@ -21,6 +21,7 @@ public class LSystemsModel {
 
   public LSystemsModel(String beginningRule) {
     startingRule = beginningRule.toLowerCase();
+    lsystemCommandRunner = new LSystemCommandRunner(10, 30, new int[]{0, 0});
     ruleBook = new ArrayList<>();
     numLevels = 1;
     movementLength = 2;
@@ -61,32 +62,27 @@ public class LSystemsModel {
   public void run(TurtleController turtleController) {
     turtleController.resetActiveTurtles();
     turtleController.addTurtleToActives(1);
-    lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
-        stampBranchImage, location);
+//    lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
+//        stampBranchImage, location);
     lsystemCommandRunner.goToStartLocation();
     moveTurtleRecursively(numLevels, startingRule);
   }
 
-  public void moveTurtleRecursively(int levelnum, String ruleId) {
-    if (levelnum < 0) {
-      lsystemCommandRunner.runLsysCommand(ruleId);
-      return;
-    }
-    String[] rule = findRule(ruleId);
-    for (String ruleChar : rule) {
-      if (ruleChar.equals("+") || ruleChar.equals("-")) {
+  public void moveTurtleRecursively(int levelNum, String ruleId) {
+    String currRule = ruleId;
+    lsystemCommandRunner.runLsysCommand(ruleId);
+    levelNum--;
+    while(levelNum > 0) {
+      currRule = currRule.replace(ruleId, findRule(ruleId));
+      for (String ruleChar : currRule.split("(?!^)")) {
         lsystemCommandRunner.runLsysCommand(ruleChar);
-      } else {
-        try {
-          moveTurtleRecursively(levelnum - 1, ruleChar);
-        } catch (IllegalArgumentException e) {
-          throw new IllegalArgumentException("Rule isn't Defined");
-        }
       }
+      System.out.println();
+      levelNum--;
     }
   }
 
-  public String[] findRule(String ruleId) {
+  public String findRule(String ruleId) {
     try {
       for (LSystemRules rule : ruleBook) {
         if (rule.getId().equals(ruleId)) {

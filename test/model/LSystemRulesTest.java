@@ -22,9 +22,7 @@ class LSystemRulesTest {
 
   @Test
   public void getRuleSimpleCorrect() {
-    String[] expected = new String[]{"f", "-", "f", "+", "+", "f", "-", "f"};
-    for(int index = 0; index < lSystemRules.getRule().length; index++) {
-      assertEquals(expected[index], lSystemRules.getRule()[index]);
-    }
+    String expected = "f-f++f-f";
+    assertEquals(expected, lSystemRules.getRule());
   }
 }

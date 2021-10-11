@@ -23,7 +23,7 @@ public class TurtleInfoDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(new HBox(thicknessLabel, thicknessSlider));
+    return new VBox(thicknessLabel, thicknessSlider);
   }
 
   public void setupThicknessSlider() {

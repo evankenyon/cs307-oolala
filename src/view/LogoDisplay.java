@@ -1,15 +1,12 @@
 package view;
 
-import java.util.List;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
 import util.PropertiesLoader;
@@ -24,14 +21,14 @@ public class LogoDisplay {
   public static final String DEFAULT_RESOURCE_FOLDER = "/view/resources/";
   public static final String STYLESHEET = "Default.css";
 
-  private List<TurtleDisplay> turtleDisplays;
   private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
   
   private DisplayComponent instructionsDisplay;
   private TurtleInfoDisplay turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
-  private SetPenColorDisplay setPenColorDisplay;
+  private SetColorDisplay setPenColorDisplay;
+  private SetColorDisplay setBackgroundColorDisplay;
   private GridPane root;
   private LogoModel logoModel;
   private Properties props;
@@ -56,7 +53,8 @@ public class LogoDisplay {
     logoModel = new LogoModel();
     turtleWindowDisplay = new TurtleWindowDisplay();
     clearDisplay = new ClearDisplay();
-    setPenColorDisplay = new SetPenColorDisplay();
+    setPenColorDisplay = new SetColorDisplay(props.getProperty("penColorLabel"));
+    setBackgroundColorDisplay = new SetColorDisplay(props.getProperty("backgroundColorLabel"));
     rootSetup();
   }
 
@@ -82,6 +80,7 @@ public class LogoDisplay {
 
     root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
     root.add(setPenColorDisplay.getDisplayComponentNode(), 10, 12, 1, 1);
+    root.add(setBackgroundColorDisplay.getDisplayComponentNode(), 11, 12, 1, 1);
     root.getStyleClass().add("grid-pane");
   }
 
@@ -98,13 +97,10 @@ public class LogoDisplay {
     handleReset();
     handleCommandInputted();
     handleFileInputted();
+    handleUpdatePen();
+    turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
     handleFileSave();
-    if (turtleDisplays != null) {
-      for (TurtleDisplay t : turtleDisplays) {
-        t.setPenThickness(turtleInfoDisplay.getPenThicknesss());
-      }
-    }
   }
 
   private void handleReset() {
@@ -134,8 +130,12 @@ public class LogoDisplay {
     }
   }
 
-  private void handleRunNextCommand() {
-    turtleWindowDisplay.updateActiveTurtlesPenColor(logoModel.getActiveTurtles(), setPenColorDisplay.getColor());
+  private void handleUpdatePen() {
+    turtleWindowDisplay.updateActiveTurtlesPens(logoModel.getActiveTurtles(),
+        setPenColorDisplay.getColor(), turtleInfoDisplay.getPenThicknesss());
+  }
+
+    private void handleRunNextCommand() {
     commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
     if (logoModel.hasNewTurtles()) {

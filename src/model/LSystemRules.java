@@ -4,19 +4,20 @@ package model;
 public class LSystemRules {
 
   private String id;
-  private String[] rule;
+  private String rule;
 
   public LSystemRules(String fullRule) {
     String[] brokenRuleStr = fullRule.toLowerCase().split(" ");
     id = brokenRuleStr[0];
-    rule = brokenRuleStr[1].split("(?!^)");
+    rule = brokenRuleStr[1];
+//    rule = brokenRuleStr[1].split("(?!^)");
   }
 
   public String getId() {
     return id;
   }
 
-  public String[] getRule() {
+  public String getRule() {
     return rule;
   }
 }

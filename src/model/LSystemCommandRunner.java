@@ -8,19 +8,16 @@ import model.commands.*;
 // fix this
 public class LSystemCommandRunner extends CommandModel {
 
-  private TurtleController turtleController;
   private int movementLength;
   private int rotationAngle;
   private boolean stampBranchImage;
   private List<Integer> location;
 
-  public LSystemCommandRunner(TurtleController inputTurtController, int distance, int angle,
-      boolean branchStamp, int[]
-      startingLoc) {
-    turtleController = inputTurtController;
+  public LSystemCommandRunner(int distance, int angle,
+      int[] startingLoc) {
     movementLength = distance;
     rotationAngle = angle;
-    stampBranchImage = branchStamp;
+//    stampBranchImage = branchStamp;
     location = new ArrayList<>();
     location.add(startingLoc[0]);
     location.add(startingLoc[1]);
@@ -34,7 +31,7 @@ public class LSystemCommandRunner extends CommandModel {
       case "g" -> new GCommand(movementLength);
       case "a" -> new ACommand(movementLength);
       case "b" -> new BCommand(movementLength);
-      case "+" -> new RotateRightCommand(new ArrayList<>());
+      case "+" -> new RotateRightCommand(rotateNum);
       case "-" -> new RotateLeftCommand(rotateNum);
       case "x" -> new StampCommand(new ArrayList<>());
       default -> throw new InputMismatchException();
@@ -43,8 +40,8 @@ public class LSystemCommandRunner extends CommandModel {
 
 
   public void goToStartLocation() {
-    new SetHomeCommand(location).runCommand(turtleController);
-    new GoHomeCommand(new ArrayList<>()).runCommand(turtleController);
+//    new SetHomeCommand(location).runCommand(turtleController);
+//    new GoHomeCommand(new ArrayList<>()).runCommand(turtleController);
   }
 
   public void setStartLocation(int[] inputStartLocation) {

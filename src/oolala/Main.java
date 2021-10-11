@@ -3,6 +3,8 @@ package oolala;
 import java.awt.Dimension;
 import javafx.application.Application;
 import javafx.stage.Stage;
+import view.AppDisplay;
+import view.LSystemDisplay;
 import view.LogoDisplay;
 
 /**
@@ -25,9 +27,9 @@ public class Main extends Application {
    */
   public void start(Stage stage) {
     // Borrowed this setup code from lab_browser course gitlab repo
-    LogoDisplay logoDisplay = new LogoDisplay();
+    AppDisplay lSystemDisplay = new LogoDisplay();
     stage.setTitle(TITLE);
-    stage.setScene(logoDisplay.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
+    stage.setScene(lSystemDisplay.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
     stage.show();
   }
 }

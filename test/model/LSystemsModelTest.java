@@ -48,7 +48,7 @@ class LSystemsModelTest {
 
   @Test
   void moveTurtleRecursively() {
-    lSystemsModel.createRule("F F-F++F-F");
+//    lSystemsModel.createRule("F F-F++F-F");
 //    lSystemsModel.moveTurtleRecursively(4, "f");
   }
 }

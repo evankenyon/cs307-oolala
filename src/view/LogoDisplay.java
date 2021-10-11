@@ -151,7 +151,7 @@ public class LogoDisplay {
   private void handleFileInputted() {
     if (commandDisplay.getIsFileUploaded()) {
       try {
-//        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
+        logoModel.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
         // TODO: change
         showError();
@@ -176,7 +176,7 @@ public class LogoDisplay {
   private void handleFileSave() {
     if (commandDisplay.shouldSaveAsFile()) {
       try {
-//        logoModel.saveCommandsAsFile();
+        logoModel.saveCommandsAsFile();
       } catch (Exception e) {
         // TODO: fix
         showError();

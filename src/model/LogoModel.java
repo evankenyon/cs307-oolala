@@ -23,9 +23,7 @@ import model.commands.Command;
  * @author Evan Kenyon
  */
 public class LogoModel extends AppModel {
-  private final LogoCommandModel logoCommandModel;
-
-  private Queue<Command> commandsToRun;
+  private final CommandModel logoCommandModel;
 
   /**
    * Purpose: Create a LogoModel
@@ -68,7 +66,7 @@ public class LogoModel extends AppModel {
    */
   @Override
   public List<String> getCommandHistory() {
-    return logoCommandModel.getCommandHistory();
+    return ((LogoCommandModel) logoCommandModel).getCommandHistory();
   }
 
   /**
@@ -101,8 +99,9 @@ public class LogoModel extends AppModel {
    * Purpose: Save the command history as a .txt file.
    * @throws IOException
    */
+  @Override
   public void saveCommandsAsFile() throws IOException {
-    logoCommandModel.saveCommandsAsFile();
+    ((LogoCommandModel) logoCommandModel).saveCommandsAsFile();
   }
 
   /**
@@ -165,6 +164,6 @@ public class LogoModel extends AppModel {
   }
 
   LogoCommandModel getLogoCommandModel() {
-    return logoCommandModel;
+    return ((LogoCommandModel) logoCommandModel);
   }
 }

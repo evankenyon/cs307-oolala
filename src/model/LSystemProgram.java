@@ -1,11 +1,9 @@
 package model;
 
-import java.awt.SystemTray;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 
 public class LSystemProgram {
   private String start;

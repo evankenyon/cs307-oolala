@@ -3,22 +3,18 @@ package model;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
-import java.util.Scanner;
 import model.commands.*;
 
-// fix this
 public class LSystemCommandRunner extends CommandModel {
 
   private int movementLength;
   private int rotationAngle;
-  private boolean stampBranchImage;
   private List<Integer> location;
 
   public LSystemCommandRunner(int distance, int angle,
       int[] startingLoc) {
     movementLength = distance;
     rotationAngle = angle;
-//    stampBranchImage = branchStamp;
     location = new ArrayList<>();
     location.add(startingLoc[0]);
     location.add(startingLoc[1]);
@@ -69,9 +65,5 @@ public class LSystemCommandRunner extends CommandModel {
 
   public void setRotationAngle(int rotationAngle) {
     this.rotationAngle = rotationAngle;
-  }
-
-  public void setStampBranchImage(boolean stampBranchImage) {
-    this.stampBranchImage = stampBranchImage;
   }
 }

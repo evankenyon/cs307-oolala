@@ -138,7 +138,7 @@ public class LogoDisplay {
   }
 
     private void handleRunNextCommand() {
-//    commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
+    commandDisplay.updateCommandHistory(logoModel.getCommandHistory());
     logoModel.runNextCommand();
 //    if (logoModel.hasNewTurtles()) {
 //      turtleWindowDisplay.addNewTurtles(logoModel.getNewTurtles());

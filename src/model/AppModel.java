@@ -16,4 +16,7 @@ public abstract class AppModel {
   public List<TurtleModel> getActiveTurtles() {
     return turtleController.getActiveTurtles();
   }
+
+  public abstract List<String> getCommandHistory();
+
 }

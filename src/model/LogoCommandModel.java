@@ -28,12 +28,11 @@ public class LogoCommandModel extends CommandModel {
 
   private Scanner scanner;
   private int numProgramsSaved;
-  private final List<String> prevCommands;
   private Properties props;
+  private PrevCommandsHandler prevCommandsHandler;
 
   public LogoCommandModel() {
     numProgramsSaved = 0;
-    prevCommands = new ArrayList<>();
     props = PropertiesLoader.loadProperties("./src/model/resources/English.properties");
   }
 
@@ -43,8 +42,17 @@ public class LogoCommandModel extends CommandModel {
     scanner = new Scanner(input);
     List<List<Integer>> args = new ArrayList<>();
     List<String> functions = new ArrayList<>();
+    prevCommandsHandler = new PrevCommandsHandler();
     getCommandsFromInput(args, functions);
     return getCommands(args, functions);
+  }
+
+  public void saveCommandsAsFile() throws IOException {
+    prevCommandsHandler.saveCommandsAsFile();
+  }
+
+  public List<String> getCommandHistory() {
+    return prevCommandsHandler.getCommandHistory();
   }
 
   private void getCommandsFromInput(List<List<Integer>> args, List<String> functions) {
@@ -68,22 +76,16 @@ public class LogoCommandModel extends CommandModel {
     for (int index = 0; index < functions.size(); index++) {
       try {
         commands.add(getCommandFromInput(functions.get(index), args.get(index)));
-        prevCommands.add(commandStringConstruction(functions.get(index), args.get(index)));
+        List<String> stringArgs = new ArrayList<>();
+        for (Integer arg : args.get(index)) {
+          stringArgs.add(arg.toString());
+        }
+        prevCommandsHandler.addPrevCommand(functions.get(index), stringArgs);
       } catch (IndexOutOfBoundsException e) {
         throw new IllegalArgumentException();
       }
     }
     return commands;
-  }
-
-  private String commandStringConstruction(String function, List<Integer> args) {
-    StringBuilder commandString = new StringBuilder();
-    commandString.append(function);
-    for (Integer arg : args) {
-      commandString.append(" ");
-      commandString.append(arg);
-    }
-    return commandString.toString();
   }
 
   private Command getCommandFromInput(String function, List<Integer> args)
@@ -104,38 +106,4 @@ public class LogoCommandModel extends CommandModel {
     };
   }
 
-  public List<Command> handleFileSelected(File commandFile)
-      throws FileNotFoundException, IllegalArgumentException {
-    ArrayList<Command> commands = new ArrayList<>();
-    if (!commandFile.getName().endsWith(".txt")) {
-      throw new IllegalArgumentException();
-    }
-    Scanner fileScanner = new Scanner(commandFile);
-    fileScanner.useDelimiter("\n");
-    while (fileScanner.hasNext()) {
-      String next = fileScanner.next();
-      if (next.startsWith("#") || next.equals(" ")) {
-        continue;
-      }
-      commands.addAll(getCommandsFromInput(next));
-    }
-    return commands;
-  }
-
-  public void saveCommandsAsFile() throws IOException {
-    numProgramsSaved++;
-    // Code for creating a file and writing to it borrowed from
-    // https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it
-    PrintWriter currProgram = new PrintWriter("./data/programs/program" + numProgramsSaved
-        + ".txt", StandardCharsets.UTF_8);
-    currProgram.println("#Saved program number " + numProgramsSaved);
-    for (String command : prevCommands) {
-      currProgram.println(command);
-    }
-    currProgram.close();
-  }
-
-  public List<String> getCommandHistory() {
-    return prevCommands;
-  }
 }

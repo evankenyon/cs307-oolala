@@ -34,12 +34,14 @@ public class LogoModel extends AppModel {
     }
   }
 
+  @Override
   public void runNextCommand() {
     if(!commandsToRun.isEmpty()) {
       commandsToRun.remove().runCommand(turtleController);
     }
   }
 
+  @Override
   public List<String> getCommandHistory() {
     return logoCommandModel.getCommandHistory();
   }

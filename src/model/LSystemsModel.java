@@ -1,5 +1,6 @@
 package model;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
@@ -85,6 +86,15 @@ public class LSystemsModel extends AppModel {
     if(!commandsToRun.isEmpty()) {
       commandsToRun.remove().runCommand(turtleController);
     }
+  }
+
+  @Override
+  public List<String> getCommandHistory() {
+    return lSystemProgram.getCommandHistory();
+  }
+
+  public void saveCommandsAsFile() throws IOException {
+    lSystemProgram.saveCommandsAsFile();
   }
 
   public void createRule(String rulePassedIn) {

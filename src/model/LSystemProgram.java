@@ -1,6 +1,7 @@
 package model;
 
 import java.awt.SystemTray;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
@@ -12,11 +13,13 @@ public class LSystemProgram {
   private String currLevel;
   private boolean isValidProgram;
   private int levelNum;
+  private PrevCommandsHandler prevCommandsHandler;
 
   public LSystemProgram() {
     isValidProgram = false;
     levelNum = 0;
     rules = new ArrayList<>();
+    prevCommandsHandler = new PrevCommandsHandler();
   }
 
   public void parseInput(String input) throws InputMismatchException {
@@ -33,6 +36,7 @@ public class LSystemProgram {
       case "rule" -> rules.add(new LSystemRules(arguments.get(0) + " " + arguments.get(1)));
       default -> throw new InputMismatchException();
     }
+    prevCommandsHandler.addPrevCommand(input);
     if(!start.isEmpty() && !rules.isEmpty()) {
       isValidProgram = true;
     }
@@ -53,5 +57,13 @@ public class LSystemProgram {
 
   public boolean getIsValidProgram() {
     return isValidProgram;
+  }
+
+  public void saveCommandsAsFile() throws IOException {
+    prevCommandsHandler.saveCommandsAsFile();
+  }
+
+  public List<String> getCommandHistory() {
+    return prevCommandsHandler.getCommandHistory();
   }
 }

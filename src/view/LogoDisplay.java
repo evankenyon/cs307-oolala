@@ -130,6 +130,7 @@ public class LogoDisplay {
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
     handleFileSave();
+    handleImageUploaded();
   }
 
   private void handleReset() {
@@ -181,6 +182,17 @@ public class LogoDisplay {
       } catch (Exception e) {
         // TODO: fix
         e.printStackTrace();
+        showError();
+      }
+    }
+  }
+
+  private void handleImageUploaded() {
+    if(turtleInfoDisplay.getIsImageUploaded()){
+      try{
+        turtleWindowDisplay.updateActiveTurtlesImage(logoModel.getActiveTurtles(), turtleInfoDisplay.getUploadedImage());
+      }
+      catch (Exception e) {
         showError();
       }
     }

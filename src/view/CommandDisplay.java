@@ -92,9 +92,13 @@ public class CommandDisplay extends DisplayComponent {
    * @param commands List of previous commands.
    */
   public void updateCommandHistory(List<String> commands) {
-    // Borrowed usage of FXCollections from
-    // https://stackoverflow.com/questions/41920217/what-is-the-difference-between-arraylist-and-observablelist
-    prevCommands.setItems(FXCollections.observableList(commands));
+    if(commands.size() != prevCommands.getItems().size()) {
+      prevCommands.getItems().clear();
+      for(String command : commands) {
+        prevCommands.getItems().add(command);
+      }
+    }
+
   }
 
   /**

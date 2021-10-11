@@ -1,100 +1,76 @@
 package model;
 
-import java.util.ArrayList;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.InputMismatchException;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
+import model.commands.Command;
+import view.TurtleWindowDisplay;
 
 // fix this
-public class LSystemsModel {
-    private String startingRule;
-    private List<LSystemRules> ruleBook;
-    private int numLevels;
-    private int movementLength;
-    private int rotationAngle;
-    private boolean stampBranchImage;
-    private int[] location;
-    private LSystemCommandRunner lsystemCommandRunner;
+public class LSystemsModel extends AppModel {
+  private final int DEFAULT_MOVEMENT_LENGTH = 10;
+  private final int DEFAULT_ROTATION_ANGLE = 30;
+  private final int DEFAULT_LEVEL_NUM_MAX = 3;
 
-    public LSystemsModel(){
-        this("");
+  private int levelNumMax;
+  private int levelNumCurr;
+  private int numLevels;
+  private LSystemProgram lSystemProgram;
+
+
+  public LSystemsModel() {
+    this("");
+  }
+
+  public LSystemsModel(String beginningRule) {
+    lSystemProgram = new LSystemProgram();
+    commandsToRun = new LinkedList<>();
+    levelNumCurr = 0;
+    levelNumMax = DEFAULT_LEVEL_NUM_MAX;
+    commandModel = new LSystemCommandRunner(DEFAULT_MOVEMENT_LENGTH, DEFAULT_ROTATION_ANGLE, levelNumMax);
+  }
+
+  public void setLevelNumMax(int number) {
+    this.levelNumMax = number;
+  }
+
+  @Override
+  public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
+    try {
+      lSystemProgram.parseInput(input);
+    } catch (Exception e) {
+      // TODO: fix
+      e.printStackTrace();
     }
 
-    public LSystemsModel(String beginningRule){
-        startingRule = beginningRule.toLowerCase();
-        ruleBook = new ArrayList<>();
-        numLevels = 1;
-        movementLength = 2;
-        rotationAngle = 30;
-        stampBranchImage = false;
-        location = new int[]{0,0};
-    }
+  }
 
-    public void setStartLocation(int[] inputStartLocation){
-        location = inputStartLocation;
+  public void runNextCommand() {
+    if(lSystemProgram.getIsValidProgram() && commandsToRun.isEmpty() && levelNumCurr < levelNumMax) {
+      commandsToRun.addAll(commandModel.getCommandsFromInput(lSystemProgram.getNextLevel(levelNumCurr)));
+      levelNumCurr++;
     }
+    if(!commandsToRun.isEmpty()) {
+      commandsToRun.remove().runCommand(turtleController);
+    }
+  }
 
-    public void setNumLevels(int number){
-       this.numLevels = number;
-    }
+  @Override
+  public List<String> getCommandHistory() {
+    return lSystemProgram.getCommandHistory();
+  }
 
-    public void setMovementLength(int distance){
-        this.movementLength = distance;
-    }
+  @Override
+  public void saveCommandsAsFile() throws IOException {
+    lSystemProgram.saveCommandsAsFile();
+  }
 
-    public void setRotationAngle(int rotationAngle) {
-        this.rotationAngle = rotationAngle;
-    }
-
-    public void setStampBranchImage(boolean stampBranchImage) {
-        this.stampBranchImage = stampBranchImage;
-    }
-
-    public void setStartingRule(String startingRule) {
-        this.startingRule = startingRule;
-    }
-
-    public void createRule(String rulePassedIn){
-        LSystemRules newRule = new LSystemRules(rulePassedIn);
-        ruleBook.add(newRule);
-    }
-
-    public void run(TurtleController turtleController){
-        turtleController.resetActiveTurtles();
-        turtleController.addTurtleToActives(1);
-        lsystemCommandRunner = new LSystemCommandRunner(turtleController, movementLength, rotationAngle,
-                stampBranchImage, location);
-        lsystemCommandRunner.goToStartLocation();
-        moveTurtleRecursively(numLevels, startingRule);
-    }
-
-    public void moveTurtleRecursively(int levelnum, String ruleId){
-        if(levelnum < 0){
-            lsystemCommandRunner.runLsysCommand(ruleId);
-            return;
-        }
-        String[] rule = findRule(ruleId);
-        for(String ruleChar: rule){
-            if(ruleChar.equals("+") || ruleChar.equals("-")){
-                lsystemCommandRunner.runLsysCommand(ruleChar);
-            } else {
-                try{
-                    moveTurtleRecursively(levelnum - 1, ruleChar);
-                } catch(IllegalArgumentException e){
-                    throw new IllegalArgumentException("Rule isn't Defined");
-                }
-            }
-        }
-    }
-
-    public String[] findRule(String ruleId){
-        try{
-            for(LSystemRules rule :ruleBook){
-                if(rule.getId().equals(ruleId)){
-                    return rule.getRule();
-                }
-            }
-        } catch (IllegalCallerException e){
-            throw new IllegalArgumentException("Rule Doesn't Exist");
-        }
-        throw new NullPointerException();
-    }
+  @Override
+  public void handleFileInput(File file) throws FileNotFoundException {
+    lSystemProgram.handleFileInput(file);
+  }
 }

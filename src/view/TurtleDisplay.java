@@ -4,6 +4,7 @@ import java.util.Properties;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
@@ -26,6 +27,7 @@ public class TurtleDisplay extends DisplayComponent {
   private Image turtleImg;
   private final int id;
   private double ratio;
+  private Color penColor;
   private int[] home;
   private final int DEFAULT_ANGLE = 0;
   private final int IMAGE_SIZE_FIT = 20;
@@ -56,6 +58,10 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(IMAGE_SIZE_FIT);
   }
 
+  public void setPenColor(Color penColor) {
+    this.penColor = penColor;
+  }
+
   /**
    * Purpose: Move the turtle to the position defined by the first argument and if turtlePenDown is 
    * true, draw a line connecting the old position to the new position.
@@ -69,12 +75,13 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setX(position[0]);
     turtleImgView.setY(position[1]);
     Line drawnLine;
-    if (turtlePenDown) {
+    if (turtlePenDown && (oldX != turtleImgView.getX() || oldY != turtleImgView.getY())) {
       drawnLine = new Line(oldX, oldY, turtleImgView.getX(), turtleImgView.getY());
+      drawnLine.setStroke(penColor);
+      drawnLine.setStrokeWidth(penThickness);
     } else {
       drawnLine = new Line();
     }
-    drawnLine.setStrokeWidth(penThickness);
     return drawnLine;
   }
 

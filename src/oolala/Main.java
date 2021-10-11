@@ -27,7 +27,7 @@ public class Main extends Application {
    */
   public void start(Stage stage) {
     // Borrowed this setup code from lab_browser course gitlab repo
-    AppDisplay lSystemDisplay = new LSystemDisplay();
+    AppDisplay lSystemDisplay = new LogoDisplay();
     stage.setTitle(TITLE);
     stage.setScene(lSystemDisplay.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
     stage.show();

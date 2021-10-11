@@ -9,6 +9,18 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import util.PropertiesLoader;
 
+/**
+ * Purpose: This class creates a VBox that holds the instructions describing to the user the
+ * commands to use Logo IDE.
+ * Assumptions: The program will not need to be used outside of English, Spanish, or French speakers
+ * for now, but if we hired a translator could easily get more languages.
+ * Dependencies: ArrayList, List, Properties, Node, VBox, Font, Text, PropertiesLoader
+ *
+ * Example: If somewhere in the GUI you want the instructions of the IDE to be present, then an
+ * instance of this class can be made and used to display the instructions.
+ *
+ * @author Evan Kenyon and Luis Pereda
+ */
 public class InstructionsDisplay extends DisplayComponent {
 
   private final List<Text> instructions;

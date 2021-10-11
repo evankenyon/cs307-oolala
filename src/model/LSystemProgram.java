@@ -47,8 +47,6 @@ public class LSystemProgram {
       currLevel = start;
     } else {
       for(LSystemRules rule : rules) {
-        System.out.println(rule.getId());
-        System.out.println(rule.getRule());
         currLevel = currLevel.replace(rule.getId(), rule.getRule());
       }
     }

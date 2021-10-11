@@ -108,7 +108,7 @@ class CommandModelTest {
   public void saveCommandsAsFileCorrect() throws IOException {
     commandModel.getCommandsFromInput("fd 50 rt 50");
     commandModel.saveCommandsAsFile();
-    Scanner scanner = new Scanner(new File("./data/programs/program1.txt"));
+    Scanner scanner = new Scanner(new File("./data/programs/logo/program1.txt"));
     scanner.useDelimiter("\n");
     Assertions.assertEquals("#Saved program number 1", scanner.next());
     Assertions.assertEquals("fd 50", scanner.next());
@@ -121,7 +121,7 @@ class CommandModelTest {
     commandModel.getCommandsFromInput("fd 50");
     commandModel.getCommandsFromInput("rt 50");
     commandModel.saveCommandsAsFile();
-    Scanner scanner = new Scanner(new File("./data/programs/program1.txt"));
+    Scanner scanner = new Scanner(new File("./data/programs/logo/program1.txt"));
     scanner.useDelimiter("\n");
     Assertions.assertEquals("#Saved program number 1", scanner.next());
     Assertions.assertEquals("fd 50", scanner.next());

@@ -6,9 +6,9 @@ import model.TurtleModel;
 
 /**
  * Purpose: This class represents a command to stamp the image of the turtle on the screen.
- * Assumptions: args passed to the constructor should be empty.
- * Dependencies: List, TurtleController, TurtleModel
- *
+ * Assumptions: args passed to the constructor should be empty. Dependencies: List,
+ * TurtleController, TurtleModel
+ * <p>
  * Example: If the user inputs the command "STAMP", create an instance of this class and run the
  * method.
  *
@@ -17,8 +17,8 @@ import model.TurtleModel;
 public class StampCommand implements Command {
 
   /**
-   * Purpose: Create a new StampCommand.
-   * Assumptions: args is of size 0.
+   * Purpose: Create a new StampCommand. Assumptions: args is of size 0.
+   *
    * @param args List of integers of size 0.
    * @throws IllegalArgumentException
    */

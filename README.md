@@ -78,6 +78,7 @@ Interesting data files:
 
 Known Bugs:
 
+* Must use fullscreen for proper frontend layout
 * Unstable build of L-system
 * Improper UI Placement
 * Error in Uploading L-system File

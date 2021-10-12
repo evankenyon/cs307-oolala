@@ -6,18 +6,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Labeled;
 import javafx.scene.control.ListView;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCode;
-import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+import view.logo.LogoDisplay;
 
 public class ClearDisplayTest extends DukeApplicationTest {
 
@@ -51,7 +47,7 @@ public class ClearDisplayTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testClearSimpleCommand () throws InterruptedException {
+  public void testClearSimpleCommand() throws InterruptedException {
     String expected = "fd 50";
     List<String> command = new ArrayList<>();
     command.add(expected);

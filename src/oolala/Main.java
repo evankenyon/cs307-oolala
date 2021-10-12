@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AppDisplay;
-import view.LSystemDisplay;
-import view.LogoDisplay;
+import view.logo.LogoDisplay;
+import view.lsystem.LSystemDisplay;
 
 /**
  * Feel free to completely change this code or delete it entirely.
@@ -27,7 +27,7 @@ public class Main extends Application {
    */
   public void start(Stage stage) {
     // Borrowed this setup code from lab_browser course gitlab repo
-    AppDisplay lSystemDisplay = new LSystemDisplay();
+    AppDisplay lSystemDisplay = new LogoDisplay();
     stage.setTitle(TITLE);
     stage.setScene(lSystemDisplay.makeScene(DEFAULT_SIZE.width, DEFAULT_SIZE.height));
     stage.show();

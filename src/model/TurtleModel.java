@@ -2,15 +2,15 @@ package model;
 
 /**
  * Purpose: This class organizes the state and behovior of each of the turtles that will be used to
- * draw on the applications.
- * Dependencies: None
- * Example: When a user starts the program, or calls tell on a non-existing turtle, instantiate a
- * new turtle model. This turtle can then be used to draw on the screen by moving it, rotating it,
- * and can implement the various other commands outlined in the instructions.
+ * draw on the applications. Dependencies: None Example: When a user starts the program, or calls
+ * tell on a non-existing turtle, instantiate a new turtle model. This turtle can then be used to
+ * draw on the screen by moving it, rotating it, and can implement the various other commands
+ * outlined in the instructions.
  *
  * @author Luis Pereda
  */
 public class TurtleModel {
+
   public static final int DEFAULT_X_POSITION = 400;
   public static final int DEFAULT_Y_POSITION = 400;
 
@@ -27,7 +27,8 @@ public class TurtleModel {
   private boolean shouldShow;
 
   /**
-   * Create a TurtleModel with the initial location where we want the turtle to be initialized on the screen.
+   * Create a TurtleModel with the initial location where we want the turtle to be initialized on
+   * the screen.
    *
    * @param initialPosition Passed as a x,y coordinate in an int array
    */
@@ -43,10 +44,11 @@ public class TurtleModel {
 
   /**
    * Create a TurtleModel with a default initial location in the center of the screen
+   *
    * @param turtleID
    */
   public TurtleModel(int turtleID) {
-      this(turtleID, new int[]{DEFAULT_X_POSITION, DEFAULT_Y_POSITION});
+    this(turtleID, new int[]{DEFAULT_X_POSITION, DEFAULT_Y_POSITION});
   }
 
   /**
@@ -90,10 +92,18 @@ public class TurtleModel {
   }
 
   private void keepTurtleInBounds() {
-    if (myPosition[0] < 0) myPosition[0] = 0;
-    if (myPosition[0] > 800) myPosition[0] = 800;
-    if (myPosition[1] < 0) myPosition[1] = 0;
-    if (myPosition[1] > 800) myPosition[1] = 800;
+    if (myPosition[0] < 0) {
+      myPosition[0] = 0;
+    }
+    if (myPosition[0] > 800) {
+      myPosition[0] = 800;
+    }
+    if (myPosition[1] < 0) {
+      myPosition[1] = 0;
+    }
+    if (myPosition[1] > 800) {
+      myPosition[1] = 800;
+    }
   }
 
   /**
@@ -125,9 +135,9 @@ public class TurtleModel {
 
   /**
    * Purpose: Get whether the turtle should be stamping its image on to the screen. If true, then
-   * set shouldStamp to false so that it should no longer stamp.
-   * Assumptions: We are only looking to stamp once with the stamp command, which is why we set
-   * shouldStamp to false after we get the value.
+   * set shouldStamp to false so that it should no longer stamp. Assumptions: We are only looking to
+   * stamp once with the stamp command, which is why we set shouldStamp to false after we get the
+   * value.
    *
    * @return
    */
@@ -165,15 +175,15 @@ public class TurtleModel {
   }
 
   /**
-   * Purpose: Set home location for turtle
-   * Assumptions: Only positive values for x and y between 0 and 400 should be input by the user.
+   * Purpose: Set home location for turtle Assumptions: Only positive values for x and y between 0
+   * and 400 should be input by the user.
    *
    * @param homeLocation Int array representing the x,y coordinates of the turtle home location
    *                     being assigned
    */
-  public void setHome(int[] homeLocation) throws IllegalArgumentException{
+  public void setHome(int[] homeLocation) throws IllegalArgumentException {
     for (int i : homeLocation) {
-      if(i < 0 || i > 400) {
+      if (i < 0 || i > 400) {
         throw new IllegalArgumentException();
       }
     }

@@ -1,22 +1,21 @@
-package model;
+package model.lsystem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
+import model.CommandModel;
 import model.commands.*;
+import model.logo.LogoCommandModel;
 import view.TurtleWindowDisplay;
 
 /**
  * Purpose: Represent an LSystemCommandModel, which takes in symbols and parses them into Command
- * objects
- * Dependencies: ArrayList, HashMap, InputMismatchException, List, Map, commands,
- * TurtleWindowDisplay
- * Example: Instantiate an LSystemCommandRunner in LSystemsModel in order to get
+ * objects Dependencies: ArrayList, HashMap, InputMismatchException, List, Map, commands,
+ * TurtleWindowDisplay Example: Instantiate an LSystemCommandRunner in LSystemsModel in order to get
  * symbols from LSystemProgram's symbol generation functionality, and return commands based on those
- * symbols
- * Other details: LSystemProgram handles the parsing of set commands, and LSystemsModel
+ * symbols Other details: LSystemProgram handles the parsing of set commands, and LSystemsModel
  * updates the map in this class based on LSystemProgram's parsing
  *
  * @author Haseeb Chaudhry
@@ -34,8 +33,7 @@ public class LSystemCommandRunner extends CommandModel {
   private LogoCommandModel logoCommandModel;
 
   /**
-   * Purpose: Construct an LSystemCommandRunner object
-   * Assumptions: distance and angle are
+   * Purpose: Construct an LSystemCommandRunner object Assumptions: distance and angle are
    * reasonable values (i.e. distance is not greater than the screen length)
    *
    * @param distance       initial movement command length
@@ -67,8 +65,7 @@ public class LSystemCommandRunner extends CommandModel {
 
   /**
    * Purpose: Further parses the new symbol set command and adds the symbol to command mapping to
-   * the inputCharToCommand map (or replaces it).
-   * Assumptions: newSymbolSet represents a partially
+   * the inputCharToCommand map (or replaces it). Assumptions: newSymbolSet represents a partially
    * parsed set command from LSystemProgram, which originally took in a user inputted set command.
    *
    * @param newSymbolSet a partially parsed set command from LSystemProgram
@@ -123,8 +120,7 @@ public class LSystemCommandRunner extends CommandModel {
 
   /**
    * Purpose: Set the start location of the turtle to inputStartLocation and reset levelIncrement
-   * based on the new start location.
-   * Assumptions: totalNumLevels is a reasonable value (i.e. much
+   * based on the new start location. Assumptions: totalNumLevels is a reasonable value (i.e. much
    * smaller than inputStartLocations y value).
    *
    * @param inputStartLocation the x and y values to set this class's start location to.
@@ -140,6 +136,7 @@ public class LSystemCommandRunner extends CommandModel {
 
   /**
    * Purpose: Sets the movement command length.
+   *
    * @param distance the value to set the movement command length to.
    */
   public void setMovementLength(int distance) {
@@ -148,6 +145,7 @@ public class LSystemCommandRunner extends CommandModel {
 
   /**
    * Purpose: Sets the rotation angle value.
+   *
    * @param rotationAngle the value to set the rotation angle to.
    */
   public void setRotationAngle(int rotationAngle) {

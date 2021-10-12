@@ -1,12 +1,14 @@
-package model;
+package model.lsystem;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import model.lsystem.LSystemRules;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LSystemRulesTest {
+
   LSystemRules lSystemRules;
 
   @BeforeEach

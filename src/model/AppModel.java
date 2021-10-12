@@ -12,14 +12,15 @@ import model.commands.Command;
  * like, and this could be used in the future as a form of boilerplate code for a new app we wish to
  * build. The class organizes the variables common to our current apps, including the
  * turtleController, commandsToRun, and the commandModel, as well as providing several abstract
- * methods which are expected to be implemented in classes that inherit from AppModel.
- * Assumptions: This class will never be instantiated, only inherited from.
- * Dependencies: File, FileNotFoundException, IOException, List, Queue, Command
- *
+ * methods which are expected to be implemented in classes that inherit from AppModel. Assumptions:
+ * This class will never be instantiated, only inherited from. Dependencies: File,
+ * FileNotFoundException, IOException, List, Queue, Command
+ * <p>
  * Example: A class could be made for the model of Logo IDE that extends this class and implements
  * the abstract methods pr
  */
 public abstract class AppModel {
+
   protected final TurtleController turtleController;
 
   protected Queue<Command> commandsToRun;
@@ -33,11 +34,10 @@ public abstract class AppModel {
   }
 
   /**
-   * Purpose: This class will be implemented so that text that is inputted by a user into a text
-   * box can be parsed into commands, which can then be created and ran so that the expected
-   * commands from the user can be executed. For example this could handle taking the string
-   * "fd 50" in Logo IDE, and parsing this string into a command that will move a turtle forward
-   * 50 pixels.
+   * Purpose: This class will be implemented so that text that is inputted by a user into a text box
+   * can be parsed into commands, which can then be created and ran so that the expected commands
+   * from the user can be executed. For example this could handle taking the string "fd 50" in Logo
+   * IDE, and parsing this string into a command that will move a turtle forward 50 pixels.
    * Assumptions: The user will be inputting valid commands, and if not will be alerted of an
    * invalid input.
    *
@@ -54,6 +54,7 @@ public abstract class AppModel {
 
   /**
    * Purpose: Getter for all the active turtles that will be executing the user's commands.
+   *
    * @return List of active turtles
    */
   public List<TurtleModel> getActiveTurtles() {
@@ -63,6 +64,7 @@ public abstract class AppModel {
   /**
    * Purpose: Getter for the list of commands that have already been executed. Can be useful for
    * showing the user the command history. Must be implemented in each subclass.
+   *
    * @return List of commands that the user has run
    */
   public abstract List<String> getCommandHistory();
@@ -70,6 +72,7 @@ public abstract class AppModel {
   /**
    * Purpose: The history of the user's commands can be saved as a .txt file to be used at a later
    * time. Must be implemented in each subclass.
+   *
    * @throws IOException
    */
   public abstract void saveCommandsAsFile() throws IOException;
@@ -77,15 +80,18 @@ public abstract class AppModel {
   /**
    * Purpose: This class will be implemented so that a user may input a .txt file that can be parsed
    * into commands, which can then be created and ran so that the expected commands from the user
-   * can be executed.
-   * Assumptions: File is a .txt with valid commands, if not an exception will be thrown.
+   * can be executed. Assumptions: File is a .txt with valid commands, if not an exception will be
+   * thrown.
+   *
    * @param file A file containing the commands the user wishes to execute
    * @throws FileNotFoundException
    */
   public abstract void handleFileInput(File file) throws FileNotFoundException;
 
   /**
-   * Purpose: Check to see if there are any new active turtles. Should be overridden to be functional.
+   * Purpose: Check to see if there are any new active turtles. Should be overridden to be
+   * functional.
+   *
    * @return If true there are new turtles, if false there are no new turtles.
    */
   public boolean hasNewTurtles() {
@@ -94,6 +100,7 @@ public abstract class AppModel {
 
   /**
    * Purpose: Getter for the new turtles recently added to actives.
+   *
    * @return List of new active turtle models
    */
   public List<TurtleModel> getNewTurtles() {

@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PrevCommandsHandler {
+
   private int numProgramsSaved;
   private String programName;
   protected List<String> prevCommands;
@@ -21,8 +22,9 @@ public class PrevCommandsHandler {
     numProgramsSaved++;
     // Code for creating a file and writing to it borrowed from
     // https://stackoverflow.com/questions/2885173/how-do-i-create-a-file-and-write-to-it
-    PrintWriter currProgram = new PrintWriter("./data/programs/" + programName + "/program" + numProgramsSaved
-        + ".txt", StandardCharsets.UTF_8);
+    PrintWriter currProgram = new PrintWriter(
+        "./data/programs/" + programName + "/program" + numProgramsSaved
+            + ".txt", StandardCharsets.UTF_8);
     currProgram.println("#Saved program number " + numProgramsSaved);
     for (String command : prevCommands) {
       currProgram.println(command);

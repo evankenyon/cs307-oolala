@@ -6,6 +6,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
 public class SetArgumentValueDisplay extends DisplayComponent {
+
   private Text label;
   private TextField argumentInput;
   private boolean hasArgumentUpdated;

@@ -8,15 +8,16 @@ import org.junit.jupiter.api.Test;
 import view.TurtleWindowDisplay;
 
 class TurtleModelTest {
+
   private TurtleModel turtleModel;
   private int[] expected;
   private int originalHome;
 
   @BeforeEach
-  public void setUp () {
+  public void setUp() {
     turtleModel = new TurtleModel(1);
     expected = new int[2];
-    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE/2;
+    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE / 2;
   }
 
   @Test
@@ -60,7 +61,7 @@ class TurtleModelTest {
   public void moveAtAngle() {
     turtleModel.rotate(60);
     turtleModel.move(50);
-    expected[1] = (int)(25 * Math.sqrt(3));
+    expected[1] = (int) (25 * Math.sqrt(3));
     expected[0] = 25;
     assertEquals(originalHome + expected[0], turtleModel.getPosition()[0]);
     assertEquals(originalHome + expected[1], turtleModel.getPosition()[1]);

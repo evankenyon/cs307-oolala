@@ -1,15 +1,12 @@
-package view;
+package view.logo;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
-import javafx.scene.Group;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -19,6 +16,7 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import util.DukeApplicationTest;
+import view.logo.LogoDisplay;
 
 public class LogoDisplayTest extends DukeApplicationTest {
 
@@ -72,7 +70,7 @@ public class LogoDisplayTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testPenChangeRed () throws InterruptedException {
+  public void testPenChangeRed() throws InterruptedException {
     choosePenColor = lookup("#Set-Color-2").query();
     chooseBackgroundColor = lookup("#Set-Color-3").query();
     Color expected = Color.RED;
@@ -84,11 +82,12 @@ public class LogoDisplayTest extends DukeApplicationTest {
     setValue(choosePenColor, expected);
     clickOn(commandInput).write(command);
     clickOn(commandInput).write(KeyCode.ENTER.getChar());
-    assertEquals(expected, ((Line) turtleWindow.getChildren().get(turtleWindow.getChildren().size() - 1)).getStroke());
+    assertEquals(expected,
+        ((Line) turtleWindow.getChildren().get(turtleWindow.getChildren().size() - 1)).getStroke());
   }
 
   @Test
-  public void testBackgroundChangeRed () {
+  public void testBackgroundChangeRed() {
     choosePenColor = lookup("#Set-Color-4").query();
     chooseBackgroundColor = lookup("#Set-Color-5").query();
     Color expected = Color.RED;

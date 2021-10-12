@@ -6,15 +6,16 @@ import util.ButtonMaker;
 
 /**
  * Purpose: This class makes a button that when clicked changes shouldReset to true, so that a class
- * using this class knows the user wants to clear the display.
- * Dependencies: Node, Button, ButtonMaker
- *
+ * using this class knows the user wants to clear the display. Dependencies: Node, Button,
+ * ButtonMaker
+ * <p>
  * Example: In the step method of the program check the value of shouldReset. If it is true, handle
  * this by resetting the page.
  *
  * @author Evan Kenyon
  */
 public class ClearDisplay extends DisplayComponent {
+
   private Button resetButton;
   private boolean shouldReset;
 
@@ -29,10 +30,11 @@ public class ClearDisplay extends DisplayComponent {
 
   /**
    * Purpose: Getter to see whether the display should be reset.
+   *
    * @return Boolean: if true then reset the display.
    */
   public boolean getShouldReset() {
-    if(shouldReset) {
+    if (shouldReset) {
       shouldReset = false;
       return true;
     }
@@ -41,6 +43,7 @@ public class ClearDisplay extends DisplayComponent {
 
   /**
    * Getter so that the high level display can use this button
+   *
    * @return Node of resetButton
    */
   @Override

@@ -1,26 +1,23 @@
 package view;
 
-import java.io.File;
-import java.util.Properties;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import util.ButtonMaker;
 import util.PropertiesLoader;
 
 /**
+ * Purpose: This class represents a display component where the user can choose pen color,
+ * background color, home location, and an image for the turtle.
+ * Dependencies: ChangeListener, ObservableValue, Node, Label, Slider, HBox, VBox, PropertiesLoader
  *
+ * Example: Create a TurtleInfoDisplay class inside the high level view, and place it on the screen
+ * so the user has more freedom to manipulate the turtles.
+ *
+ * @author Luis Pereda and Haseeb Chaudhry
  */
 public class TurtleInfoDisplay extends InfoDisplay {
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/logo/";

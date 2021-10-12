@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import view.AppDisplay;
-import view.LSystemDisplay;
-import view.LogoDisplay;
+import view.logo.LogoDisplay;
+import view.lsystem.LSystemDisplay;
 
 /**
  * Feel free to completely change this code or delete it entirely.

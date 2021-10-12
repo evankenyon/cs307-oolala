@@ -1,8 +1,11 @@
-package model;
+package model.logo;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.assertj.core.internal.bytebuddy.pool.TypePool.Resolution.Illegal;
+import model.TurtleController;
+import model.TurtleModel;
+import model.logo.LogoCommandModel;
+import model.logo.LogoModel;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.TurtleWindowDisplay;
@@ -19,7 +22,7 @@ class LogoModelTest {
     logoModel = new LogoModel();
     commandModel = logoModel.getLogoCommandModel();
     turtleController = logoModel.getTurtleController();
-    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE/2;
+    originalHome = TurtleWindowDisplay.PREF_WINDOW_SIZE / 2;
   }
 
   @Test
@@ -127,7 +130,8 @@ class LogoModelTest {
   public void setHomeLocationIncorrect() {
     int expectedX = -1;
     int expectedY = 1;
-    assertThrows(IllegalArgumentException.class, () -> logoModel.setHomeLocation(expectedX, expectedY));
+    assertThrows(IllegalArgumentException.class,
+        () -> logoModel.setHomeLocation(expectedX, expectedY));
   }
 
   @Test

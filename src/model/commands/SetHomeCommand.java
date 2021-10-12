@@ -6,10 +6,9 @@ import model.TurtleModel;
 
 /**
  * Purpose: This class represents a command to set the home location of the turtle to a x,y
- * coordinate.
- * Assumptions: 2 integers will be passed in
- * Dependencies: List, TurtleController, TurtleModel
- *
+ * coordinate. Assumptions: 2 integers will be passed in Dependencies: List, TurtleController,
+ * TurtleModel
+ * <p>
  * Example: If the user wants to set the home location to [100,200], create a SetHomeCommand that
  * when ran will set the home location of the turtle to these coordinates.
  *
@@ -20,9 +19,8 @@ public class SetHomeCommand implements Command {
   private final int[] home = new int[2];
 
   /**
-   * Purpose: Create a new set home command.
-   * Assumptions: args will be of length 2, the first element being the x coordinate, the second
-   * being the y coordinate.
+   * Purpose: Create a new set home command. Assumptions: args will be of length 2, the first
+   * element being the x coordinate, the second being the y coordinate.
    *
    * @param args List of 2 integers representing the x,y coordinates that home will be set to.
    * @throws IllegalArgumentException

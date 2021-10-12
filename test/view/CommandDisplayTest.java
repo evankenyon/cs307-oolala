@@ -30,7 +30,7 @@ public class CommandDisplayTest extends DukeApplicationTest {
     // create application and add scene for testing to given stage
     GridPane root = new GridPane();
     commandDisplay = new CommandDisplay();
-    root.add(commandDisplay.getDisplayComponentNode(), 0 ,0);
+    root.add(commandDisplay.getDisplayComponentNode(), 0, 0);
     stage.setScene(new Scene(root, 800, 800));
     stage.show();
 
@@ -41,7 +41,7 @@ public class CommandDisplayTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testCommandInputDefault () {
+  public void testCommandInputDefault() {
     assertFalse(commandDisplay.getHasCommandUpdated());
     String expected = "Enter a command here!";
     assertLabelText(expected);
@@ -51,7 +51,7 @@ public class CommandDisplayTest extends DukeApplicationTest {
   // For some reason this does not work with #Prev-Commands-1, so
   // just need to run this individually instead of with whole suite
   @Test
-  public void testCommandInputForward () {
+  public void testCommandInputForward() {
     ListView<String> prevCommands = lookup("#Prev-Commands-0").queryListView();
     assertFalse(commandDisplay.getHasCommandUpdated());
     String expected = "fd 50";
@@ -67,20 +67,20 @@ public class CommandDisplayTest extends DukeApplicationTest {
   }
 
   @Test
-  public void testPrevCommandsDefault () {
+  public void testPrevCommandsDefault() {
     ListView<String> prevCommands = lookup("#Prev-Commands-2").queryListView();
     assertTrue(prevCommands.getItems().isEmpty());
   }
 
   @Test
-  public void testShouldSaveAsFile () {
+  public void testShouldSaveAsFile() {
     assertFalse(commandDisplay.shouldSaveAsFile());
     clickOn(saveCommandsFile);
     assertTrue(commandDisplay.shouldSaveAsFile());
   }
 
   // Borrowed from example_testfx course gitlab repo
-  private void assertLabelText (String expected) {
+  private void assertLabelText(String expected) {
     assertEquals(expected, commandInput.getText());
   }
 

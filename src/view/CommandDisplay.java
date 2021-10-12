@@ -14,10 +14,9 @@ import util.PropertiesLoader;
 
 /**
  * Purpose: This class provides a display that handles all the UI related aspects of inputting
- * commands to the turtles.
- * Dependencies: File, List, Properties, FXCollections, Node, Button, ListView, TextField, HBox,
- * VBox, FileChooser, ExtensionFilter, ButtonMaker, PropertiesLoader
- *
+ * commands to the turtles. Dependencies: File, List, Properties, FXCollections, Node, Button,
+ * ListView, TextField, HBox, VBox, FileChooser, ExtensionFilter, ButtonMaker, PropertiesLoader
+ * <p>
  * Example: Create a CommandDisplay so that the user can input commands in text or file form which
  * can then be handled by a CommandModel to draw on a LogoDisplay
  *
@@ -48,7 +47,8 @@ public class CommandDisplay extends DisplayComponent {
   }
 
   private void setupCommandDisplay() {
-    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
+    Properties props = PropertiesLoader.loadProperties(
+        DEFAULT_RESOURCES_PACKAGE + "English.properties");
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
     prevCommands.getStyleClass().add("commands");
@@ -64,16 +64,19 @@ public class CommandDisplay extends DisplayComponent {
   /**
    * Purpose: Provide a VBox containing the Command Display so that the higher level display can use
    * it.
+   *
    * @return Node
    */
   @Override
   public Node getDisplayComponentNode() {
     return new VBox(prevCommands,
-        new HBox(commandInput, runPrevCommand, saveCommandsFile, chooseCommandFile.getDisplayComponentNode()));
+        new HBox(commandInput, runPrevCommand, saveCommandsFile,
+            chooseCommandFile.getDisplayComponentNode()));
   }
 
   /**
    * Purpose: Return a command input by the user
+   *
    * @return String representing a command
    */
   public String getCommand() {
@@ -83,12 +86,13 @@ public class CommandDisplay extends DisplayComponent {
 
   /**
    * Purpose: Update the visible command history so users can see what commands they have input.
+   *
    * @param commands List of previous commands.
    */
   public void updateCommandHistory(List<String> commands) {
-    if(commands.size() != prevCommands.getItems().size()) {
+    if (commands.size() != prevCommands.getItems().size()) {
       prevCommands.getItems().clear();
-      for(String command : commands) {
+      for (String command : commands) {
         prevCommands.getItems().add(command);
       }
     }
@@ -97,6 +101,7 @@ public class CommandDisplay extends DisplayComponent {
 
   /**
    * Purpose: Getter to see if the user has entered a new command.
+   *
    * @return Boolean: true if the user has entered a new command.
    */
   public boolean getHasCommandUpdated() {
@@ -105,6 +110,7 @@ public class CommandDisplay extends DisplayComponent {
 
   /**
    * Purpose: Gets the file that the user has uploaded with commands.
+   *
    * @return File that contains commands.
    */
   public File getUploadedCommandFile() {
@@ -113,6 +119,7 @@ public class CommandDisplay extends DisplayComponent {
 
   /**
    * Purpose: Gets whether a file has been updated or not.
+   *
    * @return Boolean: True if a file has been updated.
    */
   public boolean getIsFileUploaded() {
@@ -121,6 +128,7 @@ public class CommandDisplay extends DisplayComponent {
 
   /**
    * Purpose: Helps to determine if the command history should be saved as a file.
+   *
    * @return Boolean: True if the command history should be saved as a file.
    */
   public boolean shouldSaveAsFile() {
@@ -135,7 +143,8 @@ public class CommandDisplay extends DisplayComponent {
     runPrevCommand = ButtonMaker.makeButton(props.getProperty("runPrevCommandText"),
         event -> onRunPrevCommand());
     runPrevCommand.getStyleClass().add("button");
-    saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
+    saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"),
+        event -> onSaveCommandsFile());
     saveCommandsFile.getStyleClass().add("button");
     saveCommandsFile.setId("Save-Commands-File");
   }
@@ -147,7 +156,6 @@ public class CommandDisplay extends DisplayComponent {
     commandInput.getStyleClass().add("text-field");
     hasCommandUpdated = false;
   }
-
 
 
   private void onCommandInput() {

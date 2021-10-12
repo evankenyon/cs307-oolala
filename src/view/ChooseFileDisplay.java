@@ -9,6 +9,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 
 public class ChooseFileDisplay extends DisplayComponent {
+
   private Button selectFile;
   private FileChooser chooseFile;
   private File commandFile;
@@ -24,6 +25,7 @@ public class ChooseFileDisplay extends DisplayComponent {
 
   /**
    * Purpose: Gets whether a file has been updated or not.
+   *
    * @return Boolean: True if a file has been updated.
    */
   public boolean getIsFileUploaded() {
@@ -36,6 +38,7 @@ public class ChooseFileDisplay extends DisplayComponent {
 
   /**
    * Purpose: Gets the file that the user has uploaded with commands.
+   *
    * @return File that contains commands.
    */
   public File getUploadedFile() {

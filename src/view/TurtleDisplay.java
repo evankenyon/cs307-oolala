@@ -9,15 +9,14 @@ import javafx.scene.shape.Line;
 import util.PropertiesLoader;
 
 /**
- * Purpose: This class provides a visual representation of each turtle for the GUI that handles 
- * the movement of the turtle and the line it draws. 
- * Assumptions: Each TurtleDisplay should be paired with a TurtleModel that is responsible for its 
- * state and behavior. 
- * Dependencies: Properties, Node, Image, ImageView, Line, PropertiesLoader
- * 
- * Example: If the user calls TELL to create a new turtle, create a new instance of TurtleDisplay
- * as well as TurtleModel to handle the view of this turtle as well as its state and behavior. 
- * 
+ * Purpose: This class provides a visual representation of each turtle for the GUI that handles the
+ * movement of the turtle and the line it draws. Assumptions: Each TurtleDisplay should be paired
+ * with a TurtleModel that is responsible for its state and behavior. Dependencies: Properties,
+ * Node, Image, ImageView, Line, PropertiesLoader
+ * <p>
+ * Example: If the user calls TELL to create a new turtle, create a new instance of TurtleDisplay as
+ * well as TurtleModel to handle the view of this turtle as well as its state and behavior.
+ *
  * @author Haseeb Chaudhry
  */
 public class TurtleDisplay extends DisplayComponent {
@@ -34,10 +33,11 @@ public class TurtleDisplay extends DisplayComponent {
   private final int ROTATION_FACTOR = 90;
 
   /**
-   * Purpose: Create a new Turtle Display. 
-   * @param id Int representing a unique ID for a turtle. Helps TurtleModel be matched with a 
-   *           TurtleDisplay.
-   * @param home Int array representing a x,y coordinate for the home location of the turtle. 
+   * Purpose: Create a new Turtle Display.
+   *
+   * @param id   Int representing a unique ID for a turtle. Helps TurtleModel be matched with a
+   *             TurtleDisplay.
+   * @param home Int array representing a x,y coordinate for the home location of the turtle.
    */
   public TurtleDisplay(int id, int[] home) {
     Properties props = PropertiesLoader.loadProperties("./src/view/resources/image.properties");
@@ -61,6 +61,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Sets the pen color of the turtle
+   *
    * @param penColor Pen color of turtle.
    */
   public void setPenColor(Color penColor) {
@@ -68,9 +69,10 @@ public class TurtleDisplay extends DisplayComponent {
   }
 
   /**
-   * Purpose: Move the turtle to the position defined by the first argument and if turtlePenDown is 
+   * Purpose: Move the turtle to the position defined by the first argument and if turtlePenDown is
    * true, draw a line connecting the old position to the new position.
-   * @param position Int[] representing an x,y coordinate where the turtle will go
+   *
+   * @param position      Int[] representing an x,y coordinate where the turtle will go
    * @param turtlePenDown
    * @return
    */
@@ -92,7 +94,8 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Set the home location of the turtle(s).
-   * @param home Int[] representing the x,y coordinates of the new home location for the turtle. 
+   *
+   * @param home Int[] representing the x,y coordinates of the new home location for the turtle.
    */
   public void setHome(int[] home) {
     this.home[0] = home[0];
@@ -101,6 +104,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Set the angle of trajectory of the turtle(s).
+   *
    * @param angle in degrees
    */
   public void setAngle(double angle) {
@@ -109,6 +113,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Get the unique ID of a specific turtle.
+   *
    * @return int representing the turtle ID.
    */
   public int getId() {
@@ -117,6 +122,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Set the pen thickness to a desired amount.
+   *
    * @param penThickness
    */
   public void setPenThickness(int penThickness) {
@@ -125,6 +131,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Purpose: Set the image for the turtle.
+   *
    * @param img
    */
   public void setImage(Image img) {
@@ -136,6 +143,7 @@ public class TurtleDisplay extends DisplayComponent {
   /**
    * Gets the ImageView of the turtle while also setting the position of the turtle to the desired
    * and rotating it if needed.
+   *
    * @return ImageView representing the turtle display.
    */
   public ImageView getStillTurtleImage() {
@@ -150,6 +158,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Getter for the ImageView of the turtle.
+   *
    * @return ImageView
    */
   public ImageView getImageView() {
@@ -158,6 +167,7 @@ public class TurtleDisplay extends DisplayComponent {
 
   /**
    * Set whether the display of the turtle should be shown or hidden.
+   *
    * @param shouldShow
    */
   public void setShowOrHide(boolean shouldShow) {
@@ -171,6 +181,7 @@ public class TurtleDisplay extends DisplayComponent {
   /**
    * Getter for the ImageView of the turtle that conforms to the standard we have defined for
    * DisplayComponent, so that it can be easily retrieved using this method
+   *
    * @return
    */
   @Override

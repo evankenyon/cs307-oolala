@@ -15,15 +15,15 @@ import model.TurtleModel;
 
 /**
  * Purpose: This class creates a display where the TurtleDisplays can move around and draw their
- * respective lines.
- * Dependencies: ArrayList, List, Group, Node, Pane, TurtleModel
- *
+ * respective lines. Dependencies: ArrayList, List, Group, Node, Pane, TurtleModel
+ * <p>
  * Example: In an app such as Logo IDE, to have an area where the turtles can move and be able to
  * draw, instantiate this class in the high level view.
  *
  * @author Evan Kenyon and Luis Pereda
  */
 public class TurtleWindowDisplay extends DisplayComponent {
+
   public static final int PREF_WINDOW_SIZE = 800;
 
   private Pane turtleWindow;
@@ -70,6 +70,7 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   /**
    * Purpose: Create new turtle displays if there are new active turtles.
+   *
    * @param newTurtles
    */
   public void addNewTurtles(List<TurtleModel> newTurtles) {
@@ -82,11 +83,13 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   /**
    * Purpose: Respond to the user input and change the pen color and thickness accordingly
+   *
    * @param activeTurtles Turtles currently active and following commands
-   * @param penColor Pen color for active turtles
-   * @param thickness Pen thickness for active turtles
+   * @param penColor      Pen color for active turtles
+   * @param thickness     Pen thickness for active turtles
    */
-  public void updateActiveTurtlesPens(List<TurtleModel> activeTurtles, Color penColor, int thickness) {
+  public void updateActiveTurtlesPens(List<TurtleModel> activeTurtles, Color penColor,
+      int thickness) {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
       TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
       if (activeTurtle != null) {
@@ -98,8 +101,9 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   /**
    * Purpose: Respond to user input and change the image of the turtle to the one they uploaded
+   *
    * @param activeTurtles Turtles currently active and following commands.
-   * @param img Image to be overlayed on the turtle.
+   * @param img           Image to be overlayed on the turtle.
    */
   public void updateActiveTurtlesImage(List<TurtleModel> activeTurtles, Image img) {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
@@ -112,10 +116,12 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   /**
    * Purpose: Change the background color of the turtle window in response to user input.
+   *
    * @param backgroundColor Color to set the turtle window.
    */
   public void updateBackgroundColor(Color backgroundColor) {
-    turtleWindow.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
+    turtleWindow.setBackground(
+        new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
   }
 
 
@@ -131,7 +137,8 @@ public class TurtleWindowDisplay extends DisplayComponent {
     turtleDisplay.setImage(img);
   }
 
-  private TurtleModel getActiveTurtle(TurtleDisplay turtleDisplay, List<TurtleModel> activeTurtles) {
+  private TurtleModel getActiveTurtle(TurtleDisplay turtleDisplay,
+      List<TurtleModel> activeTurtles) {
     for (TurtleModel turtleModel : activeTurtles) {
       if (turtleModel.getID() == turtleDisplay.getId()) {
         return turtleModel;

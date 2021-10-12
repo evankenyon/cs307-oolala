@@ -1,15 +1,15 @@
-package model;
-
-import static org.junit.jupiter.api.Assertions.*;
+package model.lsystem;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
+import model.lsystem.LSystemProgram;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 class LSystemProgramTest {
+
   private LSystemProgram lSystemProgram;
 
   @BeforeEach
@@ -38,7 +38,7 @@ class LSystemProgramTest {
     scanner.useDelimiter("\n");
     Assertions.assertEquals("#Saved program number 1", scanner.next());
     Assertions.assertEquals("start f", scanner.next());
-    Assertions.assertEquals( "rule f f-f", scanner.next());
+    Assertions.assertEquals("rule f f-f", scanner.next());
   }
 
   @Test

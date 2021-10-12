@@ -1,15 +1,17 @@
-package view;
+package view.lsystem;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-import model.LSystemCommandRunner;
-import model.LSystemsModel;
-import model.LogoCommandModel;
+import model.lsystem.LSystemsModel;
 import util.ButtonMaker;
 import util.PropertiesLoader;
+import view.ChooseFileDisplay;
+import view.InfoDisplay;
+import view.SetArgumentValueDisplay;
 
 public class LSystemInfoDisplay extends InfoDisplay {
+
   private SetArgumentValueDisplay setMovementLength;
   private SetArgumentValueDisplay setAngleLength;
   private SetArgumentValueDisplay setMaxNumLevels;
@@ -21,15 +23,18 @@ public class LSystemInfoDisplay extends InfoDisplay {
   public LSystemInfoDisplay() {
     shouldRun = false;
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
-    setAngleLength = new SetArgumentValueDisplay("Set angle length: ", LSystemsModel.DEFAULT_ROTATION_ANGLE);
-    setMovementLength = new SetArgumentValueDisplay("Set movement length: ", LSystemsModel.DEFAULT_MOVEMENT_LENGTH);
-    setMaxNumLevels = new SetArgumentValueDisplay("Set max num levels: ", LSystemsModel.DEFAULT_LEVEL_NUM_MAX);
+    setAngleLength = new SetArgumentValueDisplay("Set angle length: ",
+        LSystemsModel.DEFAULT_ROTATION_ANGLE);
+    setMovementLength = new SetArgumentValueDisplay("Set movement length: ",
+        LSystemsModel.DEFAULT_MOVEMENT_LENGTH);
+    setMaxNumLevels = new SetArgumentValueDisplay("Set max num levels: ",
+        LSystemsModel.DEFAULT_LEVEL_NUM_MAX);
     chooseImageFile = new ChooseFileDisplay(props);
     runButton = ButtonMaker.makeButton("Run program", event -> shouldRun = true);
   }
 
   public boolean getShouldRun() {
-    if(shouldRun) {
+    if (shouldRun) {
       shouldRun = false;
       return true;
     }
@@ -44,11 +49,14 @@ public class LSystemInfoDisplay extends InfoDisplay {
     return setMovementLength.getArgument();
   }
 
-  public int getMaxNumLevels() { return setMaxNumLevels.getArgument(); }
+  public int getMaxNumLevels() {
+    return setMaxNumLevels.getArgument();
+  }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(runButton, setMaxNumLevels.getDisplayComponentNode(), setMovementLength.getDisplayComponentNode(),
+    return new VBox(runButton, setMaxNumLevels.getDisplayComponentNode(),
+        setMovementLength.getDisplayComponentNode(),
         setAngleLength.getDisplayComponentNode(), setHomeX.getDisplayComponentNode(),
         setHomeY.getDisplayComponentNode(), chooseImageFile.getDisplayComponentNode());
   }

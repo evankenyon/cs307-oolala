@@ -1,4 +1,4 @@
-package model;
+package model.logo;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -7,16 +7,18 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
+import model.AppModel;
+import model.TurtleController;
+import model.TurtleModel;
 import model.commands.SetHomeCommand;
+import model.logo.LogoCommandModel;
 
 /**
  * Purpose: This class is the high level model for the Logo IDE, using the TurtleController and
- * CommandModel to manage the backend of the program.
- * Assumptions: The program will only use a LogoModel in the display to manage all the work that
- * will be displayed in the view.
- * Dependencies: File, FileNotFoundException, InputMismatchException, LinkedList, List, Queue,
- * Command
- *
+ * CommandModel to manage the backend of the program. Assumptions: The program will only use a
+ * LogoModel in the display to manage all the work that will be displayed in the view. Dependencies:
+ * File, FileNotFoundException, InputMismatchException, LinkedList, List, Queue, Command
+ * <p>
  * Example: In the display of the Logo IDE program, make an instance of LogoModel which can be used
  * to make the turtles move based on the users' input.
  *
@@ -33,8 +35,10 @@ public class LogoModel extends AppModel {
   }
 
   /**
-   * Purpose: When the user inputs a file, use CommandModel's handleFile to return a list of commands.
-   * Assumptions: File is a .txt and the commands inside are valid, if not errors will be thrown.
+   * Purpose: When the user inputs a file, use CommandModel's handleFile to return a list of
+   * commands. Assumptions: File is a .txt and the commands inside are valid, if not errors will be
+   * thrown.
+   *
    * @param file A .txt file detailing commands for the turtles to execute.
    */
   public void handleFileInput(File file) {
@@ -48,12 +52,12 @@ public class LogoModel extends AppModel {
 
 
   /**
-   * Purpose: Runs the next command for the turtle to execute.
-   * Assumptions: Will do nothing if there are no commands in line
+   * Purpose: Runs the next command for the turtle to execute. Assumptions: Will do nothing if there
+   * are no commands in line
    */
   @Override
   public void runNextCommand() {
-    if(!commandsToRun.isEmpty()) {
+    if (!commandsToRun.isEmpty()) {
       commandsToRun.remove().runCommand(turtleController);
     }
   }
@@ -61,6 +65,7 @@ public class LogoModel extends AppModel {
 
   /**
    * Purpose: Gets the history of commands that the user has entered to the program.
+   *
    * @return List of strings of the previous commands
    */
   @Override
@@ -69,9 +74,9 @@ public class LogoModel extends AppModel {
   }
 
   /**
-   * Purpose: When the user inputs a string of text, have the command model parse the text and run the
-   * appropriate command.
-   * Assumptions: Commands are valid if not an error will be thrown.
+   * Purpose: When the user inputs a string of text, have the command model parse the text and run
+   * the appropriate command. Assumptions: Commands are valid if not an error will be thrown.
+   *
    * @param input String representing a command for the turtle to execute
    */
   @Override
@@ -80,8 +85,9 @@ public class LogoModel extends AppModel {
   }
 
   /**
-   * Purpose: Check if turtle is active
-   * Assumptions: If no active turtle exists with that ID, then return false.
+   * Purpose: Check if turtle is active Assumptions: If no active turtle exists with that ID, then
+   * return false.
+   *
    * @param turtleId Int representing a unique ID of a turtle.
    * @return Boolean which is true if the turtle is active, false if it is not
    */
@@ -96,6 +102,7 @@ public class LogoModel extends AppModel {
 
   /**
    * Purpose: Save the command history as a .txt file.
+   *
    * @throws IOException
    */
   @Override
@@ -125,7 +132,7 @@ public class LogoModel extends AppModel {
 
   @Override
   public void setHomeLocation(int x, int y) throws IllegalArgumentException {
-    if(x < 0 || y < 0) {
+    if (x < 0 || y < 0) {
       throw new IllegalArgumentException();
     }
     List<Integer> home = new ArrayList<>();
@@ -145,8 +152,8 @@ public class LogoModel extends AppModel {
   }
 
   /**
-   * Purpose: Get a TurtleModel with that unique ID
-   * Assumptions: If no active turtle exists with that ID, NullPointerException will be thrown
+   * Purpose: Get a TurtleModel with that unique ID Assumptions: If no active turtle exists with
+   * that ID, NullPointerException will be thrown
    *
    * @param turtleId Unique ID of a turtle
    * @return TurtleModel with that ID
@@ -177,6 +184,7 @@ public class LogoModel extends AppModel {
 
   /**
    * Getter to be able to access the LogoCommandModel
+   *
    * @return LogoCommandModel
    */
   LogoCommandModel getLogoCommandModel() {

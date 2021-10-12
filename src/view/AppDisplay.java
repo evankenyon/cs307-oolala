@@ -21,9 +21,9 @@ public abstract class AppDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-  private final int[] instructDispGridLayout = new int[]{0,1,7,9};
-  private final int[] commandDispGridLayout = new int[]{0,11,7,10};
-  private final int[] turtleWindowGridLayout = new int[]{9,2,20,10};
+  private final int[] instructDispGridLayout = new int[]{0, 1, 7, 9};
+  private final int[] commandDispGridLayout = new int[]{0, 11, 7, 10};
+  private final int[] turtleWindowGridLayout = new int[]{9, 2, 20, 10};
 
   protected CommandDisplay commandDisplay;
   protected ClearDisplay clearDisplay;

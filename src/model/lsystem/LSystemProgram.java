@@ -1,4 +1,4 @@
-package model;
+package model.lsystem;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +9,7 @@ import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
+import model.PrevCommandsHandler;
 
 /**
  * Purpose: Represent an LSystemProgram, which contains a start symbol, a list of rules for

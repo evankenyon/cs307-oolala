@@ -15,8 +15,7 @@ public interface Command {
   /**
    * Purpose: This method will be used by all subclasses that implement this interface. This will
    * allow each specific command to do the work responsible for that command simply by calling
-   * runCommand. This method is expected to be overridden by each sub-class.
-   * Assumptions: A working
+   * runCommand. This method is expected to be overridden by each sub-class. Assumptions: A working
    * turtle controller is expected to be passed in, if not this could introduce bugs.
    *
    * @param turtleController The turtle controller parameter will have a list of active turtles on

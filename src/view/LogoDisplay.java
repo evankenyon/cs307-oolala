@@ -55,16 +55,4 @@ public class LogoDisplay extends AppDisplay {
         setPenColorDisplay.getColor(), ((TurtleInfoDisplay) infoDisplay).getPenThicknesss());
   }
 
-  @Override
-  protected void handleImageUploaded() {
-    if(((TurtleInfoDisplay) infoDisplay).getIsImageUploaded()){
-      try{
-        turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(), ((TurtleInfoDisplay) infoDisplay).getUploadedImage());
-      }
-      catch (Exception e) {
-        showError();
-      }
-    }
-  }
-
 }

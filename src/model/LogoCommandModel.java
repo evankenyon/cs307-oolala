@@ -160,7 +160,7 @@ public class LogoCommandModel extends CommandModel {
 
   private Command getCommandFromInput(String function, List<Integer> args)
       throws IndexOutOfBoundsException {
-    return switch (function) {
+    return switch (function.toLowerCase()) {
       case "fd" -> new MoveForwardCommand(args);
       case "bk" -> new MoveBackwardCommand(args);
       case "lt" -> new RotateLeftCommand(args);

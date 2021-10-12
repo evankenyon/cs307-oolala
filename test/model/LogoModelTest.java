@@ -2,6 +2,7 @@ package model;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.assertj.core.internal.bytebuddy.pool.TypePool.Resolution.Illegal;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import view.TurtleWindowDisplay;
@@ -111,9 +112,35 @@ class LogoModelTest {
   }
 
   @Test
+  public void setHomeLocation() {
+    int expectedX = 0;
+    int expectedY = 1;
+    logoModel.setHomeLocation(expectedX, expectedY);
+    logoModel.runNextCommand();
+    logoModel.handleTextInput("home");
+    logoModel.runNextCommand();
+    assertEquals(expectedX, logoModel.getActiveTurtles().get(0).getPosition()[0]);
+    assertEquals(expectedY, logoModel.getActiveTurtles().get(0).getPosition()[1]);
+  }
+
+  @Test
+  public void setHomeLocationIncorrect() {
+    int expectedX = -1;
+    int expectedY = 1;
+    assertThrows(IllegalArgumentException.class, () -> logoModel.setHomeLocation(expectedX, expectedY));
+  }
+
+  @Test
   public void hasNewTurtleFalse() {
     assertFalse(logoModel.hasNewTurtles());
   }
+
+  @Test
+  public void getTurtleModelExists() {
+    int expected = 1;
+    assertEquals(expected, logoModel.getTurtleModel(expected).getID());
+  }
+
 
   private void inputText(String s) {
     logoModel.handleTextInput(s);

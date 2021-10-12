@@ -1,6 +1,5 @@
 package view;
 
-import javafx.scene.Scene;
 import model.LogoModel;
 import util.PropertiesLoader;
 
@@ -9,11 +8,10 @@ import util.PropertiesLoader;
  * scene, the many view elements that go into it, and when the program is run in Main this class is
  * what will be instantiated and used to make the scene for the whole program. This class also calls
  * on a backend LogoModel to do the work that is needed for the view elements to act as they should.
- * Assumptions: The LogoModel relies on many other classes to work properly, so the assumption is
+ * Assumptions: The LogoDisplay relies on many other classes to work properly, so the assumption is
  * that these other classes will be working properly and will be thoroughly tested to make it easy
  * to find any bug.
- * Dependencies: List, Properties, KeyFrame, Timeline, Group, Scene, Alert, AlertType, GridPane,
- * Pane, Duration, LogoModel, PropertiesLoader
+ * Dependencies: LogoModel, PropertiesLoader
  *
  * Example: In a Main, if you want to run a Logo IDE, then instantiate a LogoDisplay class and
  * pass the scene returned by makeScene() to the setScene() method of the stage. After this run
@@ -39,7 +37,7 @@ public class LogoDisplay extends AppDisplay {
   @Override
   protected void rootSetup() {
     super.rootSetup();
-    final int[] turtInfoDispGridLayout = new int[]{9,21,7,10};
+    final int[] turtInfoDispGridLayout = new int[]{9,21,7,8};
     root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }

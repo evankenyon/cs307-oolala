@@ -2,7 +2,7 @@ package view;
 
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import model.LSystemCommandRunner;
 import model.LSystemsModel;
 import model.LogoCommandModel;
@@ -48,7 +48,7 @@ public class LSystemInfoDisplay extends InfoDisplay {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new HBox(runButton, setMaxNumLevels.getDisplayComponentNode(), setMovementLength.getDisplayComponentNode(),
+    return new VBox(runButton, setMaxNumLevels.getDisplayComponentNode(), setMovementLength.getDisplayComponentNode(),
         setAngleLength.getDisplayComponentNode(), setHomeX.getDisplayComponentNode(),
         setHomeY.getDisplayComponentNode(), chooseImageFile.getDisplayComponentNode());
   }

@@ -27,7 +27,7 @@ public class InstructionsDisplay extends DisplayComponent {
 
   public InstructionsDisplay() {
     Properties props = PropertiesLoader.loadProperties(
-        "./src/view/resources/instructions/English.properties");
+        "./src/view/resources/logoinstructions/English.properties");
     setupInstructions(props);
     setupInstructionsIds();
   }

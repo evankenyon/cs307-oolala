@@ -174,6 +174,10 @@ public class LogoModel extends AppModel {
     return turtleController;
   }
 
+  /**
+   * Getter to be able to access the LogoCommandModel
+   * @return LogoCommandModel
+   */
   LogoCommandModel getLogoCommandModel() {
     return ((LogoCommandModel) commandModel);
   }

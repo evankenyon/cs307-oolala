@@ -46,7 +46,6 @@
 
 .pane {
   -fx-border-style: solid;
-  -fx-end-margin: 10 px;
 }
 
 .commands {

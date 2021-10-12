@@ -16,13 +16,10 @@ public class LSystemsModel extends AppModel {
   private int levelNumMax;
   private int levelNumCurr;
   private LSystemProgram lSystemProgram;
-
+  private boolean shouldRun;
 
   public LSystemsModel() {
-    this("");
-  }
-
-  public LSystemsModel(String beginningRule) {
+    shouldRun = false;
     lSystemProgram = new LSystemProgram();
     commandsToRun = new LinkedList<>();
     levelNumCurr = 0;
@@ -38,6 +35,12 @@ public class LSystemsModel extends AppModel {
     ((LSystemCommandRunner) commandModel).setRotationAngle(rotationAngle);
   }
 
+  public void setShouldRun(boolean shouldRun) {
+    if(shouldRun) {
+      this.shouldRun = true;
+    }
+  }
+
   public void setLevelNumMax(int number) {
     this.levelNumMax = number;
   }
@@ -49,17 +52,15 @@ public class LSystemsModel extends AppModel {
 
   @Override
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-    try {
       lSystemProgram.parseInput(input);
-    } catch (Exception e) {
-      // TODO: fix
-      e.printStackTrace();
-    }
-
+    ((LSystemCommandRunner) commandModel).putInInputCharToCommand(lSystemProgram.getNewSymbolSet());
   }
 
   public void runNextCommand() {
-    if(lSystemProgram.getIsValidProgram() && commandsToRun.isEmpty() && levelNumCurr < levelNumMax) {
+    if(levelNumCurr >= levelNumMax) {
+      shouldRun = false;
+    }
+    if(shouldRun && lSystemProgram.getIsValidProgram() && commandsToRun.isEmpty() && levelNumCurr < levelNumMax) {
       commandsToRun.addAll(commandModel.getCommandsFromInput(lSystemProgram.getNextLevel(levelNumCurr)));
       levelNumCurr++;
     }

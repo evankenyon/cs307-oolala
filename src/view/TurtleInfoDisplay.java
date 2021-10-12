@@ -29,7 +29,6 @@ public class TurtleInfoDisplay extends InfoDisplay {
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     chooseImageFile = new ChooseFileDisplay(props);
     setupThicknessSlider();
-    System.out.println(props.getProperty("fileExtension"));
   }
 
   @Override

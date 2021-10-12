@@ -26,6 +26,7 @@ public class LSystemDisplay extends AppDisplay {
   protected void step(double elapsedTime) {
     ((LSystemsModel) model).setRotationAngle(((LSystemInfoDisplay) infoDisplay).getAngleLength());
     ((LSystemsModel) model).setMovementLength(((LSystemInfoDisplay) infoDisplay).getMovementLength());
+    ((LSystemsModel) model).setShouldRun(((LSystemInfoDisplay) infoDisplay).getShouldRun());
     super.step(elapsedTime);
   }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
@@ -83,8 +84,17 @@ public class TurtleWindowDisplay extends DisplayComponent {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
       TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
       if (activeTurtle != null) {
-        turtleDisplay.setPenColor(penColor);
-        turtleDisplay.setPenThickness(thickness);
+        updatePenColor(turtleDisplay, penColor);
+        updatePenThickness(turtleDisplay, thickness);
+      }
+    }
+  }
+
+  public void updateActiveTurtlesImage(List<TurtleModel> activeTurtles, Image img) {
+    for (TurtleDisplay turtleDisplay : turtleDisplays) {
+      TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
+      if (activeTurtle != null) {
+        updateTurtleImage(turtleDisplay, img);
       }
     }
   }
@@ -92,6 +102,19 @@ public class TurtleWindowDisplay extends DisplayComponent {
   public void updateBackgroundColor(Color backgroundColor) {
     turtleWindow.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
 //    turtleWindow.setStyle("-fx-background-color: " + backgroundColor + ";");
+  }
+
+
+  private void updatePenColor(TurtleDisplay turtleDisplay, Color penColor) {
+    turtleDisplay.setPenColor(penColor);
+  }
+
+  private void updatePenThickness(TurtleDisplay turtleDisplay, int thickness) {
+    turtleDisplay.setPenThickness(thickness);
+  }
+
+  private void updateTurtleImage(TurtleDisplay turtleDisplay, Image img) {
+    turtleDisplay.setImage(img);
   }
 
   private TurtleModel getActiveTurtle(TurtleDisplay turtleDisplay, List<TurtleModel> activeTurtles) {

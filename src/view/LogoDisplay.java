@@ -42,12 +42,13 @@ public class LogoDisplay extends AppDisplay {
     rootSetup();
   }
 
+
   @Override
   protected void rootSetup() {
     super.rootSetup();
-//    final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
-////    root.add(turtleInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
-////            turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
+    final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
+    root.add(turtleInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
+            turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }
 
   @Override
@@ -55,4 +56,17 @@ public class LogoDisplay extends AppDisplay {
     turtleWindowDisplay.updateActiveTurtlesPens(model.getActiveTurtles(),
         setPenColorDisplay.getColor(), turtleInfoDisplay.getPenThicknesss());
   }
+
+  @Override
+  protected void handleImageUploaded() {
+    if(turtleInfoDisplay.getIsImageUploaded()){
+      try{
+        turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(), turtleInfoDisplay.getUploadedImage());
+      }
+      catch (Exception e) {
+        showError();
+      }
+    }
+  }
+
 }

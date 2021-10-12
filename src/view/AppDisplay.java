@@ -80,6 +80,7 @@ public abstract class AppDisplay {
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
     handleRunNextCommand();
     handleFileSave();
+    handleImageUploaded();
   }
 
   private void handleReset() {
@@ -134,6 +135,8 @@ public abstract class AppDisplay {
 
   protected abstract void handleUpdatePen();
 
+  protected abstract void handleImageUploaded();
+
   protected void rootSetup() {
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],
@@ -151,7 +154,7 @@ public abstract class AppDisplay {
   }
 
   //Borrowed from lab_browser course gitlab repo
-  private void showError() {
+  void showError() {
     Alert alert = new Alert(AlertType.ERROR);
     alert.setContentText(props.getProperty("errorMessage"));
     alert.show();

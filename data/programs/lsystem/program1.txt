@@ -1,3 +1,6 @@
 #Saved program number 1
-start f
-rule f f-f
+start t
+rule T  U-T-U
+rule U T+U+T
+set T "pd fd LENGTH"
+set U "pd fd LENGTH"

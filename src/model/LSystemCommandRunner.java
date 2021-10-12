@@ -54,15 +54,6 @@ public class LSystemCommandRunner extends CommandModel {
     }
   }
 
-//  public putNewCommandMapping(String command, List<>) {
-//    List<Command> commands = new ArrayList<>();
-//    List<Integer> args = new ArrayList<>();
-//    commands.add(new SetPenDownCommand(new ArrayList<>()));
-//    args.add(movementLength);
-//    commands.add(new MoveForwardCommand(args));
-//    inputCharToCommand.put("f", commands);
-//  }
-
   @Override
   public List<Command> getCommandsFromInput(String input) throws InputMismatchException {
     List<Command> commands = new ArrayList<>();

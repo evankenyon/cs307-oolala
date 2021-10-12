@@ -42,6 +42,7 @@ public class LSystemProgram {
     if(arguments.isEmpty()) {
       throw new InputMismatchException();
     }
+
     switch (command) {
       case "start" -> start = arguments.get(0);
       case "rule" -> rules.add(new LSystemRules(arguments.get(0) + " " + arguments.get(1)));
@@ -94,8 +95,6 @@ public class LSystemProgram {
   }
 
   public Map<String, List<String>> getNewSymbolSet() {
-    Map<String, List<String>> newSymbolSetCopy = new HashMap<>(newSymbolSet);
-    newSymbolSet.clear();
-    return newSymbolSetCopy;
+    return newSymbolSet;
   }
 }

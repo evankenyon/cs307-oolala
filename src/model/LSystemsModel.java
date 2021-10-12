@@ -7,7 +7,6 @@ import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 
-// fix this
 public class LSystemsModel extends AppModel {
   public static final int DEFAULT_MOVEMENT_LENGTH = 10;
   public static final int DEFAULT_ROTATION_ANGLE = 30;
@@ -52,7 +51,7 @@ public class LSystemsModel extends AppModel {
 
   @Override
   public void handleTextInput(String input) throws InputMismatchException, NumberFormatException {
-      lSystemProgram.parseInput(input);
+    lSystemProgram.parseInput(input);
     ((LSystemCommandRunner) commandModel).putInInputCharToCommand(lSystemProgram.getNewSymbolSet());
   }
 
@@ -82,5 +81,6 @@ public class LSystemsModel extends AppModel {
   @Override
   public void handleFileInput(File file) throws FileNotFoundException {
     lSystemProgram.handleFileInput(file);
+    ((LSystemCommandRunner) commandModel).putInInputCharToCommand(lSystemProgram.getNewSymbolSet());
   }
 }

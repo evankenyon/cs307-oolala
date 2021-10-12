@@ -81,10 +81,10 @@ public class TurtleWindowDisplay extends DisplayComponent {
   }
 
   /**
-   * 
-   * @param activeTurtles
-   * @param penColor
-   * @param thickness
+   * Purpose: Respond to the user input and change the pen color and thickness accordingly
+   * @param activeTurtles Turtles currently active and following commands
+   * @param penColor Pen color for active turtles
+   * @param thickness Pen thickness for active turtles
    */
   public void updateActiveTurtlesPens(List<TurtleModel> activeTurtles, Color penColor, int thickness) {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
@@ -96,6 +96,11 @@ public class TurtleWindowDisplay extends DisplayComponent {
     }
   }
 
+  /**
+   * Purpose: Respond to user input and change the image of the turtle to the one they uploaded
+   * @param activeTurtles Turtles currently active and following commands.
+   * @param img Image to be overlayed on the turtle.
+   */
   public void updateActiveTurtlesImage(List<TurtleModel> activeTurtles, Image img) {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
       TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);
@@ -105,6 +110,10 @@ public class TurtleWindowDisplay extends DisplayComponent {
     }
   }
 
+  /**
+   * Purpose: Change the background color of the turtle window in response to user input.
+   * @param backgroundColor Color to set the turtle window.
+   */
   public void updateBackgroundColor(Color backgroundColor) {
     turtleWindow.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
   }

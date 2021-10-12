@@ -58,6 +58,10 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView.setFitWidth(IMAGE_SIZE_FIT);
   }
 
+  /**
+   * Purpose: Sets the pen color of the turtle
+   * @param penColor Pen color of turtle.
+   */
   public void setPenColor(Color penColor) {
     this.penColor = penColor;
   }

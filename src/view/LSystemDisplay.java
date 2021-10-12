@@ -18,7 +18,7 @@ public class LSystemDisplay extends AppDisplay {
 
   protected void rootSetup() {
     super.rootSetup();
-    final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
+    final int[] turtInfoDispGridLayout = new int[]{24,11,7,10};
     root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1]);
   }
 

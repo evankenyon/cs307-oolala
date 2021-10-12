@@ -9,9 +9,9 @@ import java.util.List;
 
 // fix this
 public class LSystemsModel extends AppModel {
-  private final int DEFAULT_MOVEMENT_LENGTH = 10;
-  private final int DEFAULT_ROTATION_ANGLE = 30;
-  private final int DEFAULT_LEVEL_NUM_MAX = 3;
+  public static final int DEFAULT_MOVEMENT_LENGTH = 10;
+  public static final int DEFAULT_ROTATION_ANGLE = 30;
+  public static final int DEFAULT_LEVEL_NUM_MAX = 3;
 
   private int levelNumMax;
   private int levelNumCurr;

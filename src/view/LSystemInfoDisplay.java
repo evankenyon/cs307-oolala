@@ -3,6 +3,9 @@ package view;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.layout.HBox;
+import model.LSystemCommandRunner;
+import model.LSystemsModel;
+import model.LogoCommandModel;
 import util.ButtonMaker;
 import util.PropertiesLoader;
 
@@ -18,9 +21,9 @@ public class LSystemInfoDisplay extends InfoDisplay {
   public LSystemInfoDisplay() {
     shouldRun = false;
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
-    setAngleLength = new SetArgumentValueDisplay("Set angle length: ");
-    setMovementLength = new SetArgumentValueDisplay("Set movement length: ");
-    setMaxNumLevels = new SetArgumentValueDisplay("Set max num levels: ");
+    setAngleLength = new SetArgumentValueDisplay("Set angle length: ", LSystemsModel.DEFAULT_ROTATION_ANGLE);
+    setMovementLength = new SetArgumentValueDisplay("Set movement length: ", LSystemsModel.DEFAULT_MOVEMENT_LENGTH);
+    setMaxNumLevels = new SetArgumentValueDisplay("Set max num levels: ", LSystemsModel.DEFAULT_LEVEL_NUM_MAX);
     chooseImageFile = new ChooseFileDisplay(props);
     runButton = ButtonMaker.makeButton("Run program", event -> shouldRun = true);
   }

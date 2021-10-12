@@ -12,8 +12,8 @@ public abstract class InfoDisplay extends DisplayComponent {
   protected Properties props;
 
   public InfoDisplay() {
-    setHomeX = new SetArgumentValueDisplay("Set home x coordinate: ");
-    setHomeY = new SetArgumentValueDisplay("Set home y coordinate: ");
+    setHomeX = new SetArgumentValueDisplay("Set home x coordinate: ", TurtleWindowDisplay.PREF_WINDOW_SIZE / 2);
+    setHomeY = new SetArgumentValueDisplay("Set home y coordinate: ", TurtleWindowDisplay.PREF_WINDOW_SIZE / 2);
     setHomeX.getDisplayComponentNode().setId("Set-Home-X");
     setHomeY.getDisplayComponentNode().setId("Set-Home-Y");
   }

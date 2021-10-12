@@ -8,14 +8,20 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
+
+import java.util.Properties;
 
 public class TurtleInfoDisplay extends DisplayComponent {
   private Slider thicknessSlider;
   private Label thicknessLabel = new Label("Pen Thickness");
   private int penThicknesss = 1;
+  private Button showTurtleInfo;
+  private TextField turtleIDInput;
 
   public TurtleInfoDisplay() {
     setupThicknessSlider();
@@ -23,8 +29,20 @@ public class TurtleInfoDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(new HBox(thicknessLabel, thicknessSlider));
+    return new VBox(new HBox(thicknessLabel, thicknessSlider), new HBox(turtleIDInput, showTurtleInfo));
   }
+
+  private void turleIDInput() {
+    turtleIDInput = new TextField("Input Values");
+    turtleIDInput.setOnAction(event -> onCommandInput());
+    turtleIDInput.setId("Command-Input");
+  }
+
+  private void setupTextField() {
+
+  }
+
+
 
   public void setupThicknessSlider() {
     thicknessSlider = new Slider();
@@ -42,9 +60,6 @@ public class TurtleInfoDisplay extends DisplayComponent {
         penThicknesss = new_val.intValue();
       }
     });
-  }
-
-  private void setupTextField() {
   }
 
   public int getPenThicknesss() {

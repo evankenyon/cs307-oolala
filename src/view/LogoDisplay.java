@@ -1,12 +1,15 @@
 package view;
 
+import java.util.List;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
+import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import model.LogoModel;
 import util.PropertiesLoader;
@@ -17,20 +20,18 @@ public class LogoDisplay {
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
 
-<<<<<<< src/view/LogoDisplay.java
-
-  private final List<TurtleDisplay> turtleDisplays;
-  private final CommandDisplay commandDisplay;
+  private List<TurtleDisplay> turtleDisplays;
+  private CommandDisplay commandDisplay;
   private ClearDisplay clearDisplay;
   
-  private final DisplayComponent instructionsDisplay;
-  private final TurtleInfoDisplay turtleInfoDisplay;
+  private DisplayComponent instructionsDisplay;
+  private TurtleInfoDisplay turtleInfoDisplay;
   private TurtleWindowDisplay turtleWindowDisplay;
   
   private GridPane root;
-  private final LogoModel logoModel;
+  private  LogoModel logoModel;
   private Pane turtleWindow;
-  private final Properties props;
+  private  Properties props;
   // Could store this data in file
   // Or a String to int map
   private final int[] instructDispGridLayout = new int[]{0,0,7,10};
@@ -61,7 +62,6 @@ public class LogoDisplay {
   }
 
   private void rootSetup() {
-<<<<<<< src/view/LogoDisplay.java
 //    root = new GridPane();
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
         instructDispGridLayout[1],

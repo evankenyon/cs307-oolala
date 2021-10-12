@@ -87,6 +87,14 @@ public class TurtleModel {
     int dy = (int) (distance * Math.sin(myTrajectory));
     myPosition[0] = myPosition[0] + dx;
     myPosition[1] = myPosition[1] + dy;
+    keepTurtleInBounds();
+  }
+
+  private void keepTurtleInBounds() {
+    if (myPosition[0] < 0) myPosition[0] = 0;
+    if (myPosition[0] > 800) myPosition[0] = 800;
+    if (myPosition[1] < 0) myPosition[1] = 0;
+    if (myPosition[1] > 800) myPosition[1] = 800;
   }
 
   /**

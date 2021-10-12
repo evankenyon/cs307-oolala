@@ -42,11 +42,11 @@
   -fx-background-color: #7fddff;
   -fx-min-width: 150px;
   -fx-alignment: top-left;
-  -fx-highlight-text-fill: floralwhite;
 }
 
 .pane {
   -fx-border-style: solid;
+  -fx-end-margin: 10 px;
 }
 
 .commands {

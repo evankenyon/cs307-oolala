@@ -7,8 +7,6 @@ import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import model.commands.Command;
 import model.commands.SetHomeCommand;
 
 /**
@@ -118,7 +116,7 @@ public class LogoModel extends AppModel {
    * Purpose: Get the new turtles that have been added in the program.
    *
    * @return List of TurtleModels that are
-   * @throws NullPointerException
+   * @throws NullPointerException thrown if no new turtles
    */
   @Override
   public List<TurtleModel> getNewTurtles() throws NullPointerException {
@@ -126,7 +124,10 @@ public class LogoModel extends AppModel {
   }
 
   @Override
-  public void setHomeLocation(int x, int y) {
+  public void setHomeLocation(int x, int y) throws IllegalArgumentException {
+    if(x < 0 || y < 0) {
+      throw new IllegalArgumentException();
+    }
     List<Integer> home = new ArrayList<>();
     home.add(x);
     home.add(y);

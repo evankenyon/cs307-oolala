@@ -30,4 +30,12 @@ public abstract class AppModel {
   public abstract void saveCommandsAsFile() throws IOException;
 
   public abstract void handleFileInput(File file) throws FileNotFoundException;
+
+  public boolean hasNewTurtles() {
+    return false;
+  }
+
+  public List<TurtleModel> getNewTurtles() {
+    return null;
+  }
 }

@@ -77,11 +77,11 @@ public class TurtleDisplay extends DisplayComponent {
     Line drawnLine;
     if (turtlePenDown && (oldX != turtleImgView.getX() || oldY != turtleImgView.getY())) {
       drawnLine = new Line(oldX, oldY, turtleImgView.getX(), turtleImgView.getY());
-      drawnLine.setStroke(penColor);
       drawnLine.setStrokeWidth(penThickness);
     } else {
       drawnLine = new Line();
     }
+    drawnLine.setStroke(penColor);
     return drawnLine;
   }
 

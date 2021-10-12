@@ -118,6 +118,7 @@ public class LogoModel extends AppModel {
    * @return List of TurtleModels that are
    * @throws NullPointerException
    */
+  @Override
   public List<TurtleModel> getNewTurtles() throws NullPointerException {
     return turtleController.getNewTurtles();
   }
@@ -127,6 +128,7 @@ public class LogoModel extends AppModel {
    *
    * @return Boolean which is true if there are new turtles; false if there are not.
    */
+  @Override
   public boolean hasNewTurtles() {
     return turtleController.hasNewTurtle();
   }

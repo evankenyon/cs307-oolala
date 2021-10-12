@@ -1,5 +1,6 @@
 package view;
 
+import java.lang.ProcessHandle.Info;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -31,6 +32,7 @@ public abstract class AppDisplay {
   protected GridPane root;
   protected AppModel model;
   protected Properties props;
+  protected InfoDisplay infoDisplay;
 
   /**
    * Purpose: Create a new AppDisplay that will be organized by a GridPane root.
@@ -78,6 +80,7 @@ public abstract class AppDisplay {
     handleFileInputted();
     handleUpdatePen();
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
+    model.setHomeLocation(infoDisplay.getHomeX(), infoDisplay.getHomeY());
     handleRunNextCommand();
     handleFileSave();
     handleImageUploaded();

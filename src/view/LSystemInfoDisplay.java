@@ -1,9 +1,9 @@
 package view;
 
 import javafx.scene.Node;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.HBox;
 
-public class LSystemInfoDisplay extends DisplayComponent{
+public class LSystemInfoDisplay extends InfoDisplay {
   private SetArgumentValueDisplay setMovementLength;
   private SetArgumentValueDisplay setAngleLength;
 
@@ -22,6 +22,8 @@ public class LSystemInfoDisplay extends DisplayComponent{
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(setMovementLength.getDisplayComponentNode(), setAngleLength.getDisplayComponentNode());
+    return new HBox(setMovementLength.getDisplayComponentNode(),
+        setAngleLength.getDisplayComponentNode(), setHomeX.getDisplayComponentNode(),
+        setHomeY.getDisplayComponentNode());
   }
 }

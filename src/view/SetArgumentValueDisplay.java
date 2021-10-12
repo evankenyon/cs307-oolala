@@ -10,6 +10,8 @@ public class SetArgumentValueDisplay extends DisplayComponent {
   private TextField argumentInput;
   private boolean hasArgumentUpdated;
   private int argument;
+  // For testFX purposes
+  private static int numConstructed = 0;
 
   public SetArgumentValueDisplay(String label) {
     this.label = new Text(label);
@@ -18,6 +20,10 @@ public class SetArgumentValueDisplay extends DisplayComponent {
     argumentInput.setOnAction(event -> onArgumentInput());
     argumentInput.setText("10");
     argument = 10;
+
+    // For testFX purposes
+    argumentInput.setId("Arg-Value-Display-" + numConstructed);
+    numConstructed++;
   }
 
   @Override

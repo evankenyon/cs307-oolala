@@ -19,7 +19,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 import util.PropertiesLoader;
 
-public class TurtleInfoDisplay extends DisplayComponent {
+public class TurtleInfoDisplay extends InfoDisplay {
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/logo/";
   private Slider thicknessSlider;
   private Label thicknessLabel = new Label("Pen Thickness");
@@ -33,12 +33,13 @@ public class TurtleInfoDisplay extends DisplayComponent {
     Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     setupThicknessSlider();
     setupChooseImageFile(props);
-  makeImageChooserButton(props);
+    makeImageChooserButton(props);
   }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(thicknessLabel, thicknessSlider, imageChooserButton);
+    return new VBox(thicknessLabel, thicknessSlider, imageChooserButton,
+        new HBox(setHomeX.getDisplayComponentNode(), setHomeY.getDisplayComponentNode()));
   }
 
   public void setupThicknessSlider() {

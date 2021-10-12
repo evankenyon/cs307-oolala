@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
-import model.commands.Command;
-import view.TurtleWindowDisplay;
 
 // fix this
 public class LSystemsModel extends AppModel {
@@ -18,7 +15,6 @@ public class LSystemsModel extends AppModel {
 
   private int levelNumMax;
   private int levelNumCurr;
-  private int numLevels;
   private LSystemProgram lSystemProgram;
 
 
@@ -44,6 +40,11 @@ public class LSystemsModel extends AppModel {
 
   public void setLevelNumMax(int number) {
     this.levelNumMax = number;
+  }
+
+  @Override
+  public void setHomeLocation(int x, int y) {
+    ((LSystemCommandRunner) commandModel).setStartLocation(new int[]{x, y}, levelNumMax);
   }
 
   @Override

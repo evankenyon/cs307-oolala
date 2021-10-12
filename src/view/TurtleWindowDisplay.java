@@ -80,6 +80,12 @@ public class TurtleWindowDisplay extends DisplayComponent {
     }
   }
 
+  /**
+   * 
+   * @param activeTurtles
+   * @param penColor
+   * @param thickness
+   */
   public void updateActiveTurtlesPens(List<TurtleModel> activeTurtles, Color penColor, int thickness) {
     for (TurtleDisplay turtleDisplay : turtleDisplays) {
       TurtleModel activeTurtle = getActiveTurtle(turtleDisplay, activeTurtles);

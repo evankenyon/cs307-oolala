@@ -10,10 +10,13 @@ import view.TurtleWindowDisplay;
 
 /**
  * Purpose: Represent an LSystemCommandModel, which takes in symbols and parses them into Command
- * objects Dependencies: ArrayList, HashMap, InputMismatchException, List, Map, commands,
- * TurtleWindowDisplay Example: Instantiate an LSystemCommandRunner in LSystemsModel in order to get
+ * objects
+ * Dependencies: ArrayList, HashMap, InputMismatchException, List, Map, commands,
+ * TurtleWindowDisplay
+ * Example: Instantiate an LSystemCommandRunner in LSystemsModel in order to get
  * symbols from LSystemProgram's symbol generation functionality, and return commands based on those
- * symbols Other details: LSystemProgram handles the parsing of set commands, and LSystemsModel
+ * symbols
+ * Other details: LSystemProgram handles the parsing of set commands, and LSystemsModel
  * updates the map in this class based on LSystemProgram's parsing
  *
  * @author Haseeb Chaudhry

@@ -146,6 +146,7 @@ public abstract class AppDisplay {
         turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(),
             infoDisplay.getUploadedImage());
       } catch (Exception e) {
+        e.printStackTrace();
         showError();
       }
     }

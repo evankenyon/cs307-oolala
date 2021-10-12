@@ -27,14 +27,14 @@ public class TurtleInfoDisplay extends InfoDisplay {
 
   public TurtleInfoDisplay() {
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
+    chooseImageFile = new ChooseFileDisplay(props);
     setupThicknessSlider();
-    setupChooseImageFile();
-    makeImageChooserButton();
+    System.out.println(props.getProperty("fileExtension"));
   }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(thicknessLabel, thicknessSlider, imageChooserButton,
+    return new VBox(thicknessLabel, thicknessSlider, chooseImageFile.getDisplayComponentNode(),
         new HBox(setHomeX.getDisplayComponentNode(), setHomeY.getDisplayComponentNode()));
   }
 
@@ -54,9 +54,6 @@ public class TurtleInfoDisplay extends InfoDisplay {
         penThicknesss = new_val.intValue();
       }
     });
-  }
-
-  private void setupTextField() {
   }
 
   public int getPenThicknesss() {

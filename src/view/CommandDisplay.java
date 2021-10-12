@@ -9,8 +9,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 import util.PropertiesLoader;
 
@@ -34,14 +32,12 @@ public class CommandDisplay extends DisplayComponent {
   private TextField commandInput;
   private ListView<String> prevCommands;
   private Button runPrevCommand;
-  private Button selectCommandsFile;
   private Button saveCommandsFile;
-  private FileChooser chooseCommandsFile;
   private String command;
-  private File commandFile;
+  private ChooseFileDisplay chooseCommandFile;
   private boolean saveCommandsAsFile;
   private boolean hasCommandUpdated;
-  private boolean isFileUploaded;
+
 
   /**
    * Purpose: Create a new command display
@@ -55,13 +51,11 @@ public class CommandDisplay extends DisplayComponent {
     Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
-    setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);
     hasCommandUpdated = false;
-    isFileUploaded = false;
     saveCommandsAsFile = false;
-
+    chooseCommandFile = new ChooseFileDisplay(props);
     // For TestFX purposes
     numResets++;
   }
@@ -74,7 +68,7 @@ public class CommandDisplay extends DisplayComponent {
   @Override
   public Node getDisplayComponentNode() {
     return new VBox(prevCommands,
-        new HBox(commandInput, runPrevCommand, saveCommandsFile, selectCommandsFile));
+        new HBox(commandInput, runPrevCommand, saveCommandsFile, chooseCommandFile.getDisplayComponentNode()));
   }
 
   /**
@@ -113,7 +107,7 @@ public class CommandDisplay extends DisplayComponent {
    * @return File that contains commands.
    */
   public File getUploadedCommandFile() {
-    return commandFile;
+    return chooseCommandFile.getUploadedFile();
   }
 
   /**
@@ -121,11 +115,7 @@ public class CommandDisplay extends DisplayComponent {
    * @return Boolean: True if a file has been updated.
    */
   public boolean getIsFileUploaded() {
-    if (isFileUploaded) {
-      isFileUploaded = false;
-      return true;
-    }
-    return false;
+    return chooseCommandFile.getIsFileUploaded();
   }
 
   /**
@@ -144,9 +134,6 @@ public class CommandDisplay extends DisplayComponent {
     runPrevCommand = ButtonMaker.makeButton(props.getProperty("runPrevCommandText"),
         event -> onRunPrevCommand());
     runPrevCommand.getStyleClass().add("button");
-    selectCommandsFile = ButtonMaker.makeButton(props.getProperty("selectFile"),
-        event -> onSelectCommandsFile());
-    selectCommandsFile.getStyleClass().add("button");
     saveCommandsFile = ButtonMaker.makeButton(props.getProperty("saveFile"), event -> onSaveCommandsFile());
     saveCommandsFile.getStyleClass().add("button");
     saveCommandsFile.setId("Save-Commands-File");
@@ -160,13 +147,7 @@ public class CommandDisplay extends DisplayComponent {
     hasCommandUpdated = false;
   }
 
-  private void setupChooseCommandsFile(Properties props) {
-    chooseCommandsFile = new FileChooser();
-    chooseCommandsFile.setTitle(props.getProperty("openFile"));
-    chooseCommandsFile.getExtensionFilters().addAll(
-        new ExtensionFilter(props.getProperty("fileDescription"),
-            props.getProperty("fileExtension")));
-  }
+
 
   private void onCommandInput() {
     hasCommandUpdated = true;
@@ -174,10 +155,6 @@ public class CommandDisplay extends DisplayComponent {
     commandInput.setText("");
   }
 
-  private void onSelectCommandsFile() {
-    commandFile = chooseCommandsFile.showOpenDialog(null);
-    isFileUploaded = true;
-  }
 
   private void onRunPrevCommand() {
     hasCommandUpdated = true;

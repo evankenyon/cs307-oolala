@@ -13,8 +13,7 @@ public class LSystemInfoDisplay extends InfoDisplay {
     props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     setAngleLength = new SetArgumentValueDisplay("Set angle length: ");
     setMovementLength = new SetArgumentValueDisplay("Set movement length: ");
-    setupChooseImageFile();
-    makeImageChooserButton();
+    chooseImageFile = new ChooseFileDisplay(props);
   }
 
   public int getAngleLength() {
@@ -29,6 +28,6 @@ public class LSystemInfoDisplay extends InfoDisplay {
   public Node getDisplayComponentNode() {
     return new HBox(setMovementLength.getDisplayComponentNode(),
         setAngleLength.getDisplayComponentNode(), setHomeX.getDisplayComponentNode(),
-        setHomeY.getDisplayComponentNode(), imageChooserButton);
+        setHomeY.getDisplayComponentNode(), chooseImageFile.getDisplayComponentNode());
   }
 }

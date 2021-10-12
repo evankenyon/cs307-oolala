@@ -41,6 +41,8 @@ public class TurtleInfoDisplay extends DisplayComponent {
     return new VBox(thicknessLabel, thicknessSlider, imageChooserButton);
   }
 
+
+
   public void setupThicknessSlider() {
     thicknessSlider = new Slider();
     thicknessSlider.setMin(1);

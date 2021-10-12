@@ -100,8 +100,7 @@ public abstract class AppDisplay {
       try {
         model.handleTextInput(commandDisplay.getCommand());
       } catch (Exception e) {
-        e.printStackTrace();
-        showError();
+        showError(props.getProperty("errorMessageCommandInput"));
       }
     }
   }
@@ -111,9 +110,7 @@ public abstract class AppDisplay {
       try {
         model.handleFileInput(commandDisplay.getUploadedCommandFile());
       } catch (Exception e) {
-        // TODO: change
-        e.printStackTrace();
-        showError();
+        showError(props.getProperty("errorMessageFileInput"));
       }
     }
   }
@@ -132,9 +129,7 @@ public abstract class AppDisplay {
       try {
         model.saveCommandsAsFile();
       } catch (Exception e) {
-        // TODO: fix
-        e.printStackTrace();
-        showError();
+        showError(props.getProperty("errorMessageFileSave"));
       }
     }
   }
@@ -147,8 +142,7 @@ public abstract class AppDisplay {
         turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(),
             infoDisplay.getUploadedImage());
       } catch (Exception e) {
-        e.printStackTrace();
-        showError();
+        showError(props.getProperty("errorMessageImageUpload"));
       }
     }
   }
@@ -171,9 +165,9 @@ public abstract class AppDisplay {
   }
 
   //Borrowed from lab_browser course gitlab repo
-  void showError() {
+  private void showError(String errorMessage) {
     Alert alert = new Alert(AlertType.ERROR);
-    alert.setContentText(props.getProperty("errorMessage"));
+    alert.setContentText(errorMessage);
     alert.show();
   }
 

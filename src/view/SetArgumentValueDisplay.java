@@ -5,17 +5,19 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
-public class SetArgumentValue extends DisplayComponent {
+public class SetArgumentValueDisplay extends DisplayComponent {
   private Text label;
   private TextField argumentInput;
   private boolean hasArgumentUpdated;
   private int argument;
 
-  public SetArgumentValue(String label) {
+  public SetArgumentValueDisplay(String label) {
     this.label = new Text(label);
     hasArgumentUpdated = false;
     argumentInput = new TextField();
     argumentInput.setOnAction(event -> onArgumentInput());
+    argumentInput.setText("10");
+    argument = 10;
   }
 
   @Override
@@ -23,14 +25,12 @@ public class SetArgumentValue extends DisplayComponent {
     return new VBox(label, argumentInput);
   }
 
+  public int getArgument() {
+    return argument;
+  }
+
   private void onArgumentInput() {
     hasArgumentUpdated = true;
-    argument = getArgument();
+    argument = Integer.parseInt(argumentInput.getText());
   }
-
-  private int getArgument() {
-    return Integer.parseInt(argumentInput.getText());
-  }
-
-
 }

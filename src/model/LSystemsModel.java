@@ -34,6 +34,14 @@ public class LSystemsModel extends AppModel {
     commandModel = new LSystemCommandRunner(DEFAULT_MOVEMENT_LENGTH, DEFAULT_ROTATION_ANGLE, levelNumMax);
   }
 
+  public void setMovementLength(int movementLength) {
+    ((LSystemCommandRunner) commandModel).setMovementLength(movementLength);
+  }
+
+  public void setRotationAngle(int rotationAngle) {
+    ((LSystemCommandRunner) commandModel).setRotationAngle(rotationAngle);
+  }
+
   public void setLevelNumMax(int number) {
     this.levelNumMax = number;
   }

@@ -5,11 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextInputControl;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -47,9 +49,32 @@ public class LogoDisplayTest extends DukeApplicationTest {
   }
 
   @Test
+  public void testSetHomeBasic() {
+    int expectedX = 40;
+    int expectedY = 50;
+    TextInputControl setHomeX = lookup("#Arg-Value-Display-0").query();
+    TextInputControl setHomeY = lookup("#Arg-Value-Display-1").query();
+    setHomeX.clear();
+    setHomeY.clear();
+    clickOn(setHomeX).write("" + expectedX);
+    clickOn(setHomeX).write(KeyCode.ENTER.getChar());
+    clickOn(setHomeY).write("" + expectedY);
+    clickOn(setHomeY).write(KeyCode.ENTER.getChar());
+    String command = "home";
+    List<String> commands = new ArrayList<>();
+    commands.add(command);
+    commandInput.clear();
+    clickOn(commandInput).write(command);
+    clickOn(commandInput).write(KeyCode.ENTER.getChar());
+    ImageView turtleImgView = lookup("#Turtle-Img-View").query();
+    assertEquals(expectedX, turtleImgView.getX());
+    assertEquals(expectedY, turtleImgView.getY());
+  }
+
+  @Test
   public void testPenChangeRed () throws InterruptedException {
-    choosePenColor = lookup("#Set-Color-0").query();
-    chooseBackgroundColor = lookup("#Set-Color-1").query();
+    choosePenColor = lookup("#Set-Color-2").query();
+    chooseBackgroundColor = lookup("#Set-Color-3").query();
     Color expected = Color.RED;
     String command = "fd 50";
     List<String> commands = new ArrayList<>();
@@ -64,11 +89,12 @@ public class LogoDisplayTest extends DukeApplicationTest {
 
   @Test
   public void testBackgroundChangeRed () {
-    choosePenColor = lookup("#Set-Color-2").query();
-    chooseBackgroundColor = lookup("#Set-Color-3").query();
+    choosePenColor = lookup("#Set-Color-4").query();
+    chooseBackgroundColor = lookup("#Set-Color-5").query();
     Color expected = Color.RED;
     // Below line from example_testfx course gitlab repo
     setValue(chooseBackgroundColor, expected);
     assertEquals(expected, turtleWindow.getBackground().getFills().get(0).getFill());
   }
+
 }

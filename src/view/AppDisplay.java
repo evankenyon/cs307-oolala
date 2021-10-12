@@ -1,5 +1,6 @@
 package view;
 
+import java.lang.ProcessHandle.Info;
 import java.util.Properties;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -11,6 +12,7 @@ import javafx.util.Duration;
 import model.AppModel;
 
 public abstract class AppDisplay {
+
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/";
   public static final String DEFAULT_RESOURCE_FOLDER = "/view/resources/";
   public static final String STYLESHEET = "Default.css";
@@ -18,6 +20,7 @@ public abstract class AppDisplay {
   // FRAMES_PER_SECOND and SECOND_DELAY values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
+
   private final int[] instructDispGridLayout = new int[]{0,1,7,9};
   private final int[] commandDispGridLayout = new int[]{0,11,7,10};
   private final int[] turtleWindowGridLayout = new int[]{9,2,20,10};
@@ -31,6 +34,7 @@ public abstract class AppDisplay {
   protected GridPane root;
   protected AppModel model;
   protected Properties props;
+  protected InfoDisplay infoDisplay;
 
   /**
    * Purpose: Create a new AppDisplay that will be organized by a GridPane root.
@@ -41,9 +45,10 @@ public abstract class AppDisplay {
   }
 
   /**
-   * Purpose: This method will return a scene containing the LogoDisplay so that the application
-   * can be run in a Main.
-   * @param width Int representing the width of the scene.
+   * Purpose: This method will return a scene containing the LogoDisplay so that the application can
+   * be run in a Main.
+   *
+   * @param width  Int representing the width of the scene.
    * @param height Int representing the height of the scene.
    * @return Scene containing the LogoDisplay.
    */
@@ -78,13 +83,14 @@ public abstract class AppDisplay {
     handleFileInputted();
     handleUpdatePen();
     turtleWindowDisplay.updateBackgroundColor(setBackgroundColorDisplay.getColor());
+    model.setHomeLocation(infoDisplay.getHomeX(), infoDisplay.getHomeY());
     handleRunNextCommand();
     handleFileSave();
     handleImageUploaded();
   }
 
   private void handleReset() {
-    if(clearDisplay.getShouldReset()) {
+    if (clearDisplay.getShouldReset()) {
       setupDisplay();
     }
   }
@@ -135,7 +141,17 @@ public abstract class AppDisplay {
 
   protected abstract void handleUpdatePen();
 
-  protected abstract void handleImageUploaded();
+  protected void handleImageUploaded() {
+    if (infoDisplay.getIsImageUploaded()) {
+      try {
+        turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(),
+            infoDisplay.getUploadedImage());
+      } catch (Exception e) {
+        e.printStackTrace();
+        showError();
+      }
+    }
+  }
 
   protected void rootSetup() {
     root.add(instructionsDisplay.getDisplayComponentNode(), instructDispGridLayout[0],
@@ -144,7 +160,8 @@ public abstract class AppDisplay {
     root.add(commandDisplay.getDisplayComponentNode(), commandDispGridLayout[0],
         commandDispGridLayout[1],
         commandDispGridLayout[2], commandDispGridLayout[3]);
-    root.add(turtleWindowDisplay.getDisplayComponentNode(), turtleWindowGridLayout[0], turtleWindowGridLayout[1],
+    root.add(turtleWindowDisplay.getDisplayComponentNode(), turtleWindowGridLayout[0],
+        turtleWindowGridLayout[1],
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
     root.add(clearDisplay.getDisplayComponentNode(), 13, 20, 1, 1);

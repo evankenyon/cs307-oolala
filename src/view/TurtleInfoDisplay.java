@@ -19,26 +19,22 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 import util.PropertiesLoader;
 
-public class TurtleInfoDisplay extends DisplayComponent {
+public class TurtleInfoDisplay extends InfoDisplay {
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/logo/";
   private Slider thicknessSlider;
   private Label thicknessLabel = new Label("Pen Thickness");
   private int penThicknesss = 1;
-  private File imageFile;
-  private FileChooser imageFileChooser;
-  private Button imageChooserButton;
-  private boolean isImageUploaded;
 
   public TurtleInfoDisplay() {
-    Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
+    props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
+    chooseImageFile = new ChooseFileDisplay(props);
     setupThicknessSlider();
-    setupChooseImageFile(props);
-  makeImageChooserButton(props);
   }
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(thicknessLabel, thicknessSlider, imageChooserButton);
+    return new VBox(thicknessLabel, thicknessSlider, chooseImageFile.getDisplayComponentNode(),
+        new HBox(setHomeX.getDisplayComponentNode(), setHomeY.getDisplayComponentNode()));
   }
 
 
@@ -59,38 +55,6 @@ public class TurtleInfoDisplay extends DisplayComponent {
         penThicknesss = new_val.intValue();
       }
     });
-  }
-
-  private void setupTextField() {
-  }
-
-  public Image getUploadedImage(){
-    Image image = new Image(imageFile.toURI().toString());
-    return image;
-  }
-
-  public boolean getIsImageUploaded() {
-    if (isImageUploaded) {
-      isImageUploaded = false;
-      return true;
-    }
-    return false;
-  }
-
-  private void makeImageChooserButton(Properties props) {
-    imageChooserButton = ButtonMaker.makeButton(props.getProperty("chooseImage"), event -> onSelectImageFile());
-  }
-  private void setupChooseImageFile(Properties props) {
-    imageFileChooser = new FileChooser();
-    imageFileChooser.setTitle(props.getProperty("openFile"));
-    imageFileChooser.getExtensionFilters().addAll(
-        new ExtensionFilter(props.getProperty("fileDescription"),
-            props.getProperty("fileExtension")));
-  }
-
-  private void onSelectImageFile() {
-    imageFile = imageFileChooser.showOpenDialog(null);
-    isImageUploaded = true;
   }
 
   public int getPenThicknesss() {

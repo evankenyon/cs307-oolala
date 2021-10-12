@@ -6,7 +6,7 @@ public class LSystemRules {
   private String rule;
 
   public LSystemRules(String fullRule) {
-    String[] brokenRuleStr = fullRule.toLowerCase().split(" ");
+    String[] brokenRuleStr = fullRule.toLowerCase().split("\\s+");
     id = brokenRuleStr[0];
     rule = brokenRuleStr[1];
   }

@@ -34,20 +34,4 @@ public abstract class InfoDisplay extends DisplayComponent {
     return chooseImageFile.getIsFileUploaded();
   }
 
-//  protected void makeImageChooserButton() {
-//    imageChooserButton = ButtonMaker.makeButton(props.getProperty("chooseImage"), event -> onSelectImageFile());
-//  }
-
-//  protected void setupChooseImageFile() {
-//    imageFileChooser = new FileChooser();
-//    imageFileChooser.setTitle(props.getProperty("openFile"));
-//    imageFileChooser.getExtensionFilters().addAll(
-//        new ExtensionFilter(props.getProperty("fileDescription"),
-//            props.getProperty("fileExtension")));
-//  }
-
-//  private void onSelectImageFile() {
-//    imageFile = imageFileChooser.showOpenDialog(null);
-//    isImageUploaded = true;
-//  }
 }

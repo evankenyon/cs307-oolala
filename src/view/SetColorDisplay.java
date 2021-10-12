@@ -24,6 +24,6 @@ public class SetColorDisplay extends DisplayComponent {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(colorPickerLabel, chooseColor);
+    return new VBox(chooseColor, colorPickerLabel);
   }
 }

@@ -39,7 +39,7 @@ public class LogoDisplay extends AppDisplay {
   @Override
   protected void rootSetup() {
     super.rootSetup();
-    final int[] turtInfoDispGridLayout = new int[]{9,21,7,10};
+    final int[] turtInfoDispGridLayout = new int[]{9,21,7,8};
     root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }

@@ -19,6 +19,9 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 import util.PropertiesLoader;
 
+/**
+ *
+ */
 public class TurtleInfoDisplay extends InfoDisplay {
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/logo/";
   private Slider thicknessSlider;
@@ -33,7 +36,7 @@ public class TurtleInfoDisplay extends InfoDisplay {
 
   @Override
   public Node getDisplayComponentNode() {
-    return new VBox(thicknessLabel, thicknessSlider, chooseImageFile.getDisplayComponentNode(),
+    return new VBox(chooseImageFile.getDisplayComponentNode(), thicknessLabel, thicknessSlider,
         new HBox(setHomeX.getDisplayComponentNode(), setHomeY.getDisplayComponentNode()));
   }
 

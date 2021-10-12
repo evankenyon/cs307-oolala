@@ -37,6 +37,8 @@ public class TurtleInfoDisplay extends InfoDisplay {
         new HBox(setHomeX.getDisplayComponentNode(), setHomeY.getDisplayComponentNode()));
   }
 
+
+
   public void setupThicknessSlider() {
     thicknessSlider = new Slider();
     thicknessSlider.setMin(1);

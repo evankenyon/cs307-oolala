@@ -26,11 +26,6 @@ public class LogoDisplay extends AppDisplay {
   // Magic values borrowed from example_animation course gitlab repo
   public static final String LOGO_RESOURCES_PACKAGE = DEFAULT_RESOURCES_PACKAGE + "logo/";
 
-  // Could store this data in file
-  // Or a String to int map
-//  private
-  private final int PREF_WINDOW_SIZE = 400;
-
   @Override
   protected void setupDisplay() {
     props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + "English.properties");
@@ -44,7 +39,7 @@ public class LogoDisplay extends AppDisplay {
   @Override
   protected void rootSetup() {
     super.rootSetup();
-    final int[] turtInfoDispGridLayout = new int[]{9,15,7,10};
+    final int[] turtInfoDispGridLayout = new int[]{9,21,7,10};
     root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }

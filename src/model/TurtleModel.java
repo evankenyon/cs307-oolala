@@ -12,8 +12,8 @@ package model;
  * @author Luis Pereda
  */
 public class TurtleModel {
-  public static final int DEFAULT_X_POSITION = 200;
-  public static final int DEFAULT_Y_POSITION = 200;
+  public static final int DEFAULT_X_POSITION = 400;
+  public static final int DEFAULT_Y_POSITION = 400;
 
   // Coordinate [x,y] denoting the position of the turtle
   private final int[] myPosition;
@@ -87,6 +87,14 @@ public class TurtleModel {
     int dy = (int) (distance * Math.sin(myTrajectory));
     myPosition[0] = myPosition[0] + dx;
     myPosition[1] = myPosition[1] + dy;
+    keepTurtleInBounds();
+  }
+
+  private void keepTurtleInBounds() {
+    if (myPosition[0] < 0) myPosition[0] = 0;
+    if (myPosition[0] > 800) myPosition[0] = 800;
+    if (myPosition[1] < 0) myPosition[1] = 0;
+    if (myPosition[1] > 800) myPosition[1] = 800;
   }
 
   /**

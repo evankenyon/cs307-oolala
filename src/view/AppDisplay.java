@@ -20,9 +20,10 @@ public abstract class AppDisplay {
   // FRAMES_PER_SECOND and SECOND_DELAY values borrowed from example_animation course gitlab repo
   public static final int FRAMES_PER_SECOND = 60;
   public static final double SECOND_DELAY = 1.0 / FRAMES_PER_SECOND;
-  private final int[] instructDispGridLayout = new int[]{0, 0, 7, 10};
-  private final int[] commandDispGridLayout = new int[]{0, 11, 7, 10};
-  private final int[] turtleWindowGridLayout = new int[]{9, 1, 20, 10};
+
+  private final int[] instructDispGridLayout = new int[]{0,1,7,9};
+  private final int[] commandDispGridLayout = new int[]{0,11,7,10};
+  private final int[] turtleWindowGridLayout = new int[]{9,2,20,10};
 
   protected CommandDisplay commandDisplay;
   protected ClearDisplay clearDisplay;
@@ -163,9 +164,9 @@ public abstract class AppDisplay {
         turtleWindowGridLayout[1],
         turtleWindowGridLayout[2],
         turtleWindowGridLayout[3]);
-    root.add(clearDisplay.getDisplayComponentNode(), 9, 12, 1, 1);
-    root.add(setPenColorDisplay.getDisplayComponentNode(), 10, 12, 1, 1);
-    root.add(setBackgroundColorDisplay.getDisplayComponentNode(), 11, 12, 1, 1);
+    root.add(clearDisplay.getDisplayComponentNode(), 13, 20, 1, 1);
+    root.add(setPenColorDisplay.getDisplayComponentNode(), 10, 20, 1, 1);
+    root.add(setBackgroundColorDisplay.getDisplayComponentNode(), 11, 20, 1, 1);
     root.getStyleClass().add("grid-pane");
   }
 

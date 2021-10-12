@@ -3,7 +3,6 @@ package model;
 /**
  * Purpose: This class organizes the state and behovior of each of the turtles that will be used to
  * draw on the applications.
- * Assumptions:
  * Dependencies: None
  * Example: When a user starts the program, or calls tell on a non-existing turtle, instantiate a
  * new turtle model. This turtle can then be used to draw on the screen by moving it, rotating it,

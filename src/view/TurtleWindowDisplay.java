@@ -21,7 +21,7 @@ import model.TurtleModel;
  * Example: In an app such as Logo IDE, to have an area where the turtles can move and be able to
  * draw, instantiate this class in the high level view.
  *
- * @author Evan Kenyon
+ * @author Evan Kenyon and Luis Pereda
  */
 public class TurtleWindowDisplay extends DisplayComponent {
   public static final int PREF_WINDOW_SIZE = 400;
@@ -38,6 +38,7 @@ public class TurtleWindowDisplay extends DisplayComponent {
     // Have default constructor that just sets id to 1
     turtleWindow = new Pane();
     turtleWindow.setId("Turtle-Window");
+    turtleWindow.getStyleClass().add("pane");
     turtleWindow.setPrefSize(PREF_WINDOW_SIZE, PREF_WINDOW_SIZE);
     defaultHome = new int[]{PREF_WINDOW_SIZE / 2, PREF_WINDOW_SIZE / 2};
     turtleDisplays.add(new TurtleDisplay(1, defaultHome));
@@ -46,8 +47,8 @@ public class TurtleWindowDisplay extends DisplayComponent {
       turtleDisplaysGroup.getChildren().add(turtleDisplay.getDisplayComponentNode());
     }
 
-    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
-        + "  -fx-border-style: solid;");
+//    turtleWindow.setStyle("-fx-background-color: floralwhite;\n"
+//        + "  -fx-border-style: solid;");
     turtleWindow.getChildren().addAll(turtleDisplaysGroup);
   }
 

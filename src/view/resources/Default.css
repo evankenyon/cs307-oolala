@@ -12,21 +12,8 @@
   -fx-padding: 0 0 0 10px;
 }
 
-.choice-box {
-  -fx-border-style: solid;
-  -fx-padding: 5px;
-  -fx-spacing: 2px;
-}
-
-.list-cell, /* items in combo-box */
-.check-box,
-.toggle-button,
-.radio-button {
-  -fx-text-fill: text_color;
-}
-
 .vbox {
-  -fx-alignment: bottom-left;
+  -fx-alignment: bottom-center;
   -fx-spacing: 8px;
   -fx-hgap: 5px;
 }
@@ -54,14 +41,15 @@
   -fx-text-fill: text_color;
   -fx-background-color: #7fddff;
   -fx-min-width: 150px;
+  -fx-alignment: top-left;
+  -fx-highlight-text-fill: floralwhite;
 }
 
-.canvas {
-  -fx-background-color: floralwhite;
+.pane {
   -fx-border-style: solid;
 }
 
-/* set background to provide highlight */
-.highlight {
-  -fx-background-color: #CCFF99;
+.commands {
+  -fx-border-style: solid;
 }
+

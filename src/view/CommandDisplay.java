@@ -55,6 +55,7 @@ public class CommandDisplay extends DisplayComponent {
     Properties props = PropertiesLoader.loadProperties(DEFAULT_RESOURCES_PACKAGE + "English.properties");
     prevCommands = new ListView<>();
     prevCommands.setId("Prev-Commands-" + numResets);
+    prevCommands.getStyleClass().add("commands");
     setupChooseCommandsFile(props);
     setupCommandInput(props);
     makeButtons(props);

@@ -13,7 +13,7 @@ import javafx.scene.text.Text;
  * Example: If you want to change the pen color that a turtle draws with, create an instance of this
  * class to do the work for you.
  *
- * @author Evan Kenyon.
+ * @author Evan Kenyon
  */
 public class SetColorDisplay extends DisplayComponent {
   Text colorPickerLabel;

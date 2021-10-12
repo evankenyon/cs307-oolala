@@ -12,8 +12,8 @@ package model;
  * @author Luis Pereda
  */
 public class TurtleModel {
-  public static final int DEFAULT_X_POSITION = 200;
-  public static final int DEFAULT_Y_POSITION = 200;
+  public static final int DEFAULT_X_POSITION = 400;
+  public static final int DEFAULT_Y_POSITION = 400;
 
   // Coordinate [x,y] denoting the position of the turtle
   private final int[] myPosition;

@@ -45,6 +45,7 @@ public class TurtleDisplay extends DisplayComponent {
     turtleImgView = new ImageView(turtleImg);
     turtleImgView.setX(home[0]);
     turtleImgView.setY(home[1]);
+    turtleImgView.setId("Turtle-Img-View");
     this.home = home;
     setAngle(DEFAULT_ANGLE);
     updateImageSize();

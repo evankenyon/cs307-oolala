@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.InputMismatchException;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 import model.commands.Command;
 
@@ -17,25 +19,34 @@ public class LSystemProgram {
   private boolean isValidProgram;
   private int levelNum;
   private PrevCommandsHandler prevCommandsHandler;
+  private Map<String, List<String>> newSymbolSet;
 
   public LSystemProgram() {
     isValidProgram = false;
     levelNum = 0;
     rules = new ArrayList<>();
     prevCommandsHandler = new PrevCommandsHandler("lsystem");
+    start= "";
+    newSymbolSet = new HashMap<>();
   }
 
   public void parseInput(String input) throws InputMismatchException {
-    String[] inputAsArray = input.toLowerCase().split(" ");
+    String[] inputAsArray = input.toLowerCase().split("\\s+");
     String command = inputAsArray[0];
     List<String> arguments = new ArrayList<>();
 
     for (int index = 1; index < inputAsArray.length; index++) {
       arguments.add(inputAsArray[index]);
     }
+
+    if(arguments.isEmpty()) {
+      throw new InputMismatchException();
+    }
+
     switch (command) {
       case "start" -> start = arguments.get(0);
       case "rule" -> rules.add(new LSystemRules(arguments.get(0) + " " + arguments.get(1)));
+      case "set" -> newSymbolSet.put(arguments.get(0), arguments.subList(1, arguments.size()));
       default -> throw new InputMismatchException();
     }
     prevCommandsHandler.addPrevCommand(input);
@@ -81,5 +92,9 @@ public class LSystemProgram {
       }
       parseInput(next);
     }
+  }
+
+  public Map<String, List<String>> getNewSymbolSet() {
+    return newSymbolSet;
   }
 }

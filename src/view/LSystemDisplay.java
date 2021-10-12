@@ -7,13 +7,11 @@ public class LSystemDisplay extends AppDisplay {
   public static final String LOGO_RESOURCES_PACKAGE = DEFAULT_RESOURCES_PACKAGE + "logo/";
   public static final int DEFAULT_PEN_THICKNESS = 1;
 
-  private LSystemInfoDisplay lSystemInfoDisplay;
-
   @Override
   protected void setupDisplay() {
     props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + "English.properties");
     model = new LSystemsModel();
-    lSystemInfoDisplay = new LSystemInfoDisplay();
+    infoDisplay = new LSystemInfoDisplay();
     super.setupDisplay();
     rootSetup();
   }
@@ -21,14 +19,20 @@ public class LSystemDisplay extends AppDisplay {
   protected void rootSetup() {
     super.rootSetup();
     final int[] turtInfoDispGridLayout = new int[]{9,11,7,10};
-    root.add(lSystemInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1]);
+    root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1]);
   }
 
   @Override
   protected void step(double elapsedTime) {
-    ((LSystemsModel) model).setRotationAngle(lSystemInfoDisplay.getAngleLength());
-    ((LSystemsModel) model).setMovementLength(lSystemInfoDisplay.getMovementLength());
+    lSystemSpecificUpdates();
     super.step(elapsedTime);
+  }
+
+  private void lSystemSpecificUpdates() {
+    ((LSystemsModel) model).setRotationAngle(((LSystemInfoDisplay) infoDisplay).getAngleLength());
+    ((LSystemsModel) model).setMovementLength(((LSystemInfoDisplay) infoDisplay).getMovementLength());
+    ((LSystemsModel) model).setLevelNumMax(((LSystemInfoDisplay) infoDisplay).getMaxNumLevels());
+    ((LSystemsModel) model).setShouldRun(((LSystemInfoDisplay) infoDisplay).getShouldRun());
   }
 
 //  private void handleUpdateLengthArgs() {
@@ -39,10 +43,5 @@ public class LSystemDisplay extends AppDisplay {
   protected void handleUpdatePen() {
     turtleWindowDisplay.updateActiveTurtlesPens(model.getActiveTurtles(),
         setPenColorDisplay.getColor(), DEFAULT_PEN_THICKNESS);
-  }
-
-  @Override
-  protected void handleImageUploaded() {
-    return;
   }
 }

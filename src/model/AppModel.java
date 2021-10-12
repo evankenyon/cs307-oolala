@@ -99,4 +99,6 @@ public abstract class AppModel {
   public List<TurtleModel> getNewTurtles() {
     return null;
   }
+
+  public abstract void setHomeLocation(int x, int y);
 }

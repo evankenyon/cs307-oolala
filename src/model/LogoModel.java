@@ -3,11 +3,13 @@ package model;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import model.commands.Command;
+import model.commands.SetHomeCommand;
 
 /**
  * Purpose: This class is the high level model for the Logo IDE, using the TurtleController and
@@ -121,6 +123,14 @@ public class LogoModel extends AppModel {
   @Override
   public List<TurtleModel> getNewTurtles() throws NullPointerException {
     return turtleController.getNewTurtles();
+  }
+
+  @Override
+  public void setHomeLocation(int x, int y) {
+    List<Integer> home = new ArrayList<>();
+    home.add(x);
+    home.add(y);
+    commandsToRun.add(new SetHomeCommand(home));
   }
 
   /**

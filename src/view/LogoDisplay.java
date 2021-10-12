@@ -26,18 +26,11 @@ public class LogoDisplay extends AppDisplay {
   // Magic values borrowed from example_animation course gitlab repo
   public static final String LOGO_RESOURCES_PACKAGE = DEFAULT_RESOURCES_PACKAGE + "logo/";
 
-
-  private TurtleInfoDisplay turtleInfoDisplay;
-  // Could store this data in file
-  // Or a String to int map
-//  private
-  private final int PREF_WINDOW_SIZE = 400;
-
   @Override
   protected void setupDisplay() {
     props = PropertiesLoader.loadProperties(LOGO_RESOURCES_PACKAGE + "English.properties");
     model = new LogoModel();
-    turtleInfoDisplay = new TurtleInfoDisplay();
+    infoDisplay = new TurtleInfoDisplay();
     super.setupDisplay();
     rootSetup();
   }
@@ -47,26 +40,14 @@ public class LogoDisplay extends AppDisplay {
   protected void rootSetup() {
     super.rootSetup();
     final int[] turtInfoDispGridLayout = new int[]{9,21,7,10};
-    root.add(turtleInfoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
+    root.add(infoDisplay.getDisplayComponentNode(), turtInfoDispGridLayout[0], turtInfoDispGridLayout[1],
             turtInfoDispGridLayout[2], turtInfoDispGridLayout[3]);
   }
 
   @Override
   protected void handleUpdatePen() {
     turtleWindowDisplay.updateActiveTurtlesPens(model.getActiveTurtles(),
-        setPenColorDisplay.getColor(), turtleInfoDisplay.getPenThicknesss());
-  }
-
-  @Override
-  protected void handleImageUploaded() {
-    if(turtleInfoDisplay.getIsImageUploaded()){
-      try{
-        turtleWindowDisplay.updateActiveTurtlesImage(model.getActiveTurtles(), turtleInfoDisplay.getUploadedImage());
-      }
-      catch (Exception e) {
-        showError();
-      }
-    }
+        setPenColorDisplay.getColor(), ((TurtleInfoDisplay) infoDisplay).getPenThicknesss());
   }
 
 }

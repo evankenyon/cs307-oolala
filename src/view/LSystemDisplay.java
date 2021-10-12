@@ -24,4 +24,9 @@ public class LSystemDisplay extends AppDisplay {
     turtleWindowDisplay.updateActiveTurtlesPens(model.getActiveTurtles(),
         setPenColorDisplay.getColor(), DEFAULT_PEN_THICKNESS);
   }
+
+  @Override
+  protected void handleImageUploaded() {
+    return;
+  }
 }

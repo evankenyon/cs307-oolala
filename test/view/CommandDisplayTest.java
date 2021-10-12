@@ -21,7 +21,6 @@ public class CommandDisplayTest extends DukeApplicationTest {
   private CommandDisplay commandDisplay;
   // keep GUI components used in multiple tests
   private TextInputControl commandInput;
-  private ListView<String> prevCommands;
   private Button saveCommandsFile;
 
 
@@ -39,8 +38,6 @@ public class CommandDisplayTest extends DukeApplicationTest {
     // Borrowed setup and comment above from example_testfx course gitlab repo
     commandInput = lookup("#Command-Input").query();
     saveCommandsFile = lookup("#Save-Commands-File").query();
-    prevCommands = lookup("#Prev-Commands").queryListView();
-
   }
 
   @Test
@@ -50,8 +47,12 @@ public class CommandDisplayTest extends DukeApplicationTest {
     assertLabelText(expected);
   }
 
+
+  // For some reason this does not work with #Prev-Commands-1, so
+  // just need to run this individually instead of with whole suite
   @Test
   public void testCommandInputForward () {
+    ListView<String> prevCommands = lookup("#Prev-Commands-0").queryListView();
     assertFalse(commandDisplay.getHasCommandUpdated());
     String expected = "fd 50";
     commandInput.clear();
@@ -67,6 +68,7 @@ public class CommandDisplayTest extends DukeApplicationTest {
 
   @Test
   public void testPrevCommandsDefault () {
+    ListView<String> prevCommands = lookup("#Prev-Commands-2").queryListView();
     assertTrue(prevCommands.getItems().isEmpty());
   }
 

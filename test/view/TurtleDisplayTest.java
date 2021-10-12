@@ -17,7 +17,7 @@ class TurtleDisplayTest {
     @Test
     void moveTurtle() {
         int[] testVal = new int[]{20,20};
-        testTurtleDisplay.setPosition(testVal, true);
+        testTurtleDisplay.setPositionAndDraw(testVal, true);
         expectedVal[0] = 20;
         expectedVal[1] = 20;
         assertEquals(expectedVal[0], (int) testTurtleDisplay.getImageView().getX());

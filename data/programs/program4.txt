@@ -1,3 +1,0 @@
-#Saved program number 4
-fd 50
-rt 50

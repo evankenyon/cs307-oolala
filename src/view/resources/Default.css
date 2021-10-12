@@ -1,0 +1,55 @@
+.root {
+  -fx-font-family: "Roboto Light";
+  -fx-background: #4a72d7;
+  /* define variables to avoid duplicating values */
+  text_color: black;
+}
+
+.grid-pane {
+  -fx-alignment: baseline-center;
+  -fx-hgap: 20px;
+  -fx-vgap: 10px;
+  -fx-padding: 0 0 0 10px;
+}
+
+.vbox {
+  -fx-alignment: bottom-center;
+  -fx-spacing: 8px;
+  -fx-hgap: 5px;
+}
+
+.button {
+  -fx-text-fill: text_color;
+  -fx-background-color: lightgray;
+  -fx-padding: 10px;
+}
+
+.reset {
+  -fx-alignment: bottom-right;
+  -fx-background-color: red;
+  -fx-text-fill: text_color;
+  -fx-padding: 10px;
+}
+
+.label {
+  -fx-text-fill: text_color;
+  -fx-min-width: 200px;
+  -fx-padding: 10px;
+}
+
+.text-field {
+  -fx-text-fill: text_color;
+  -fx-background-color: #7fddff;
+  -fx-min-width: 150px;
+  -fx-alignment: top-left;
+}
+
+.pane {
+  -fx-border-style: solid;
+  -fx-end-margin: 10 px;
+}
+
+.commands {
+  -fx-border-style: solid;
+}
+

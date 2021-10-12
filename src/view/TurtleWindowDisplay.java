@@ -101,7 +101,6 @@ public class TurtleWindowDisplay extends DisplayComponent {
 
   public void updateBackgroundColor(Color backgroundColor) {
     turtleWindow.setBackground(new Background(new BackgroundFill(backgroundColor, CornerRadii.EMPTY, Insets.EMPTY)));
-//    turtleWindow.setStyle("-fx-background-color: " + backgroundColor + ";");
   }
 
 

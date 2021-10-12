@@ -24,10 +24,15 @@ public class LSystemDisplay extends AppDisplay {
 
   @Override
   protected void step(double elapsedTime) {
+    lSystemSpecificUpdates();
+    super.step(elapsedTime);
+  }
+
+  private void lSystemSpecificUpdates() {
     ((LSystemsModel) model).setRotationAngle(((LSystemInfoDisplay) infoDisplay).getAngleLength());
     ((LSystemsModel) model).setMovementLength(((LSystemInfoDisplay) infoDisplay).getMovementLength());
+    ((LSystemsModel) model).setLevelNumMax(((LSystemInfoDisplay) infoDisplay).getMaxNumLevels());
     ((LSystemsModel) model).setShouldRun(((LSystemInfoDisplay) infoDisplay).getShouldRun());
-    super.step(elapsedTime);
   }
 
 //  private void handleUpdateLengthArgs() {

@@ -24,7 +24,8 @@ public abstract class SetPenCommand implements Command {
    * @param penUpOrDown Boolean, if true pen is down and drawing, and if false pen is up and not
    *                    drawing.
    * @param args        List of integers which should be empty.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the set pen command
+   * does not require any arguments.
    */
   public SetPenCommand(boolean penUpOrDown, List<Integer> args) throws IllegalArgumentException {
     if (!args.isEmpty()) {

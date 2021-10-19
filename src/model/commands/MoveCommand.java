@@ -25,7 +25,8 @@ public abstract class MoveCommand implements Command {
    *
    * @param direction 1 if forward, -1 if backward.
    * @param args      List of integers of length 1.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not of size one since the
+   * move command requires only one argument.
    */
   public MoveCommand(int direction, List<Integer> args) throws IllegalArgumentException {
     if (args.size() != 1) {

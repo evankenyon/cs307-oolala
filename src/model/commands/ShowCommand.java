@@ -17,7 +17,8 @@ public class ShowCommand extends ShowOrHideCommand {
    * Purpose: Create a new show command
    *
    * @param args Should be an empty list
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the show command does not
+   * require any arguments.
    */
   public ShowCommand(List<Integer> args) throws IllegalArgumentException {
     super(true, args);

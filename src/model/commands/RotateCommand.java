@@ -25,7 +25,8 @@ public abstract class RotateCommand implements Command {
    *
    * @param direction Right, or clockwise is 1. Left, or counterclockwise, is -1.
    * @param args      List of integers of length one, containing the number of degrees to rotate.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not of size one since the rotate command
+   * only requires one argument.
    */
   public RotateCommand(int direction, List<Integer> args) throws IllegalArgumentException {
     if (args.size() != 1) {

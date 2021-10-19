@@ -17,7 +17,8 @@ public class RotateLeftCommand extends RotateCommand {
    * Purpose: Create a new RotateLeftCommand Assumptions: args is of size 1.
    *
    * @param args List of integers of size one representing the degrees of rotation.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not of size one since the rotate left
+   * command only requires one argument.
    */
   public RotateLeftCommand(List<Integer> args)
       throws IllegalArgumentException {

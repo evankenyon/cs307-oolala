@@ -17,7 +17,8 @@ public class SetPenDownCommand extends SetPenCommand {
    * Purpose: Create a new SetPenDownCommand
    *
    * @param args List of integers of size 0.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the set pen down command
+   * does not require any arguments.
    */
   public SetPenDownCommand(List<Integer> args) throws IllegalArgumentException {
     super(true, args);

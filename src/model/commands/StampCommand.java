@@ -20,7 +20,8 @@ public class StampCommand implements Command {
    * Purpose: Create a new StampCommand. Assumptions: args is of size 0.
    *
    * @param args List of integers of size 0.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the stamp command does not
+   * require any arguments.
    */
   public StampCommand(List<Integer> args) throws IllegalArgumentException {
     if (!args.isEmpty()) {

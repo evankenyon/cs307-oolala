@@ -106,5 +106,11 @@ public abstract class AppModel {
     return null;
   }
 
+  /**
+   * Purpose: The purpose of this method is to determine what x and y location the home of the turtle should be set as
+   *
+   * @param x input int to set the home x location of the turtle
+   * @param y input int to set the home y location of the turtle
+   */
   public abstract void setHomeLocation(int x, int y);
 }

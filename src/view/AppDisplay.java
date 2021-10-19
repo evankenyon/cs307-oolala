@@ -11,6 +11,25 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Duration;
 import model.AppModel;
 
+/**
+ * Purpose: This class represents the parent class for an AppDisplay. It is responsible for handling
+ * the communication between the frontend and the backend (i.e. passing data to the backend and
+ * updating the frontend components based on how the backend changes). Specifically, it handles
+ * all of such communication that is shared between Logo and LSystem, since those were the two
+ * apps that we implemented for this project and both had a significant amount of overlapping
+ * functionality in regards to this communication.
+ * Dependencies: Properties, KeyFrame, Timeline, Scene, Alert, AlertType, GridPane, Duration,
+ * AppModel
+ * Example: Extend this class to create a specific app's display class. That app display child class
+ * should add in specific functionality for that class (i.e. for LSystem we want to be able to
+ * change the number of levels that are drawn), but the class should be fairly compact since
+ * most of the frontend display is shared between the different apps.
+ * Other details: Since this class is responsible for communication between the backend and
+ * frontend, and we had not learned about controllers in detail yet, it also contains all the
+ * frontend components and displays them.
+ *
+ * @author Evan Kenyon
+ */
 public abstract class AppDisplay {
 
   public static final String DEFAULT_RESOURCES_PACKAGE = "./src/view/resources/";

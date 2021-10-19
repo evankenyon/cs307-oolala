@@ -8,6 +8,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import util.ButtonMaker;
 
+/**
+ * Purpose: This class makes a button that when clicked changes shouldReset to true, so that a class
+ * using this class knows the user wants to clear the display.
+ * Dependencies: File, Properties, Node, Button, FileChooser, ButtonMaker
+ * <p>
+ * Example: In the step method of the program check whether the file has been uploaded by the user or not, and if so
+ * then pull the chosen file to run program.
+ *
+ * @author Evan Kenyon
+ */
 public class ChooseFileDisplay extends DisplayComponent {
 
   private Button selectFile;

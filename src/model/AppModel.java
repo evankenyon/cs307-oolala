@@ -22,7 +22,6 @@ import model.commands.Command;
 public abstract class AppModel {
 
   protected final TurtleController turtleController;
-
   protected Queue<Command> commandsToRun;
   protected CommandModel commandModel;
 

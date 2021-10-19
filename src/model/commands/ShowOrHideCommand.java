@@ -11,7 +11,8 @@ import model.TurtleModel;
  * <p>
  * Example: Create a class to show the turtle that extends this class.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public abstract class ShowOrHideCommand implements Command {
 

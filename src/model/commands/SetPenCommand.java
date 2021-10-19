@@ -12,7 +12,8 @@ import model.TurtleModel;
  * <p>
  * Example: Create a class that sets the pen down that extends this class.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public abstract class SetPenCommand implements Command {
 

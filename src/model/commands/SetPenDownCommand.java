@@ -9,7 +9,8 @@ import java.util.List;
  * Example: If a user inputs the command "pd", then make a SetPenDownCommand and run the command to
  * make it so all the active turtles are drawing.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class SetPenDownCommand extends SetPenCommand {
 

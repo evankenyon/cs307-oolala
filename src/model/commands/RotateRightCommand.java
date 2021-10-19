@@ -9,7 +9,8 @@ import java.util.List;
  * Example: When the user inputs "rt 90", create a RotateRightCommand that when ran rotates the
  * active turtles clockwise by 90 degrees.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class RotateRightCommand extends RotateCommand {
 

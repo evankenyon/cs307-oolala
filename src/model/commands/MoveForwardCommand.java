@@ -8,7 +8,8 @@ import java.util.List;
  * Example: When the user inputs "fd n", where n is an integer, make a move forward command to move
  * the turtle n pixels forwards.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class MoveForwardCommand extends MoveCommand {
 

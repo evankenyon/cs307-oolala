@@ -11,7 +11,8 @@ import model.TurtleController;
  * Example: If the user inputs the command "TELL" then create an instance of this class and run the
  * method.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class TellCommand implements Command {
 

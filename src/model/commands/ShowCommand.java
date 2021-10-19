@@ -9,7 +9,8 @@ import java.util.List;
  * Example: If the user inputs the command "st", then create an instance of this class and run the
  * command.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class ShowCommand extends ShowOrHideCommand {
 

@@ -13,7 +13,8 @@ import model.TurtleModel;
  * Example: Create a class that rotates the turtles left, or counterclockwise, by n degrees that
  * extends this class.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public abstract class RotateCommand implements Command {
 

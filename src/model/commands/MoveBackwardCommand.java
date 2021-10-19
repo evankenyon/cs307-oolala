@@ -8,7 +8,8 @@ import java.util.List;
  * Example: When the user inputs "bk n", where n is an integer, make a move backward command to move
  * the turtle n pixels backwards.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class MoveBackwardCommand extends MoveCommand {
 

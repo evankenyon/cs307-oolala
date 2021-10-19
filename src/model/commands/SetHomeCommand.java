@@ -12,7 +12,8 @@ import model.TurtleModel;
  * Example: If the user wants to set the home location to [100,200], create a SetHomeCommand that
  * when ran will set the home location of the turtle to these coordinates.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class SetHomeCommand implements Command {
 

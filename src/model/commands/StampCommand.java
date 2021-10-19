@@ -12,7 +12,8 @@ import model.TurtleModel;
  * Example: If the user inputs the command "STAMP", create an instance of this class and run the
  * method.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class StampCommand implements Command {
 

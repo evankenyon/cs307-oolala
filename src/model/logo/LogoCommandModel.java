@@ -64,10 +64,13 @@ public class LogoCommandModel extends CommandModel {
    * Purpose: Get a list of commands for the turtle(s) to execute based on the commands given by the
    * user as strings of text. Assumptions: Any incorrect commands will throw exceptions.
    *
-   * @param input
+   * @param input user String input or String input from a line of a user input file (ex. "fd 50"
+   *              or a chain of commands such as "fd 50 rt 90 bk 50").
    * @return List of Commands to be executed by the turtles
-   * @throws InputMismatchException thrown if
-   * @throws IllegalArgumentException
+   * @throws InputMismatchException thrown if unrecognized command is used (ex. user inputs "forward
+   * 50" instead of "fd 50").
+   * @throws IllegalArgumentException thrown if the user passes in an invalid argument to a command
+   * (ex. just "fd" instead of "fd *distance*")
    */
   @Override
   public List<Command> getCommandsFromInput(String input)
@@ -82,7 +85,8 @@ public class LogoCommandModel extends CommandModel {
   /**
    * Purpose: Save the command history of the program as a .txt file that the user can download.
    *
-   * @throws IOException thrown if
+   * @throws IOException thrown if saveCommandsFile throws this exception (see more in
+   * PrevCommandsHandler class).
    */
   public void saveCommandsAsFile() throws IOException, IllegalArgumentException {
     prevCommandsHandler.saveCommandsAsFile();

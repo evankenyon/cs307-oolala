@@ -103,7 +103,9 @@ public class LogoModel extends AppModel {
   /**
    * Purpose: Save the command history as a .txt file.
    *
-   * @throws IOException
+   * @throws IOException thrown if commandModel's saveCommandsAsFile throws this exception (see
+   * PrevCommandsHandler for more details since this is how LogoCommandModel implements the saving
+   * commands as a file feature).
    */
   @Override
   public void saveCommandsAsFile() throws IOException {
@@ -130,6 +132,15 @@ public class LogoModel extends AppModel {
     return turtleController.getNewTurtles();
   }
 
+  /**
+   * Purpose: Adds a set home location Command to the commandsToRun queue.
+   * Assumptions: x and y are greater than 0
+   *
+   * @param x the set home location command's x location.
+   * @param y the set home location command's y location.
+   * @throws IllegalArgumentException thrown if x and y are negative (since it is impossible for the
+   * turtle's home to be at a negative location).
+   */
   @Override
   public void setHomeLocation(int x, int y) throws IllegalArgumentException {
     if (x < 0 || y < 0) {
@@ -157,7 +168,7 @@ public class LogoModel extends AppModel {
    *
    * @param turtleId Unique ID of a turtle
    * @return TurtleModel with that ID
-   * @throws NullPointerException
+   * @throws NullPointerException thrown if no Turtle Model amtching turtleID is found.
    */
   public TurtleModel getTurtleModel(int turtleId) throws NullPointerException {
     TurtleModel turtleModel = null;

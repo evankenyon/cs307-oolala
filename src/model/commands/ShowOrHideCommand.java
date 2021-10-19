@@ -11,7 +11,8 @@ import model.TurtleModel;
  * <p>
  * Example: Create a class to show the turtle that extends this class.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public abstract class ShowOrHideCommand implements Command {
 
@@ -23,7 +24,8 @@ public abstract class ShowOrHideCommand implements Command {
    *
    * @param shouldShow Boolean that if true shows the turtle, if false hides the turtle.
    * @param args       List of integers of size 0.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the show or hide command
+   * does not require any arguments.
    */
   public ShowOrHideCommand(boolean shouldShow, List<Integer> args) throws IllegalArgumentException {
     if (!args.isEmpty()) {

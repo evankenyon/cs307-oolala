@@ -11,7 +11,8 @@ import model.TurtleController;
  * Example: If the user inputs the command "TELL" then create an instance of this class and run the
  * method.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class TellCommand implements Command {
 
@@ -22,7 +23,8 @@ public class TellCommand implements Command {
    *
    * @param ids List of integers representing the ids of the turtles to execute the subsequent
    *            commands.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is empty since the tell command requires at
+   * least one argument.
    */
   public TellCommand(List<Integer> ids) throws IllegalArgumentException {
     if (ids.isEmpty()) {

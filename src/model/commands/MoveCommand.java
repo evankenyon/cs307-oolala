@@ -13,7 +13,8 @@ import model.TurtleModel;
  * Example: Create a class that moves the turtle forward or backward that extends this class, use
  * the runCommand method to move the turtles.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @aythor Evan Kenyon
  */
 public abstract class MoveCommand implements Command {
 
@@ -25,7 +26,8 @@ public abstract class MoveCommand implements Command {
    *
    * @param direction 1 if forward, -1 if backward.
    * @param args      List of integers of length 1.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not of size one since the
+   * move command requires only one argument.
    */
   public MoveCommand(int direction, List<Integer> args) throws IllegalArgumentException {
     if (args.size() != 1) {

@@ -9,7 +9,8 @@ import java.util.List;
  * Example: If the user inputs the command "st", then create an instance of this class and run the
  * command.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class ShowCommand extends ShowOrHideCommand {
 
@@ -17,7 +18,8 @@ public class ShowCommand extends ShowOrHideCommand {
    * Purpose: Create a new show command
    *
    * @param args Should be an empty list
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the show command does not
+   * require any arguments.
    */
   public ShowCommand(List<Integer> args) throws IllegalArgumentException {
     super(true, args);

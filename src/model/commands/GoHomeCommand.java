@@ -19,7 +19,8 @@ public class GoHomeCommand implements Command {
    * Purpose: Create a GoHomeCommand.
    *
    * @param args should be empty
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the
+   * go home command does not require any arguments
    */
   public GoHomeCommand(List<Integer> args) throws IllegalArgumentException {
     if (!args.isEmpty()) {

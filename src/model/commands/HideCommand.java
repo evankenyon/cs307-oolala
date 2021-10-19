@@ -11,7 +11,8 @@ import java.util.List;
  * Example: If the user inputs the command "ht", then create an instance of this class and run the
  * command.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class HideCommand extends ShowOrHideCommand {
 
@@ -19,7 +20,8 @@ public class HideCommand extends ShowOrHideCommand {
    * Purpose: Create a new hide command
    *
    * @param args Should be an empty list
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the
+   * hide command does not require any arguments.
    */
   public HideCommand(List<Integer> args) throws IllegalArgumentException {
     super(false, args);

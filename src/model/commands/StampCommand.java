@@ -12,7 +12,8 @@ import model.TurtleModel;
  * Example: If the user inputs the command "STAMP", create an instance of this class and run the
  * method.
  *
- * @author Luis Pereda and Evan Kenyon
+ * @author Luis Pereda
+ * @author Evan Kenyon
  */
 public class StampCommand implements Command {
 
@@ -20,7 +21,8 @@ public class StampCommand implements Command {
    * Purpose: Create a new StampCommand. Assumptions: args is of size 0.
    *
    * @param args List of integers of size 0.
-   * @throws IllegalArgumentException
+   * @throws IllegalArgumentException thrown if args is not empty since the stamp command does not
+   * require any arguments.
    */
   public StampCommand(List<Integer> args) throws IllegalArgumentException {
     if (!args.isEmpty()) {

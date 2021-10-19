@@ -66,7 +66,7 @@ public class LogoCommandModel extends CommandModel {
    *
    * @param input
    * @return List of Commands to be executed by the turtles
-   * @throws InputMismatchException
+   * @throws InputMismatchException thrown if
    * @throws IllegalArgumentException
    */
   @Override
@@ -82,7 +82,7 @@ public class LogoCommandModel extends CommandModel {
   /**
    * Purpose: Save the command history of the program as a .txt file that the user can download.
    *
-   * @throws IOException
+   * @throws IOException thrown if
    */
   public void saveCommandsAsFile() throws IOException, IllegalArgumentException {
     prevCommandsHandler.saveCommandsAsFile();
@@ -95,8 +95,8 @@ public class LogoCommandModel extends CommandModel {
    *
    * @param commandFile A .txt file containing commands for the program
    * @return List of Commands for the turtles to execute.
-   * @throws FileNotFoundException
-   * @throws IllegalArgumentException
+   * @throws FileNotFoundException thrown if file selected is not found.
+   * @throws IllegalArgumentException thrown if file is not of type .txt.
    */
   public List<Command> handleFileSelected(File commandFile)
       throws FileNotFoundException, IllegalArgumentException {
